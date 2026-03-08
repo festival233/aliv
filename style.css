@@ -1,0 +1,50 @@
+
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#070707;color:#f8f2e7}
+a{text-decoration:none;color:inherit} img,video{max-width:100%;display:block}
+.header{position:sticky;top:0;background:rgba(8,8,8,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);z-index:50}
+.header-inner{max-width:1280px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:18px 16px;gap:16px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.2em;text-transform:uppercase;font-size:12px}
+.nav{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;text-transform:uppercase;color:#ddd}
+.shell{max-width:1280px;margin:auto;padding:0 16px}
+.hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.4)}
+.overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.15) 40%,rgba(0,0,0,.85))}
+.hero-content{position:relative;z-index:2;text-align:center;padding:120px 0 80px}
+.logo{width:min(900px,90vw);margin:20px auto}
+.title{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.6rem,6vw,6rem);line-height:.95;margin:16px auto;max-width:1000px}
+.subtitle{max-width:850px;margin:0 auto;color:#ddd;line-height:1.7;font-size:18px}
+.pill{display:inline-block;padding:12px 18px;border:1px solid rgba(255,210,130,.2);border-radius:999px;background:rgba(255,196,95,.08);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{padding:16px 24px;border-radius:16px;border:1px solid rgba(255,255,255,.14);text-transform:uppercase;font-size:12px;letter-spacing:.18em;display:inline-flex}
+.gold{background:linear-gradient(135deg,#fff2c2,#ffd16f,#ffab2e);color:#1a0d02}
+.dark{background:rgba(255,196,95,.08);color:#fff2c2}
+.section{padding:70px 0}.center{text-align:center}
+.display{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.2rem,5vw,4.4rem);margin:0}
+.lead{max-width:820px;margin:14px auto 0;color:#d6d0c5;line-height:1.7}
+.grid2,.grid3,.grid4,.itemlist,.formgrid{display:grid;gap:18px}
+.grid2{grid-template-columns:repeat(2,1fr)} .grid3{grid-template-columns:repeat(3,1fr)} .grid4{grid-template-columns:repeat(4,1fr)} .itemlist{grid-template-columns:repeat(2,1fr)} .formgrid{grid-template-columns:repeat(2,1fr)}
+.card,.item,.panel,.product,.faqitem,.checkout{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:22px}
+.card h3,.item h4,.panel h3,.product h3{margin:0;color:#fff}
+.card p,.item p,.panel p,.product p,.lead2{color:#d6d0c5;line-height:1.7}
+.netflix{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.ncard{min-height:300px;border-radius:28px;padding:22px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.09);background:linear-gradient(140deg,#191109,#090909 46%,#140b05)}
+.ncard .badge{display:inline-block;padding:8px 10px;border-radius:999px;background:rgba(255,196,95,.12);border:1px solid rgba(255,196,95,.18);font-size:10px;text-transform:uppercase}
+.ncard h3{position:absolute;left:22px;right:22px;bottom:68px;margin:0;font-size:24px}
+.ncard p{position:absolute;left:22px;right:22px;bottom:20px;margin:0;color:#ddd}
+.filterbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.filterchip{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;text-transform:uppercase;font-size:12px}
+.filterchip.active{background:linear-gradient(135deg,#fff2c2,#ffd16f,#ffab2e);color:#1a0d02}
+.tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{padding:7px 10px;border-radius:999px;background:rgba(255,196,95,.09);border:1px solid rgba(255,196,95,.16);font-size:11px;text-transform:uppercase;color:#fff2c2}
+.input,.select,.textarea{width:100%;min-height:52px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.25);color:#fff;padding:0 14px}
+.textarea{min-height:130px;padding:14px}
+.faqitem button{width:100%;background:none;border:0;color:#fff;text-align:left;padding:0;text-transform:uppercase}
+.faqcontent{display:none;padding-top:12px;color:#d6d0c5}.faqitem.open .faqcontent{display:block}
+.checkoutzone{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.visual{aspect-ratio:1/1;border-radius:18px;margin-bottom:14px;display:grid;place-items:center;font-size:70px;background:linear-gradient(140deg,#1a130b,#090909 46%,#140b05);border:1px solid rgba(255,255,255,.08)}
+.footer{border-top:1px solid rgba(255,255,255,.08);padding:30px 0 46px;margin-top:30px}
+.footer-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap;text-transform:uppercase;font-size:12px;color:#bbb}
+.hide{display:none!important}
+@media(max-width:1000px){.netflix{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.grid4,.grid3,.grid2,.itemlist,.formgrid,.checkoutzone{grid-template-columns:1fr}.netflix{grid-template-columns:1fr}}
