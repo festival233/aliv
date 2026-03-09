@@ -44,9 +44,9 @@ index 0000000000000000000000000000000000000000..1ba141d9617ae9fb664c22fb82a6176b
 +        <div class="hero-overlay"></div>
 +        <div class="hero-content">
 +          <p class="eyebrow">AI Visualized Destination Festival</p>
-+          <h1>Experience how Ghana transforms into a premium carnival city.</h1>
++          <h1>Experience Ghana’s thrill carnival through all-Black faces and nonstop energy.</h1>
 +          <p>
-+            Cinematic lights, immersive rides, music stages, creator moments, and interactive planning tools in one festival platform.
++            Cinematic lights, high-adrenaline rides, and all-Black cast visuals with creator moments and interactive planning tools in one festival platform.
 +          </p>
 +          <div class="hero-cta">
 +            <button class="primary-btn">Build My Festival Plan</button>
@@ -59,7 +59,7 @@ index 0000000000000000000000000000000000000000..1ba141d9617ae9fb664c22fb82a6176b
 +      <section class="section" id="experiences">
 +        <div class="section-header">
 +          <h2>3D Experience Carousel</h2>
-+          <p>Swipe through Ghana-inspired worlds: parade avenue, coastal night fair, and skyline thrill zone.</p>
++          <p>Swipe through Ghana-inspired worlds filled with all-Black crowds, parade avenue energy, coastal night fair lights, and skyline thrill-zone action.</p>
 +        </div>
 +        <div class="carousel-3d" id="carousel3d"></div>
 +      </section>
