@@ -1,0 +1,21 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #000;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
