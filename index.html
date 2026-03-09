@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALIVFEST — Ghana Carnival Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header glass">
+      <div class="brand-wrap">
+        <div class="logo-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div>
+          <p class="brand">ALIVFEST</p>
+          <p class="sub-brand">Ghana • Carnival 2026</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#rides">Rides</a>
+        <a href="#lineup">Lineup</a>
+        <a href="#map">Map</a>
+        <a href="#tickets">Tickets</a>
+      </nav>
+      <button class="primary-btn">Get Passes</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">AI Visualized Destination Festival</p>
+          <h1>Experience how Ghana transforms into a premium carnival city.</h1>
+          <p>
+            Cinematic lights, immersive rides, music stages, creator moments, and interactive planning tools in one festival platform.
+          </p>
+          <div class="hero-cta">
+            <button class="primary-btn">Build My Festival Plan</button>
+            <button class="secondary-btn">Watch Teaser</button>
+          </div>
+          <div class="countdown glass" id="countdown" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="section" id="experiences">
+        <div class="section-header">
+          <h2>3D Experience Carousel</h2>
+          <p>Swipe through Ghana-inspired worlds: parade avenue, coastal night fair, and skyline thrill zone.</p>
+        </div>
+        <div class="carousel-3d" id="carousel3d"></div>
+      </section>
+
+      <section class="section" id="rides">
+        <div class="section-header">
+          <h2>Interactive Ride Explorer</h2>
+          <p>Click any ride to preview details, thrill profile, best time, and add it to your plan.</p>
+        </div>
+        <div class="ride-grid" id="rideGrid"></div>
+      </section>
+
+      <section class="section" id="lineup">
+        <div class="section-header">
+          <h2>Artist Lineup Visuals</h2>
+          <p>Stage-ready cards with live color motion and set highlights.</p>
+        </div>
+        <div class="lineup-grid" id="lineupGrid"></div>
+      </section>
+
+      <section class="section two-col" id="map">
+        <div>
+          <div class="section-header left">
+            <h2>Interactive Festival Map</h2>
+            <p>Explore rides, stages, food villages, and creator lounges before arrival.</p>
+          </div>
+          <div class="map-card glass">
+            <button data-zone="rides" class="zone-btn active">Ride District</button>
+            <button data-zone="music" class="zone-btn">Main Stage</button>
+            <button data-zone="food" class="zone-btn">Food Market</button>
+            <button data-zone="vip" class="zone-btn">VIP Lounge</button>
+            <p id="zoneDescription"></p>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-header left">
+            <h2>Merch Store (Shopify-style)</h2>
+            <p>Drop-ready product cards with pricing, tags, and instant add actions.</p>
+          </div>
+          <div class="merch-grid" id="merchGrid"></div>
+        </div>
+      </section>
+
+      <section class="section two-col" id="tickets">
+        <div>
+          <div class="section-header left">
+            <h2>Ticket Progress</h2>
+            <p>Live bar indicators to drive urgency for early buyers.</p>
+          </div>
+          <div id="ticketBars"></div>
+        </div>
+
+        <div>
+          <div class="section-header left">
+            <h2>Sponsor Wall + Influencers</h2>
+            <p>Premium brand placement and creator story highlights.</p>
+          </div>
+          <div class="sponsor-wall" id="sponsorWall"></div>
+          <div class="influencer-gallery" id="influencerGallery"></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="rideModal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-panel glass">
+        <button id="closeModal" class="close-btn" aria-label="Close ride preview">×</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
