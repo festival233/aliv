@@ -25,3 +25,66 @@ function renderRidePreview(rides){
   }
   window.__setRide=function(i){active=i;paint();}; paint();
 }
+
+function initEventCountdown(elementId){
+  const el=document.getElementById(elementId); if(!el) return;
+  function getTarget(){
+    const now=new Date();
+    let year=now.getFullYear();
+    const seasonEnd=new Date(year+1,0,4,23,59,59);
+    if(now>seasonEnd) year=year+1;
+    return new Date(year,11,17,0,0,0);
+  }
+  const target=getTarget();
+  function tick(){
+    const now=new Date();
+    const diff=target-now;
+    if(diff<=0){ el.textContent='ALIVFEST is live now!'; return; }
+    const days=Math.floor(diff/86400000);
+    const hours=Math.floor((diff%86400000)/3600000);
+    const mins=Math.floor((diff%3600000)/60000);
+    const secs=Math.floor((diff%60000)/1000);
+    el.textContent=`Starts in ${days}d ${hours}h ${mins}m ${secs}s`;
+  }
+  tick();
+  setInterval(tick,1000);
+}
+
+function initConciergeChat(){
+  const launcher=document.getElementById('chat-launcher');
+  const popup=document.getElementById('concierge-chat');
+  const close=document.getElementById('chat-close');
+  const form=document.getElementById('chat-form');
+  const input=document.getElementById('chat-input');
+  const log=document.getElementById('chat-log');
+  if(!launcher||!popup||!close||!form||!input||!log) return;
+
+  function toggleChat(show){
+    popup.classList.toggle('open',show);
+    popup.setAttribute('aria-hidden',String(!show));
+    launcher.setAttribute('aria-expanded',String(show));
+    if(show) input.focus();
+  }
+  launcher.addEventListener('click',()=>toggleChat(!popup.classList.contains('open')));
+  launcher.addEventListener('keydown',(e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggleChat(!popup.classList.contains('open')); }});
+  close.addEventListener('click',()=>toggleChat(false));
+
+  const responses=[
+    {test:/ticket|price|vip/i,text:'Tickets are available on the Tickets page with General, VIP, and Cabana options.'},
+    {test:/vendor|booth|sell/i,text:'Please use the vendor form on this page. It sends directly to alivfest@gmail.com.'},
+    {test:/date|when|time|countdown/i,text:'ALIVFEST runs from December 17 to January 4.'},
+    {test:/ride|game|food/i,text:'Explore Rides, Games, and Food Village from the top navigation to plan your visit.'}
+  ];
+
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const question=input.value.trim();
+    if(!question) return;
+    log.innerHTML+=`<p><strong>You:</strong> ${question}</p>`;
+    const match=responses.find((item)=>item.test.test(question));
+    const answer=match?match.text:'Great question. For details, contact info@alivfest.com and our team will assist you.';
+    log.innerHTML+=`<p><strong>Concierge:</strong> ${answer}</p>`;
+    log.scrollTop=log.scrollHeight;
+    input.value='';
+  });
+}
