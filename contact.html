@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ALIVFEST | Contact</title><link rel="stylesheet" href="style.css"></head><body><header class="header"><div class="shell header-inner"><a class="brand" href="index.html"><img class="brand-mark" src="assets/logo-thunder.svg" alt="ALIVFEST logo"><span>ALIVFEST</span></a><nav class="nav"><a href="index.html">Home</a><a href="rides.html">Rides</a><a href="games.html">Games</a><a href="elite.html">Elite</a><a href="food-village.html">Food Village</a><a href="lineup.html">Lineup</a><a href="contact.html">Contact</a></nav></div></header><section class='section'><div class='shell center'><div class='eyebrow'>Contact</div><h1 class='display'>Founding partner and insider contact.</h1><p class='lead'>Keep all serious inbound centralized and premium.</p></div><div class='shell grid-3' style='margin-top:28px'><a class='card' href='mailto:info@alivfest.com?subject=General%20Question'><h3 class='card-title'>Email</h3><p class='card-copy'>info@alivfest.com</p></a><a class='card' href='https://instagram.com/alivfest'><h3 class='card-title'>Instagram</h3><p class='card-copy'>@alivfest</p></a><a class='card' href='#' onclick='openWaitlist();return false;'><h3 class='card-title'>Waitlist</h3><p class='card-copy'>Join for insider updates and early reveals.</p></a></div></section>
+<div class="waitlist-overlay" id="waitlistModal" onclick="if(event.target.id==='waitlistModal') closeWaitlist()">
+  <div class="popup-card">
+    <div class="popup-top">
+      <div><div class="eyebrow">Coming soon</div><h3 class="card-title" style="margin-top:10px">Join the ALIVFEST insider list.</h3><p class="card-copy">Get first access to lineup reveals, zone announcements, founding partner updates, and launch drops.</p></div>
+      <button class="icon-btn" onclick="closeWaitlist()">✕</button>
+    </div>
+    <form class="popup-form" onsubmit="submitWaitlist(event)">
+      <input id="wlName" placeholder="Your name"><input id="wlEmail" placeholder="Your email"><input id="wlCity" placeholder="City / country">
+      <button class="btn gold" type="submit">Join waitlist</button>
+      <div class="popup-note" id="wlStatus">This demo stores submissions locally until you connect your real email or form workflow.</div>
+    </form>
+  </div>
+</div>
+<footer class="footer"><div class="shell footer-inner"><div><strong>ALIVFEST</strong><div style="margin-top:8px;color:#bbb;font-size:12px">@alivfest • info@alivfest.com</div></div><div class="footer-links"><a href="rides.html">Rides</a><a href="games.html">Games</a><a href="elite.html">Elite</a><a href="lineup.html">Lineup</a></div></div></footer><script src="script.js"></script></body></html>
