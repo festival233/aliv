@@ -244,6 +244,54 @@
       .logo-wrap { padding-bottom: 6rem; }
       .hint { font-size: .62rem; letter-spacing: .18em; }
     }
+
+    body.embed-logo {
+      min-height: auto;
+      display: block;
+      overflow: hidden;
+      background: transparent;
+    }
+    body.embed-logo .hero {
+      min-height: 100%;
+      height: 100%;
+      width: 100%;
+    }
+    body.embed-logo .hint,
+    body.embed-logo .floor,
+    body.embed-logo .reflect {
+      display: none;
+    }
+    body.embed-logo .logo-wrap {
+      padding: 0.45rem 0.6rem;
+      height: 100%;
+    }
+    body.embed-logo .logo {
+      font-size: clamp(1.05rem, 4.8vw, 1.75rem);
+      transform: none;
+      letter-spacing: -0.01em;
+      -webkit-text-stroke: 1px rgba(255, 195, 90, .2);
+    }
+    body.embed-logo .logo::before {
+      transform: translate(2px, 3px);
+    }
+    body.embed-logo .swirl,
+    body.embed-logo .swirl-right {
+      opacity: .38;
+      top: 42%;
+      height: 120px;
+    }
+    body.embed-logo .glow {
+      top: 22%;
+      width: 420px;
+      height: 160px;
+      filter: blur(22px);
+    }
+    body.embed-logo .electric,
+    body.embed-logo .electric-2 {
+      top: 40%;
+      height: 70px;
+      opacity: .72;
+    }
   </style>
 </head>
 <body>
@@ -264,5 +312,10 @@
 
     <div class="hint">Luxury electric hero concept</div>
   </section>
+  <script>
+    if (window.self !== window.top) {
+      document.body.classList.add('embed-logo');
+    }
+  </script>
 </body>
 </html>
