@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALIVFEST Hero</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --gold-1: #fff1b8;
+      --gold-2: #ffcf66;
+      --gold-3: #ff9f1f;
+      --gold-4: #ff7b00;
+      --text: #f5e9d7;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #000; font-family: Inter, Arial, sans-serif; }
+    body {
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,160,40,.12), transparent 30%),
+        radial-gradient(circle at 15% 50%, rgba(255,120,0,.08), transparent 26%),
+        radial-gradient(circle at 85% 50%, rgba(255,170,60,.08), transparent 26%),
+        linear-gradient(180deg, #060606, #010101 50%, #080808);
+      color: white;
+      overflow-x: hidden;
+    }
+    .hero {
+      position: relative;
+      width: min(1400px, 100%);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .stars,.dust,.swirl,.swirl-right,.glow,.reflect,.electric,.electric-2 {
+      position: absolute;
+      pointer-events: none;
+    }
+    .stars {
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(255,225,150,.65) .8px, transparent .9px),
+        radial-gradient(rgba(255,180,80,.3) 1px, transparent 1.1px);
+      background-size: 18px 18px, 31px 31px;
+      background-position: 0 0, 12px 8px;
+      opacity: .18;
+      z-index: 0;
+    }
+    .dust {
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(255,170,60,.18), transparent 22%),
+        radial-gradient(circle at 45% 45%, rgba(255,240,180,.08), transparent 16%),
+        radial-gradient(circle at 58% 38%, rgba(255,130,0,.08), transparent 18%);
+      filter: blur(12px);
+      z-index: 0;
+    }
+    .swirl {
+      width: 70vw;
+      max-width: 900px;
+      height: 360px;
+      left: -10%;
+      top: 28%;
+      border-radius: 50%;
+      border-top: 2px solid rgba(255,170,60,.5);
+      border-bottom: 2px solid transparent;
+      border-left: 2px solid transparent;
+      border-right: 2px solid transparent;
+      filter: blur(1px) drop-shadow(0 0 20px rgba(255,150,30,.35));
+      transform: rotate(-8deg);
+      opacity: .8;
+      z-index: 0;
+    }
+    .swirl-right {
+      width: 72vw;
+      max-width: 980px;
+      height: 380px;
+      right: -14%;
+      top: 32%;
+      border-radius: 50%;
+      border-top: 2px solid rgba(255,185,80,.55);
+      border-bottom: 2px solid transparent;
+      border-left: 2px solid transparent;
+      border-right: 2px solid transparent;
+      filter: blur(1px) drop-shadow(0 0 22px rgba(255,160,40,.38));
+      transform: rotate(10deg);
+      opacity: .75;
+      z-index: 0;
+    }
+    .glow {
+      width: 900px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(255,170,60,.22), transparent 62%);
+      filter: blur(40px);
+      top: 25%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+    .logo-wrap {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      padding: 2rem 1rem 8rem;
+    }
+    .logo {
+      margin: 0;
+      font-size: clamp(4rem, 15vw, 14rem);
+      line-height: .9;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+      color: transparent;
+      position: relative;
+      text-align: center;
+      -webkit-text-stroke: 2px rgba(255, 195, 90, .28);
+      text-shadow:
+        0 0 2px rgba(255,255,255,.25),
+        0 0 10px rgba(255,195,90,.10);
+      background:
+        linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 18%, #ffbf3c 36%, var(--gold-3) 58%, #c96d00 82%, #8d4700 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 4px 0 rgba(70,30,0,.75))
+              drop-shadow(0 10px 18px rgba(0,0,0,.65))
+              drop-shadow(0 0 24px rgba(255,160,40,.25));
+      transform: perspective(900px) rotateX(8deg);
+    }
+    .logo::before {
+      content: "ALIVFEST";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      color: rgba(60,20,0,.9);
+      transform: translate(10px, 12px);
+      filter: blur(.5px);
+    }
+    .logo::after {
+      content: "ALIVFEST";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,.85) 18%,
+          rgba(255,245,210,.25) 28%,
+          rgba(255,255,255,0) 38%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transform: translateX(-18%);
+      animation: shine 4s linear infinite;
+      mix-blend-mode: screen;
+    }
+    .electric {
+      width: min(1200px, 95vw);
+      height: 180px;
+      top: 36%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      mix-blend-mode: screen;
+      opacity: .95;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1400 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 120 C80 70 130 150 200 105 S345 70 410 112 S560 150 625 104 S780 72 846 108 S990 150 1060 102 S1240 82 1400 114' fill='none' stroke='%23ffd977' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M34 126 L84 92 L110 132 L160 62 L198 106 L248 74 L298 112 L338 56 L382 96 L426 70 L470 122 L520 90 L562 136 L626 76 L668 102 L724 66 L760 108 L828 52 L870 84 L934 66 L988 116 L1044 82 L1110 128 L1174 72 L1240 96 L1294 64 L1350 110' fill='none' stroke='%23ffb11f' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      filter: drop-shadow(0 0 8px rgba(255,220,120,.95)) drop-shadow(0 0 18px rgba(255,170,40,.85)) drop-shadow(0 0 30px rgba(255,120,0,.55));
+      animation: flicker 1.8s infinite linear, drift 6s ease-in-out infinite alternate;
+    }
+    .electric-2 {
+      width: min(1200px, 95vw);
+      height: 180px;
+      top: 35.5%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      mix-blend-mode: screen;
+      opacity: .55;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1400 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 108 C110 146 168 70 230 112 S380 156 450 102 S600 54 670 108 S820 160 900 100 S1075 52 1140 104 S1280 138 1400 106' fill='none' stroke='%23fff3c2' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      filter: drop-shadow(0 0 10px rgba(255,255,230,.8));
+      animation: flicker2 1.2s infinite linear reverse, drift 5s ease-in-out infinite alternate-reverse;
+    }
+    .reflect {
+      width: min(1100px, 88vw);
+      height: 160px;
+      bottom: 16%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      background:
+        radial-gradient(ellipse at 50% 20%, rgba(255,190,80,.36), transparent 54%),
+        linear-gradient(180deg, rgba(255,190,80,.18), rgba(255,140,0,0));
+      filter: blur(18px);
+      opacity: .6;
+    }
+    .floor {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 33vh;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.38) 18%, rgba(6,6,6,.9));
+      z-index: 1;
+    }
+    .hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      color: rgba(255,235,205,.68);
+      letter-spacing: .28em;
+      font-size: .72rem;
+      text-transform: uppercase;
+    }
+    @keyframes shine {
+      0% { transform: translateX(-65%); }
+      100% { transform: translateX(75%); }
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: .96; }
+      8% { opacity: .62; }
+      18% { opacity: .95; }
+      28% { opacity: .72; }
+      52% { opacity: .98; }
+      73% { opacity: .78; }
+      88% { opacity: .92; }
+    }
+    @keyframes flicker2 {
+      0%, 100% { opacity: .55; }
+      12% { opacity: .28; }
+      35% { opacity: .52; }
+      62% { opacity: .32; }
+      84% { opacity: .58; }
+    }
+    @keyframes drift {
+      from { transform: translateX(-50%) translateY(0); }
+      to { transform: translateX(-50%) translateY(6px); }
+    }
+    @media (max-width: 700px) {
+      .electric, .electric-2 { top: 39%; height: 110px; }
+      .reflect { bottom: 22%; }
+      .logo-wrap { padding-bottom: 6rem; }
+      .hint { font-size: .62rem; letter-spacing: .18em; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="stars"></div>
+    <div class="dust"></div>
+    <div class="swirl"></div>
+    <div class="swirl-right"></div>
+    <div class="glow"></div>
+    <div class="electric"></div>
+    <div class="electric-2"></div>
+    <div class="reflect"></div>
+    <div class="floor"></div>
+
+    <div class="logo-wrap">
+      <h1 class="logo">ALIVFEST</h1>
+    </div>
+
+    <div class="hint">Luxury electric hero concept</div>
+  </section>
+</body>
+</html>
