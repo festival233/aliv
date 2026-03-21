@@ -2,6 +2,7 @@
   --gold1: #fff3cd;
   --gold2: #ffd074;
   --gold3: #ffad2f;
+  --creme: #f7edd5;
   --violet: #8d6bff;
   --rose: #ff5ab9;
   --text: #f8f2e8;
@@ -224,8 +225,8 @@ button, input { font: inherit; }
 .lineup-card,
 .popup-card,
 .concierge-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(165deg, rgba(247, 237, 213, 0.14), rgba(10, 10, 10, 0.92) 52%, rgba(255, 208, 116, 0.12));
+  border: 1px solid rgba(255, 208, 116, 0.32);
   border-radius: 24px;
 }
 
@@ -275,8 +276,8 @@ button, input { font: inherit; }
   background: #120d08;
 }
 
-.card-title { margin: 14px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 22px; }
-.card-copy { margin: 10px 0 0; color: var(--muted); line-height: 1.72; }
+.card-title { margin: 14px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 19px; color: var(--creme); }
+.card-copy { margin: 10px 0 0; color: rgba(247, 237, 213, 0.8); line-height: 1.66; font-size: 14px; }
 
 .countdown { margin-top: 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 700px; }
 .time-box { padding: 16px; border-radius: 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); text-align: center; }
