@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 180" width="800" height="180">
+  <defs>
+    <!-- Multi-stop metallic gold gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"    stop-color="#FFF5B0"/>
+      <stop offset="8%"    stop-color="#FFE55C"/>
+      <stop offset="22%"   stop-color="#C8870A"/>
+      <stop offset="38%"   stop-color="#F5C840"/>
+      <stop offset="50%"   stop-color="#FFEE88"/>
+      <stop offset="62%"   stop-color="#C07A00"/>
+      <stop offset="75%"   stop-color="#E0A820"/>
+      <stop offset="88%"   stop-color="#9B6200"/>
+      <stop offset="100%"  stop-color="#6A3E00"/>
+    </linearGradient>
+    <!-- Bright highlight sweep -->
+    <linearGradient id="shine" x1="0%" y1="0%" x2="20%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="45%"  stop-color="#FFFFFF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <!-- 3D extrude base -->
+    <linearGradient id="ext" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#6A3E00"/>
+      <stop offset="100%" stop-color="#2A1800"/>
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow" x="-15%" y="-15%" width="130%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+
+  <!-- 3D extrude layer (dark offset) -->
+  <g transform="translate(5,8)" opacity="0.6">
+    <text x="8"   y="150" font-family="Impact,'Arial Black',Arial,sans-serif" font-size="158" font-weight="900" fill="url(#ext)" letter-spacing="-3">ALIV</text>
+    <text x="428" y="150" font-family="Impact,'Arial Black',Arial,sans-serif" font-size="158" font-weight="900" fill="url(#ext)" letter-spacing="-3">FEST</text>
+  </g>
+
+  <!-- Main gold letters -->
+  <g filter="url(#shadow)">
+    <text x="8"   y="150" font-family="Impact,'Arial Black',Arial,sans-serif" font-size="158" font-weight="900" fill="url(#goldGrad)" letter-spacing="-3">ALIV</text>
+    <text x="428" y="150" font-family="Impact,'Arial Black',Arial,sans-serif" font-size="158" font-weight="900" fill="url(#goldGrad)" letter-spacing="-3">FEST</text>
+  </g>
+
+  <!-- Shine overlay -->
+  <g opacity="0.5">
+    <text x="8"   y="150" font-family="Impact,'Arial Black',Arial,sans-serif" font-size="158" font-weight="900" fill="url(#shine)" letter-spacing="-3">ALIV</text>
+    <text x="428" y="150" font-family="Impact,'Arial Black',Arial,sans-serif" font-size="158" font-weight="900" fill="url(#shine)" letter-spacing="-3">FEST</text>
+  </g>
+
+  <!-- Separator dot between ALIV and FEST -->
+  <circle cx="412" cy="90" r="7" fill="url(#goldGrad)" filter="url(#glow)"/>
+  <circle cx="412" cy="90" r="4" fill="#FFEE88" opacity="0.7"/>
+</svg>
