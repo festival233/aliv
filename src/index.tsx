@@ -3,681 +3,966 @@ import { serveStatic } from 'hono/cloudflare-workers'
 
 const app = new Hono()
 
-// Serve static assets
 app.use('/static/*', serveStatic({ root: './public' }))
 
-// Main website route
-app.get('/', (c) => {
-  return c.html(homePage())
-})
+app.get('/', (c) => c.html(homePage()))
 
-// Email signup API endpoint
 app.post('/api/signup', async (c) => {
   const { email, name } = await c.req.json()
-  // In production, connect to email service (Mailchimp, etc.)
   if (!email || !email.includes('@')) {
     return c.json({ success: false, message: 'Invalid email address' }, 400)
   }
-  return c.json({ success: true, message: "You're on the list! See you in Accra 🎉" })
+  return c.json({ success: true, message: "You are on the list! See you in Accra." })
 })
 
 function homePage(): string {
-  return `<!DOCTYPE html>
+  return /* html */`<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ALIV FEST — The Cultural Playground of December in Accra</title>
-  <meta name="description" content="ALIV FEST is a premium 18-day cultural festival in Accra, Ghana. December 17, 2026 – January 3, 2027. Music, carnival, food, art & more." />
-  <meta property="og:title" content="ALIV FEST 2026 — Accra, Ghana" />
-  <meta property="og:description" content="The Cultural Playground of December in Accra. Dec 17, 2026 – Jan 3, 2027." />
-  <meta property="og:image" content="https://www.genspark.ai/api/files/s/V5SAM1nc" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root {
-      --gold: #C9A84C;
-      --gold-light: #F0D080;
-      --gold-bright: #FFD700;
-      --gold-dark: #8B6914;
-      --black: #0A0A0A;
-      --black-soft: #111111;
-      --black-card: #141414;
-      --cream: #F5F0E8;
-      --text-muted: #888888;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ALIV FEST 2026 — The Cultural Playground of December in Accra</title>
+<meta name="description" content="ALIV FEST is a premium 18-night cultural destination in Accra, Ghana. December 17, 2026 – January 3, 2027."/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════
+   ROOT TOKENS
+══════════════════════════════════════════ */
+:root{
+  --g1:#C9A84C;
+  --g2:#F0D080;
+  --g3:#FFD700;
+  --g4:#8B6914;
+  --black:#060608;
+  --black2:#0D0D10;
+  --black3:#13131A;
+  --black4:#1A1A24;
+  --cream:#F5F0E8;
+  --muted:#7A7A8C;
+  --gold-glow: 0 0 40px rgba(201,168,76,0.35), 0 0 80px rgba(201,168,76,0.15);
+  --gold-glow-sm: 0 0 15px rgba(201,168,76,0.4);
+}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ══════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:'Montserrat',sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
 
-    html { scroll-behavior: smooth; }
+/* ══════════════════════════════════════════
+   UTILITY
+══════════════════════════════════════════ */
+.gold{
+  background:linear-gradient(135deg,#9B7A3A 0%,#C9A84C 25%,#F0D080 50%,#FFD700 65%,#C9A84C 80%,#8B6914 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.gold-solid{color:var(--g1);}
+.bebas{font-family:'Bebas Neue',sans-serif;}
+.cormorant{font-family:'Cormorant Garamond',serif;}
+.uppercase{text-transform:uppercase;}
+.tracking-wide{letter-spacing:0.25em;}
+.tracking-wider{letter-spacing:0.4em;}
+.container{max-width:1320px;margin:0 auto;padding:0 2rem;}
 
-    body {
-      background-color: var(--black);
-      color: var(--cream);
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
+/* ══════════════════════════════════════════
+   NOISE TEXTURE OVERLAY
+══════════════════════════════════════════ */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.028;
+  pointer-events:none;
+  z-index:9999;
+}
 
-    /* ---- GOLD GRADIENT TEXT ---- */
-    .gold-text {
-      background: linear-gradient(135deg, #C9A84C 0%, #F0D080 40%, #FFD700 60%, #C9A84C 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+/* ══════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:1.5rem 0;
+  transition:all 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+#nav.scrolled{
+  background:rgba(6,6,8,0.9);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  padding:1rem 0;
+  border-bottom:1px solid rgba(201,168,76,0.12);
+}
+#nav .inner{
+  max-width:1320px;margin:0 auto;padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{height:38px;filter:drop-shadow(0 0 12px rgba(201,168,76,0.5));transition:filter 0.3s;}
+.nav-logo:hover{filter:drop-shadow(0 0 20px rgba(201,168,76,0.8));}
+.nav-links{display:flex;gap:2.5rem;align-items:center;}
+.nav-link{
+  color:rgba(245,240,232,0.75);text-decoration:none;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  transition:color 0.3s;position:relative;
+}
+.nav-link::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
+  background:var(--g1);transform:scaleX(0);transition:transform 0.3s;
+}
+.nav-link:hover{color:var(--cream);}
+.nav-link:hover::after{transform:scaleX(1);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--g1),var(--g2));
+  color:var(--black);font-weight:700;font-size:0.7rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  padding:0.65rem 1.6rem;border-radius:2px;text-decoration:none;
+  transition:all 0.3s;box-shadow:0 4px 20px rgba(201,168,76,0.25);
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(201,168,76,0.4);}
+#hamburger{
+  display:none;background:none;border:none;cursor:pointer;
+  color:var(--cream);font-size:1.4rem;
+}
 
-    .gold-text-static { color: var(--gold); }
+/* ══════════════════════════════════════════
+   MOBILE MENU
+══════════════════════════════════════════ */
+#mob-menu{
+  display:none;position:fixed;inset:0;z-index:999;
+  background:rgba(6,6,8,0.98);backdrop-filter:blur(30px);
+  flex-direction:column;align-items:center;justify-content:center;gap:3rem;
+}
+#mob-menu.open{display:flex;}
+.mob-link{
+  font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:0.1em;
+  color:var(--cream);text-decoration:none;transition:color 0.3s;
+}
+.mob-link:hover{color:var(--g1);}
+#mob-close{
+  position:absolute;top:2rem;right:2rem;background:none;
+  border:none;cursor:pointer;color:var(--muted);font-size:1.4rem;transition:color 0.3s;
+}
+#mob-close:hover{color:var(--cream);}
 
-    /* ---- NAVBAR ---- */
-    #navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      transition: all 0.4s ease;
-      padding: 1.2rem 2rem;
-    }
-    #navbar.scrolled {
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(20px);
-      padding: 0.8rem 2rem;
-      border-bottom: 1px solid rgba(201,168,76,0.2);
-    }
-    .nav-link {
-      color: var(--cream);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-    .nav-link:hover { color: var(--gold); }
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
 
-    /* ---- HERO ---- */
-    #hero {
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 50%),
-        linear-gradient(180deg, #0A0A0A 0%, #0d0d0d 100%);
-    }
-    .hero-particles {
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle, rgba(201,168,76,0.6) 1px, transparent 1px),
-        radial-gradient(circle, rgba(201,168,76,0.3) 1px, transparent 1px);
-      background-size: 80px 80px, 40px 40px;
-      background-position: 0 0, 20px 20px;
-      animation: drift 20s linear infinite;
-      opacity: 0.3;
-    }
-    @keyframes drift {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-80px); }
-    }
+/* animated star field */
+.stars{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(1px 1px at 10% 15%,rgba(255,215,0,0.8) 0%,transparent 100%),
+    radial-gradient(1px 1px at 25% 35%,rgba(255,215,0,0.5) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 8%,rgba(255,215,0,0.7) 0%,transparent 100%),
+    radial-gradient(1px 1px at 55% 22%,rgba(255,255,255,0.6) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70% 45%,rgba(255,215,0,0.6) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 82% 12%,rgba(255,215,0,0.8) 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 30%,rgba(255,255,255,0.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 65%,rgba(255,215,0,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 60% 70%,rgba(255,215,0,0.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 35% 80%,rgba(255,255,255,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 78% 75%,rgba(255,215,0,0.6) 0%,transparent 100%),
+    radial-gradient(1px 1px at 5% 90%,rgba(255,215,0,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 48% 92%,rgba(255,255,255,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 93% 85%,rgba(255,215,0,0.5) 0%,transparent 100%);
+  animation:twinkle 8s ease-in-out infinite alternate;
+}
+@keyframes twinkle{
+  0%{opacity:0.6;}50%{opacity:1;}100%{opacity:0.6;}
+}
 
-    .hero-logo {
-      width: min(600px, 85vw);
-      filter: drop-shadow(0 0 60px rgba(201,168,76,0.5));
-      animation: heroFloat 6s ease-in-out infinite;
-    }
-    @keyframes heroFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-    }
+/* gold aurora glow at top */
+.aurora{
+  position:absolute;top:-20%;left:0;right:0;height:70%;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,0.18) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 30% at 30% 0%,rgba(255,215,0,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 30% at 70% 0%,rgba(201,168,76,0.08) 0%,transparent 60%);
+  animation:aurora 12s ease-in-out infinite alternate;
+}
+@keyframes aurora{
+  0%{transform:scaleX(1) translateY(0);}
+  100%{transform:scaleX(1.05) translateY(10px);}
+}
 
-    .hero-tagline {
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 0.35em;
-      font-size: clamp(0.65rem, 1.5vw, 0.9rem);
-      text-transform: uppercase;
-      color: var(--gold);
-    }
+/* ground glow */
+.ground-glow{
+  position:absolute;bottom:0;left:0;right:0;height:40%;
+  background:radial-gradient(ellipse 100% 60% at 50% 100%,rgba(201,168,76,0.06) 0%,transparent 70%);
+}
 
-    .hero-date {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.2rem, 3vw, 2rem);
-      font-weight: 400;
-      color: var(--cream);
-      letter-spacing: 0.05em;
-    }
+.hero-inner{position:relative;z-index:2;text-align:center;padding:7rem 1.5rem 4rem;}
 
-    .hero-location {
-      font-size: clamp(0.8rem, 1.5vw, 1rem);
-      color: var(--text-muted);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
+/* logo container with glow ring */
+.hero-logo-wrap{
+  position:relative;display:inline-block;
+  margin-bottom:2.5rem;
+}
+.hero-logo-wrap::before{
+  content:'';
+  position:absolute;inset:-30px;
+  background:radial-gradient(ellipse 80% 50% at 50% 60%,rgba(201,168,76,0.25) 0%,transparent 70%);
+  animation:logoPulse 4s ease-in-out infinite;
+}
+@keyframes logoPulse{
+  0%,100%{opacity:0.7;transform:scale(1);}
+  50%{opacity:1;transform:scale(1.03);}
+}
+.hero-logo{
+  width:min(620px,88vw);
+  filter:drop-shadow(0 0 40px rgba(201,168,76,0.5)) drop-shadow(0 0 80px rgba(201,168,76,0.25));
+  animation:heroFloat 7s ease-in-out infinite;
+  position:relative;z-index:1;
+}
+@keyframes heroFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-14px);}
+}
 
-    /* ---- COUNTDOWN ---- */
-    .countdown-box {
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.3);
-      border-radius: 8px;
-      padding: 1rem 1.5rem;
-      min-width: 80px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
-    .countdown-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      line-height: 1;
-      color: var(--gold);
-    }
-    .countdown-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 0.3rem;
-    }
+/* thin gold rule */
+.hero-rule{
+  width:160px;height:1px;margin:0 auto 1.5rem;
+  background:linear-gradient(90deg,transparent,var(--g1),var(--g2),var(--g1),transparent);
+}
 
-    /* ---- SECTION STYLES ---- */
-    section { padding: 6rem 1.5rem; }
+.hero-tagline{
+  font-size:clamp(0.6rem,1.4vw,0.8rem);letter-spacing:0.5em;
+  text-transform:uppercase;color:var(--g1);margin-bottom:0.75rem;
+}
+.hero-date{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:300;font-style:italic;
+  color:var(--cream);letter-spacing:0.06em;margin-bottom:0.5rem;
+}
+.hero-location{
+  font-size:clamp(0.7rem,1.3vw,0.85rem);letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:3rem;
+}
 
-    .section-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      line-height: 1.1;
-    }
-    .section-divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--gold), transparent);
-      margin: 1.5rem 0;
-    }
+/* countdown */
+.cd-grid{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
+.cd-box{
+  position:relative;min-width:90px;padding:1.25rem 1rem;text-align:center;
+  background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:4px;
+  overflow:hidden;
+}
+.cd-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--g1),transparent);
+}
+.cd-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4rem);line-height:1;
+  color:var(--g1);text-shadow:0 0 20px rgba(201,168,76,0.5);
+}
+.cd-label{
+  font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--muted);margin-top:0.4rem;
+}
 
-    /* ---- CARDS ---- */
-    .zone-card {
-      background: var(--black-card);
-      border: 1px solid rgba(201,168,76,0.15);
-      border-radius: 12px;
-      padding: 2rem;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .zone-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-    .zone-card:hover {
-      border-color: rgba(201,168,76,0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(201,168,76,0.1);
-    }
-    .zone-card:hover::before { opacity: 1; }
+/* hero CTAs */
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:linear-gradient(135deg,var(--g4),var(--g1),var(--g2),var(--g1));
+  background-size:200% auto;
+  color:var(--black);font-weight:700;font-size:0.75rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  padding:1rem 2.5rem;border-radius:2px;text-decoration:none;border:none;cursor:pointer;
+  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 4px 20px rgba(201,168,76,0.3),inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-primary:hover{
+  background-position:right center;
+  transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(201,168,76,0.5),inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:transparent;color:var(--cream);font-weight:600;font-size:0.75rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  padding:1rem 2.5rem;border-radius:2px;text-decoration:none;border:none;cursor:pointer;
+  border:1px solid rgba(245,240,232,0.25);
+  transition:all 0.3s;
+}
+.btn-ghost:hover{
+  border-color:var(--g1);color:var(--g1);
+  background:rgba(201,168,76,0.06);
+}
 
-    .zone-icon {
-      width: 56px; height: 56px;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.3);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 1.25rem;
-      color: var(--gold);
-    }
+/* scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  animation:fadeInUp 2s ease 1.5s both;
+}
+.scroll-hint span{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);}
+.scroll-line{
+  width:1px;height:50px;
+  background:linear-gradient(180deg,var(--g1),transparent);
+  animation:scrollDrop 2s ease-in-out infinite;
+}
+@keyframes scrollDrop{
+  0%{transform:scaleY(0);transform-origin:top;opacity:1;}
+  50%{transform:scaleY(1);transform-origin:top;opacity:1;}
+  51%{transform-origin:bottom;}
+  100%{transform:scaleY(0);transform-origin:bottom;opacity:0;}
+}
 
-    /* ---- PROGRAM EVENTS ---- */
-    .program-item {
-      background: var(--black-card);
-      border: 1px solid rgba(201,168,76,0.12);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      transition: all 0.3s ease;
-    }
-    .program-item:hover {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.05);
-    }
-    .program-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
+/* ══════════════════════════════════════════
+   TICKER
+══════════════════════════════════════════ */
+.ticker-bar{
+  background:rgba(201,168,76,0.06);
+  border-top:1px solid rgba(201,168,76,0.18);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+  padding:0.85rem 0;overflow:hidden;
+}
+.ticker-track{
+  display:flex;gap:0;white-space:nowrap;
+  animation:tickerRoll 30s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused;}
+.t-item{
+  display:inline-flex;align-items:center;gap:2rem;
+  padding:0 2.5rem;
+  font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--g1);font-weight:600;
+}
+.t-item::after{
+  content:'✦';font-size:0.5rem;color:rgba(201,168,76,0.4);
+}
+@keyframes tickerRoll{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
 
-    /* ---- CTA BUTTON ---- */
-    .btn-gold {
-      display: inline-block;
-      background: linear-gradient(135deg, #C9A84C, #F0D080, #C9A84C);
-      color: var(--black);
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 1rem 2.5rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-    .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(201,168,76,0.4);
-      filter: brightness(1.1);
-    }
-    .btn-outline {
-      display: inline-block;
-      background: transparent;
-      color: var(--gold);
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.9rem 2.5rem;
-      border-radius: 4px;
-      border: 1px solid var(--gold);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-    .btn-outline:hover {
-      background: rgba(201,168,76,0.1);
-      box-shadow: 0 8px 30px rgba(201,168,76,0.2);
-    }
+/* ══════════════════════════════════════════
+   STATS STRIP
+══════════════════════════════════════════ */
+.stats-strip{background:var(--black2);}
+.stats-inner{
+  max-width:1320px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat{
+  padding:3rem 2rem;text-align:center;
+  border-right:1px solid rgba(201,168,76,0.08);
+  position:relative;overflow:hidden;
+  transition:background 0.4s;
+}
+.stat:last-child{border-right:none;}
+.stat:hover{background:rgba(201,168,76,0.03);}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,5vw,4.5rem);
+  line-height:1;margin-bottom:0.5rem;
+}
+.stat-desc{
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);
+}
 
-    /* ---- FORM ---- */
-    .form-input {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(201,168,76,0.3);
-      border-radius: 4px;
-      color: var(--cream);
-      padding: 0.9rem 1.25rem;
-      font-size: 0.95rem;
-      width: 100%;
-      transition: border-color 0.3s;
-      outline: none;
-      font-family: 'Inter', sans-serif;
-    }
-    .form-input:focus { border-color: var(--gold); }
-    .form-input::placeholder { color: var(--text-muted); }
+/* ══════════════════════════════════════════
+   SECTION COMMON
+══════════════════════════════════════════ */
+.section{padding:7rem 0;}
+.s-label{
+  font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;
+  color:var(--g1);margin-bottom:1rem;display:block;
+}
+.s-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,5vw,3.8rem);font-weight:600;line-height:1.15;
+}
+.s-rule{
+  width:50px;height:1px;margin:1.5rem 0;
+  background:linear-gradient(90deg,var(--g1),transparent);
+}
+.s-rule.center{margin:1.5rem auto;}
+.s-lead{
+  color:rgba(245,240,232,0.6);line-height:1.9;font-size:1rem;font-weight:300;
+}
 
-    /* ---- STAT CARDS ---- */
-    .stat-card {
-      text-align: center;
-      padding: 2rem 1.5rem;
-      border-right: 1px solid rgba(201,168,76,0.15);
-    }
-    .stat-card:last-child { border-right: none; }
-    .stat-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1;
-    }
+/* ══════════════════════════════════════════
+   ABOUT SECTION
+══════════════════════════════════════════ */
+#about{background:var(--black);}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;
+}
+.about-visual{
+  position:relative;
+}
+.about-logo-card{
+  background:var(--black3);
+  border:1px solid rgba(201,168,76,0.15);
+  border-radius:8px;padding:3rem 2.5rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.about-logo-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(201,168,76,0.1) 0%,transparent 70%);
+}
+.about-logo-card img{
+  width:100%;max-width:340px;
+  filter:drop-shadow(0 0 30px rgba(201,168,76,0.4)) drop-shadow(0 0 60px rgba(201,168,76,0.15));
+  position:relative;z-index:1;
+}
+.about-tagline-card{
+  background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04));
+  border:1px solid rgba(201,168,76,0.25);border-radius:6px;
+  padding:1.5rem 2rem;margin-top:1.25rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.about-tagline-card i{color:var(--g1);font-size:1.1rem;flex-shrink:0;}
+.about-tagline-card p{font-size:0.85rem;color:var(--cream);line-height:1.7;}
 
-    /* ---- MOBILE MENU ---- */
-    #mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(10,10,10,0.98);
-      z-index: 999;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
-    }
-    #mobile-menu.open { display: flex; }
-    .mobile-nav-link {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      letter-spacing: 0.1em;
-      color: var(--cream);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .mobile-nav-link:hover { color: var(--gold); }
+.value-list{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
+.value-item{
+  display:flex;gap:1.25rem;align-items:flex-start;
+  padding:1.25rem 1.5rem;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(201,168,76,0.08);border-radius:6px;
+  transition:all 0.35s;
+}
+.value-item:hover{
+  background:rgba(201,168,76,0.04);
+  border-color:rgba(201,168,76,0.22);
+  transform:translateX(6px);
+}
+.value-icon{
+  width:42px;height:42px;flex-shrink:0;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--g1);
+}
+.value-text h4{font-size:0.9rem;font-weight:600;margin-bottom:0.25rem;color:var(--cream);}
+.value-text p{font-size:0.8rem;color:var(--muted);line-height:1.7;}
 
-    /* ---- SCROLL ANIMATIONS ---- */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-    .delay-4 { transition-delay: 0.4s; }
+/* ══════════════════════════════════════════
+   EXPERIENCE ZONES
+══════════════════════════════════════════ */
+#zones{background:var(--black2);}
+.zones-header{text-align:center;margin-bottom:4.5rem;}
+.zones-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+}
+.zone-card{
+  background:var(--black3);
+  border:1px solid rgba(201,168,76,0.1);border-radius:8px;
+  padding:2.25rem;position:relative;overflow:hidden;
+  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  cursor:default;
+}
+.zone-card::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(201,168,76,0.08) 0%,transparent 70%);
+  opacity:0;transition:opacity 0.4s;
+}
+.zone-card:hover{
+  border-color:rgba(201,168,76,0.35);
+  transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(0,0,0,0.4),0 0 40px rgba(201,168,76,0.08);
+}
+.zone-card:hover::after{opacity:1;}
+.zone-card.featured{
+  grid-column:span 2;
+  background:linear-gradient(135deg,var(--black3),var(--black4));
+  border-color:rgba(201,168,76,0.2);
+}
+.zone-badge{
+  display:inline-block;
+  font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--g1);
+  border:1px solid rgba(201,168,76,0.25);border-radius:20px;
+  padding:0.2rem 0.9rem;margin-bottom:1rem;
+  background:rgba(201,168,76,0.05);
+}
+.zone-icon-wrap{
+  width:54px;height:54px;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;color:var(--g1);margin-bottom:1.25rem;
+  transition:all 0.3s;
+}
+.zone-card:hover .zone-icon-wrap{
+  background:rgba(201,168,76,0.15);
+  box-shadow:var(--gold-glow-sm);
+}
+.zone-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;font-weight:600;margin-bottom:0.75rem;color:var(--cream);
+}
+.zone-card.featured .zone-title{font-size:1.7rem;}
+.zone-desc{font-size:0.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem;}
+.zone-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.ztag{
+  font-size:0.65rem;letter-spacing:0.1em;
+  color:rgba(201,168,76,0.8);
+  background:rgba(201,168,76,0.06);
+  border:1px solid rgba(201,168,76,0.15);
+  padding:0.2rem 0.65rem;border-radius:20px;
+}
 
-    /* ---- TICKER ---- */
-    .ticker-wrap {
-      overflow: hidden;
-      background: rgba(201,168,76,0.08);
-      border-top: 1px solid rgba(201,168,76,0.2);
-      border-bottom: 1px solid rgba(201,168,76,0.2);
-      padding: 0.75rem 0;
-    }
-    .ticker {
-      display: flex;
-      gap: 4rem;
-      white-space: nowrap;
-      animation: ticker 25s linear infinite;
-    }
-    .ticker-item {
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 500;
-    }
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+/* ══════════════════════════════════════════
+   PROGRAMMING
+══════════════════════════════════════════ */
+#programming{background:var(--black);}
+.prog-grid{display:grid;grid-template-columns:5fr 7fr;gap:5rem;align-items:start;}
+.grand-opening{
+  background:var(--black3);border:1px solid rgba(201,168,76,0.2);border-radius:8px;
+  padding:2rem;margin-top:2.5rem;position:relative;overflow:hidden;
+}
+.grand-opening::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--g1),var(--g2),var(--g1),transparent);
+}
+.go-date{
+  font-family:'Bebas Neue',sans-serif;font-size:3rem;
+  line-height:1;margin-bottom:0.5rem;
+}
+.go-sub{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+.go-desc{font-size:0.88rem;color:rgba(245,240,232,0.65);line-height:1.8;}
 
-    /* ---- FOOTER ---- */
-    footer {
-      background: var(--black);
-      border-top: 1px solid rgba(201,168,76,0.15);
-      padding: 4rem 1.5rem 2rem;
-    }
-  </style>
+.events-list{display:flex;flex-direction:column;gap:0.6rem;}
+.event-row{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.25rem;
+  background:var(--black3);border:1px solid rgba(201,168,76,0.07);border-radius:6px;
+  transition:all 0.3s;
+}
+.event-row:hover{
+  background:rgba(201,168,76,0.04);
+  border-color:rgba(201,168,76,0.2);
+  transform:translateX(4px);
+}
+.event-emoji{font-size:1.2rem;flex-shrink:0;}
+.event-dot{width:6px;height:6px;border-radius:50%;background:var(--g1);flex-shrink:0;}
+.event-name{font-size:0.88rem;font-weight:600;color:var(--cream);flex:1;}
+.event-desc{font-size:0.75rem;color:var(--muted);}
+
+/* ══════════════════════════════════════════
+   QUOTE BAND
+══════════════════════════════════════════ */
+.quote-band{
+  background:var(--black2);
+  border-top:1px solid rgba(201,168,76,0.1);
+  border-bottom:1px solid rgba(201,168,76,0.1);
+  padding:7rem 0;text-align:center;position:relative;overflow:hidden;
+}
+.quote-band::before{
+  content:'';position:absolute;top:-50%;left:20%;right:20%;height:100%;
+  background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.1) 0%,transparent 70%);
+}
+.quote-mark{
+  font-family:'Cormorant Garamond',serif;font-size:8rem;line-height:0.5;
+  color:rgba(201,168,76,0.15);display:block;margin-bottom:1rem;
+}
+.quote-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:400;font-style:italic;
+  line-height:1.5;max-width:860px;margin:0 auto 2rem;
+  color:var(--cream);
+}
+.quote-attr{
+  font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--g1);
+}
+.quote-stats{
+  display:flex;gap:4rem;justify-content:center;margin-top:4rem;flex-wrap:wrap;
+}
+.qs{text-align:center;}
+.qs-num{
+  font-family:'Bebas Neue',sans-serif;font-size:3.5rem;line-height:1;
+}
+.qs-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;}
+.qs-divider{width:1px;background:rgba(201,168,76,0.15);}
+
+/* ══════════════════════════════════════════
+   SPONSORSHIP
+══════════════════════════════════════════ */
+#sponsors{background:var(--black);}
+.sponsors-header{text-align:center;margin-bottom:4rem;}
+.tiers-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem;
+}
+.tier-card{
+  background:var(--black3);border:1px solid rgba(201,168,76,0.1);border-radius:8px;
+  padding:2.25rem;position:relative;overflow:hidden;transition:all 0.4s;
+}
+.tier-card:hover{
+  border-color:rgba(201,168,76,0.35);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.tier-card.top{
+  background:linear-gradient(145deg,var(--black3),var(--black4));
+  border-color:rgba(201,168,76,0.25);
+}
+.tier-card.top::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--g1),var(--g2),var(--g1),transparent);
+}
+.tier-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.5rem;}
+.tier-availability{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.35rem;
+}
+.tier-name{
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--cream);
+}
+.tier-price{
+  font-family:'Bebas Neue',sans-serif;font-size:1.6rem;
+  padding:0.3rem 1.1rem;border-radius:3px;
+  background:linear-gradient(135deg,var(--g4),var(--g1));
+  color:var(--black);letter-spacing:0.05em;
+}
+.tier-perks{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.tier-perks li{
+  display:flex;align-items:center;gap:0.65rem;
+  font-size:0.83rem;color:rgba(245,240,232,0.7);
+}
+.tier-perks li i{color:var(--g1);font-size:0.65rem;flex-shrink:0;}
+
+.sponsor-total{
+  text-align:center;padding:2rem;
+  background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:6px;
+}
+.sponsor-total p{color:var(--muted);font-size:0.88rem;margin-bottom:0.5rem;}
+.sponsor-total strong{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--g1);}
+
+/* ══════════════════════════════════════════
+   EARLY ACCESS
+══════════════════════════════════════════ */
+#access{
+  background:var(--black2);
+  position:relative;overflow:hidden;
+}
+#access::before{
+  content:'';position:absolute;top:-30%;left:10%;right:10%;height:80%;
+  background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.1) 0%,transparent 65%);
+}
+.access-inner{
+  max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1;
+}
+.access-logo{
+  width:min(280px,70vw);margin:0 auto 2.5rem;display:block;
+  filter:drop-shadow(0 0 20px rgba(201,168,76,0.3));
+}
+.form-wrap{max-width:480px;margin:0 auto;}
+.field{margin-bottom:1rem;}
+.f-input{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,168,76,0.2);border-radius:3px;
+  color:var(--cream);padding:1rem 1.25rem;font-size:0.92rem;
+  font-family:'Montserrat',sans-serif;outline:none;
+  transition:border-color 0.3s,box-shadow 0.3s;
+}
+.f-input:focus{border-color:var(--g1);box-shadow:0 0 0 3px rgba(201,168,76,0.08);}
+.f-input::placeholder{color:var(--muted);}
+.success-box{
+  display:none;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);
+  border-radius:6px;padding:2rem;margin-top:1.5rem;
+}
+.success-box i{color:var(--g1);font-size:2.5rem;display:block;margin-bottom:0.75rem;}
+.success-box p{color:var(--cream);font-weight:500;font-size:0.95rem;}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{
+  background:var(--black);
+  border-top:1px solid rgba(201,168,76,0.1);
+  padding:5rem 0 2.5rem;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;
+}
+.footer-brand p{
+  color:var(--muted);font-size:0.85rem;line-height:1.85;max-width:280px;
+  margin:1.25rem 0 1.75rem;
+}
+.social-row{display:flex;gap:0.75rem;}
+.soc{
+  width:40px;height:40px;
+  background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.18);
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  color:var(--g1);text-decoration:none;font-size:0.85rem;transition:all 0.3s;
+}
+.soc:hover{background:rgba(201,168,76,0.15);border-color:var(--g1);transform:translateY(-2px);}
+.footer-col h5{
+  font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--g1);margin-bottom:1.25rem;
+}
+.footer-col a,.footer-col p{
+  display:block;color:var(--muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:0.65rem;transition:color 0.3s;
+}
+.footer-col a:hover{color:var(--cream);}
+.footer-bottom{
+  border-top:1px solid rgba(201,168,76,0.08);padding-top:2rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom p{color:var(--muted);font-size:0.75rem;}
+
+/* ══════════════════════════════════════════
+   SCROLL ANIMATIONS
+══════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-l{opacity:0;transform:translateX(-36px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1);}
+.reveal-l.in{opacity:1;transform:translateX(0);}
+.reveal-r{opacity:0;transform:translateX(36px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1);}
+.reveal-r.in{opacity:1;transform:translateX(0);}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.18s;}.d3{transition-delay:0.26s;}.d4{transition-delay:0.34s;}.d5{transition-delay:0.42s;}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:1024px){
+  .about-grid,.prog-grid{grid-template-columns:1fr!important;gap:3rem!important;}
+  .zones-grid{grid-template-columns:1fr 1fr!important;}
+  .zone-card.featured{grid-column:span 2!important;}
+  .footer-grid{grid-template-columns:1fr 1fr!important;}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none!important;}
+  #hamburger{display:block!important;}
+  .stats-inner{grid-template-columns:1fr 1fr!important;}
+  .stat{border-right:none!important;border-bottom:1px solid rgba(201,168,76,0.08);}
+  .zones-grid{grid-template-columns:1fr!important;}
+  .zone-card.featured{grid-column:span 1!important;}
+  .tiers-grid{grid-template-columns:1fr!important;}
+  .footer-grid{grid-template-columns:1fr!important;}
+  .quote-stats{gap:2rem!important;}
+  .qs-divider{display:none!important;}
+  .section{padding:5rem 0!important;}
+}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+</style>
 </head>
 <body>
 
-<!-- ============================================================
-     NAVBAR
-============================================================ -->
-<nav id="navbar">
-  <div style="max-width:1280px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;">
-    <!-- Logo -->
-    <a href="#hero" style="text-decoration:none;">
-      <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" style="height:36px; filter:drop-shadow(0 0 10px rgba(201,168,76,0.4));" />
-    </a>
-    <!-- Desktop Nav -->
-    <div style="display:flex; gap:2.5rem; align-items:center;" class="hidden-mobile">
+<!-- ══ NAVBAR ══ -->
+<nav id="nav">
+  <div class="inner">
+    <a href="#hero"><img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" class="nav-logo"/></a>
+    <div class="nav-links">
       <a href="#about" class="nav-link">About</a>
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#programming" class="nav-link">Programming</a>
       <a href="#zones" class="nav-link">Zones</a>
-      <a href="#sponsors" class="nav-link">Sponsors</a>
-      <a href="#tickets" class="btn-gold" style="padding:0.6rem 1.5rem; font-size:0.75rem;">Get Tickets</a>
+      <a href="#programming" class="nav-link">Programming</a>
+      <a href="#sponsors" class="nav-link">Partners</a>
+      <a href="#access" class="nav-cta">Early Access</a>
     </div>
-    <!-- Hamburger -->
-    <button id="hamburger" style="background:none; border:none; cursor:pointer; color:var(--cream); font-size:1.5rem; display:none;" class="show-mobile">
-      <i class="fas fa-bars"></i>
-    </button>
+    <button id="hamburger"><i class="fas fa-bars"></i></button>
   </div>
 </nav>
 
-<!-- Mobile Menu -->
-<div id="mobile-menu">
-  <button id="menu-close" style="position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; cursor:pointer; color:var(--cream); font-size:1.5rem;">
-    <i class="fas fa-times"></i>
-  </button>
-  <a href="#about" class="mobile-nav-link" onclick="closeMobileMenu()">About</a>
-  <a href="#experience" class="mobile-nav-link" onclick="closeMobileMenu()">Experience</a>
-  <a href="#programming" class="mobile-nav-link" onclick="closeMobileMenu()">Programming</a>
-  <a href="#zones" class="mobile-nav-link" onclick="closeMobileMenu()">Zones</a>
-  <a href="#sponsors" class="mobile-nav-link" onclick="closeMobileMenu()">Sponsors</a>
-  <a href="#tickets" class="btn-gold" onclick="closeMobileMenu()">Get Tickets</a>
+<!-- ══ MOBILE MENU ══ -->
+<div id="mob-menu">
+  <button id="mob-close"><i class="fas fa-times"></i></button>
+  <a href="#about" class="mob-link" onclick="closeMob()">About</a>
+  <a href="#zones" class="mob-link" onclick="closeMob()">Zones</a>
+  <a href="#programming" class="mob-link" onclick="closeMob()">Programming</a>
+  <a href="#sponsors" class="mob-link" onclick="closeMob()">Partners</a>
+  <a href="#access" class="mob-link" onclick="closeMob()" style="color:var(--g1);">Early Access</a>
 </div>
 
-<!-- ============================================================
+<!-- ══════════════════════════════════════════
      HERO
-============================================================ -->
-<section id="hero" style="padding:0;">
-  <div class="hero-bg"></div>
-  <div class="hero-particles"></div>
-  <div style="position:relative; z-index:2; text-align:center; padding:2rem 1.5rem; max-width:1000px; margin:0 auto;">
-    
-    <p class="hero-tagline" style="margin-bottom:2rem;">The Cultural Playground of December in Accra</p>
-    
-    <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" class="hero-logo" style="margin:0 auto 2rem; display:block;" />
-    
-    <p class="hero-date" style="margin-bottom:0.5rem;">December 17, 2026 — January 3, 2027</p>
-    <p class="hero-location" style="margin-bottom:3rem;">Accra, Ghana &nbsp;·&nbsp; 18 Nights of Pure Joy</p>
+══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="stars"></div>
+  <div class="aurora"></div>
+  <div class="ground-glow"></div>
 
-    <!-- Countdown -->
-    <div id="countdown" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:3rem;">
-      <div class="countdown-box">
-        <div class="countdown-number" id="cd-days">000</div>
-        <div class="countdown-label">Days</div>
-      </div>
-      <div class="countdown-box">
-        <div class="countdown-number" id="cd-hours">00</div>
-        <div class="countdown-label">Hours</div>
-      </div>
-      <div class="countdown-box">
-        <div class="countdown-number" id="cd-mins">00</div>
-        <div class="countdown-label">Minutes</div>
-      </div>
-      <div class="countdown-box">
-        <div class="countdown-number" id="cd-secs">00</div>
-        <div class="countdown-label">Seconds</div>
-      </div>
+  <div class="hero-inner">
+
+    <!-- Logo — the star of the show -->
+    <div class="hero-logo-wrap">
+      <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" class="hero-logo"/>
     </div>
 
-    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-      <a href="#tickets" class="btn-gold">Get Early Access</a>
-      <a href="#about" class="btn-outline">Discover ALIV</a>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">The Cultural Playground of December in Accra</p>
+    <p class="hero-date">December 17, 2026 &nbsp;—&nbsp; January 3, 2027</p>
+    <p class="hero-location">Accra, Ghana &nbsp;·&nbsp; 18 Nights of Pure Joy</p>
+
+    <!-- Live Countdown -->
+    <div class="cd-grid">
+      <div class="cd-box"><div class="cd-num" id="cd-d">000</div><div class="cd-label">Days</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-label">Hours</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Minutes</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Seconds</div></div>
     </div>
 
-    <!-- Scroll cue -->
-    <div style="margin-top:4rem; animation: bounce 2s ease-in-out infinite;">
-      <i class="fas fa-chevron-down" style="color:var(--gold); opacity:0.6; font-size:1.2rem;"></i>
+    <div class="hero-btns">
+      <a href="#access" class="btn-primary"><i class="fas fa-ticket-alt"></i>Get Early Access</a>
+      <a href="#about" class="btn-ghost"><i class="fas fa-play"></i>Discover ALIV</a>
     </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- ============================================================
-     TICKER
-============================================================ -->
-<div class="ticker-wrap">
-  <div class="ticker">
-    <span class="ticker-item">🎵 DJ Stage</span>
-    <span class="ticker-item">🎪 Carnival Zone</span>
-    <span class="ticker-item">🍜 Food Village</span>
-    <span class="ticker-item">✨ VIP Cabanas</span>
-    <span class="ticker-item">🎭 Cirque de Soir</span>
-    <span class="ticker-item">👗 Fashion Show</span>
-    <span class="ticker-item">🎨 Art Installations</span>
-    <span class="ticker-item">🥁 Afrobeats Karaoke</span>
-    <span class="ticker-item">🌍 Accra, Ghana</span>
-    <span class="ticker-item">Dec 17 – Jan 3</span>
-    <!-- duplicate for seamless loop -->
-    <span class="ticker-item">🎵 DJ Stage</span>
-    <span class="ticker-item">🎪 Carnival Zone</span>
-    <span class="ticker-item">🍜 Food Village</span>
-    <span class="ticker-item">✨ VIP Cabanas</span>
-    <span class="ticker-item">🎭 Cirque de Soir</span>
-    <span class="ticker-item">👗 Fashion Show</span>
-    <span class="ticker-item">🎨 Art Installations</span>
-    <span class="ticker-item">🥁 Afrobeats Karaoke</span>
-    <span class="ticker-item">🌍 Accra, Ghana</span>
-    <span class="ticker-item">Dec 17 – Jan 3</span>
+<!-- ══ TICKER ══ -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    ${['DJ Stage', 'Carnival Zone', 'Food Village', 'VIP Cabanas', 'Cirque de Soir',
+       'Fashion Show', 'Art Installations', 'Afrobeats Karaoke', 'Accra Ghana',
+       'Dec 17 – Jan 3', 'Comedy Night', 'Magic Show', 'Battle of the Jollof',
+       'DJ Stage', 'Carnival Zone', 'Food Village', 'VIP Cabanas', 'Cirque de Soir',
+       'Fashion Show', 'Art Installations', 'Afrobeats Karaoke', 'Accra Ghana',
+       'Dec 17 – Jan 3', 'Comedy Night', 'Magic Show', 'Battle of the Jollof']
+      .map(t => `<span class="t-item">${t}</span>`).join('')}
   </div>
 </div>
 
-<!-- ============================================================
-     STATS BAR
-============================================================ -->
-<div style="background:var(--black-card); border-top:1px solid rgba(201,168,76,0.1); border-bottom:1px solid rgba(201,168,76,0.1);">
-  <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr);">
-    <div class="stat-card fade-up">
-      <div class="stat-number gold-text">18</div>
-      <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-top:0.5rem;">Nights</p>
-    </div>
-    <div class="stat-card fade-up delay-1">
-      <div class="stat-number gold-text">5K+</div>
-      <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-top:0.5rem;">Daily Guests</p>
-    </div>
-    <div class="stat-card fade-up delay-2">
-      <div class="stat-number gold-text">5</div>
-      <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-top:0.5rem;">Experience Zones</p>
-    </div>
-    <div class="stat-card fade-up delay-3">
-      <div class="stat-number gold-text">1</div>
-      <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-top:0.5rem;">City. One Vibe.</p>
-    </div>
+<!-- ══ STATS ══ -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat reveal"><div class="stat-num gold">18</div><div class="stat-desc">Nights of Culture</div></div>
+    <div class="stat reveal d1"><div class="stat-num gold">5K+</div><div class="stat-desc">Daily Guests</div></div>
+    <div class="stat reveal d2"><div class="stat-num gold">5</div><div class="stat-desc">Experience Zones</div></div>
+    <div class="stat reveal d3"><div class="stat-num gold">1</div><div class="stat-desc">City. One Vibe.</div></div>
   </div>
 </div>
 
-<!-- ============================================================
+<!-- ══════════════════════════════════════════
      ABOUT
-============================================================ -->
-<section id="about" style="background:var(--black);">
-  <div style="max-width:1280px; margin:0 auto;">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;" class="responsive-grid">
-      
+══════════════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+
+      <!-- Visual / Logo card -->
+      <div class="about-visual reveal-l">
+        <div class="about-logo-card">
+          <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST Logo"/>
+        </div>
+        <div class="about-tagline-card">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>Opening December 17, 2026 at Black Star Square, Accra, Ghana — an iconic national landmark in the heart of the city.</p>
+        </div>
+        <div class="about-tagline-card" style="margin-top:0.75rem;">
+          <i class="fas fa-users"></i>
+          <p>Experience-driven guests ages 21–45 · Local residents, diaspora travellers & international visitors.</p>
+        </div>
+      </div>
+
       <!-- Text -->
-      <div class="fade-up">
-        <p class="section-label">About ALIV FEST</p>
-        <h2 class="section-title">
-          Joy First.<br/>
-          <span class="gold-text">Lived, Not Performed.</span>
-        </h2>
-        <div class="section-divider"></div>
-        <p style="color:rgba(245,240,232,0.7); line-height:1.9; margin-bottom:1.5rem; font-size:1.05rem;">
-          ALIV FEST is West Africa&#39;s most anticipated cultural destination experience — an 18-night world of music, carnival, culinary art, nightlife, and immersive storytelling. We don't just host events. We create moments that become lifelong memories.
+      <div class="reveal-r">
+        <span class="s-label">About ALIV FEST</span>
+        <h2 class="s-title">Joy First.<br/><span class="gold">Lived, Not Performed.</span></h2>
+        <div class="s-rule"></div>
+        <p class="s-lead" style="margin-bottom:1.5rem;">
+          ALIV FEST is West Africa's most anticipated cultural destination experience — an 18-night world of music, carnival, culinary art, nightlife and immersive storytelling set against the Accra sky.
         </p>
-        <p style="color:rgba(245,240,232,0.7); line-height:1.9; margin-bottom:2rem; font-size:1.05rem;">
-          Opening December 17, 2026, ALIV transforms Accra into a premium multi-zone festival destination for locals, the diaspora, and global visitors seeking joy-first, presence-over-performance experiences.
+        <p class="s-lead">
+          We don't just host events. We build worlds where hospitality meets immersion, and every moment is designed to create a lifelong memory.
         </p>
-        <div style="display:flex; flex-direction:column; gap:1rem;">
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <i class="fas fa-map-marker-alt gold-text-static"></i>
-            <span style="color:var(--cream); font-size:0.95rem;">Accra, Ghana — Black Star Square (Preferred Venue)</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <i class="fas fa-calendar gold-text-static"></i>
-            <span style="color:var(--cream); font-size:0.95rem;">December 17, 2026 – January 3, 2027</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <i class="fas fa-users gold-text-static"></i>
-            <span style="color:var(--cream); font-size:0.95rem;">Ages 21–45 · Local, Diaspora & International Guests</span>
-          </div>
+
+        <div class="value-list">
+          ${[
+            {icon:'fa-heart',title:'Joy First',desc:'Every decision we make is for emotional payoff. ALIV is built to make you feel something real.'},
+            {icon:'fa-eye',title:'Presence Over Performance',desc:'Live in the moment. Designed to be experienced — not just recorded.'},
+            {icon:'fa-gem',title:'Premium with Meaning',desc:'Curated VIP cabanas, bottle service and elevated design — all with deep cultural soul.'},
+            {icon:'fa-globe-africa',title:'Community & Connection',desc:'Where strangers become family. Accra as the beating heart of the global African diaspora.'}
+          ].map(v=>`
+          <div class="value-item">
+            <div class="value-icon"><i class="fas ${v.icon}"></i></div>
+            <div class="value-text"><h4>${v.title}</h4><p>${v.desc}</p></div>
+          </div>`).join('')}
         </div>
       </div>
 
-      <!-- Brand Values -->
-      <div class="fade-up delay-2">
-        <div style="display:grid; gap:1rem;">
-          ${[
-            { icon: 'fa-heart', title: 'Joy First', desc: 'Every decision is made for emotional payoff. ALIV is built to make you feel something real.' },
-            { icon: 'fa-eye', title: 'Presence Over Performance', desc: 'Live in the moment. ALIV is designed to be experienced, not just documented.' },
-            { icon: 'fa-star', title: 'Premium with Meaning', desc: 'Curated VIP experiences, cabanas, bottle service, elevated design — all with cultural soul.' },
-            { icon: 'fa-globe-africa', title: 'Community & Connection', desc: 'Where strangers become community. Accra as the heartbeat of the global African diaspora.' }
-          ].map(v => `
-          <div style="display:flex; gap:1.25rem; align-items:flex-start; background:var(--black-card); border:1px solid rgba(201,168,76,0.12); border-radius:10px; padding:1.25rem 1.5rem;">
-            <div style="width:40px; height:40px; background:rgba(201,168,76,0.1); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--gold);">
-              <i class="fas ${v.icon}"></i>
-            </div>
-            <div>
-              <h4 style="font-size:0.95rem; font-weight:600; color:var(--cream); margin-bottom:0.3rem;">${v.title}</h4>
-              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">${v.desc}</p>
-            </div>
-          </div>
-          `).join('')}
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
+<!-- ══════════════════════════════════════════
      EXPERIENCE ZONES
-============================================================ -->
-<section id="zones" style="background:var(--black-soft);">
-  <div style="max-width:1280px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:4rem;" class="fade-up">
-      <p class="section-label">The World of ALIV</p>
-      <h2 class="section-title">5 Experience <span class="gold-text">Zones</span></h2>
-      <div class="section-divider" style="margin:1.5rem auto;"></div>
-      <p style="color:var(--text-muted); max-width:550px; margin:0 auto; line-height:1.8;">Each zone is a world unto itself. Explore them all or find your favourite corner of ALIV.</p>
+══════════════════════════════════════════ -->
+<section id="zones" class="section">
+  <div class="container">
+    <div class="zones-header reveal">
+      <span class="s-label" style="display:block;margin-bottom:0.75rem;">The World of ALIV</span>
+      <h2 class="s-title">5 Experience <span class="gold">Zones</span></h2>
+      <div class="s-rule center"></div>
+      <p class="s-lead" style="max-width:520px;margin:0 auto;">Each zone is its own universe. Explore them all or find your favourite corner of ALIV.</p>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;" class="responsive-grid-3">
-      
-      <div class="zone-card fade-up" style="grid-column: span 2;" data-wide="true">
-        <div class="zone-icon"><i class="fas fa-music"></i></div>
-        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
-          <span style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,0.1); padding:0.2rem 0.75rem; border-radius:20px; border:1px solid rgba(201,168,76,0.25);">Zone 01</span>
-        </div>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; margin-bottom:0.75rem;">Main DJ Stage + VIP Party Area</h3>
-        <p style="color:var(--text-muted); line-height:1.8; margin-bottom:1.25rem;">The primary nightlife and entertainment hub featuring world-class DJ performances, dance competitions, premium sound and lighting, and a nightclub-style atmosphere under the Accra sky.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-          ${['DJ Performances', 'Dance Competitions', 'VIP Cabanas', 'Bottle Service', 'Elevated Viewing Decks'].map(t => `<span style="font-size:0.75rem; color:var(--gold); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:0.25rem 0.75rem; border-radius:20px;">${t}</span>`).join('')}
+    <div class="zones-grid">
+
+      <div class="zone-card featured reveal">
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;">
+          <div style="flex:1;min-width:200px;">
+            <span class="zone-badge">Zone 01 · Featured</span>
+            <div class="zone-icon-wrap" style="width:64px;height:64px;font-size:1.7rem;"><i class="fas fa-music"></i></div>
+            <h3 class="zone-title">Main DJ Stage<br/>+ VIP Party Area</h3>
+            <p class="zone-desc">The primary nightlife and entertainment hub — world-class DJ sets, electric dance competitions, premium sound and lighting, and a nightclub-style atmosphere under the open Accra sky.</p>
+            <div class="zone-tags">
+              ${['DJ Performances','Dance Competitions','Premium Sound & Lighting','VIP Cabanas','Bottle Service','Elevated Viewing Decks'].map(t=>`<span class="ztag">${t}</span>`).join('')}
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="zone-card fade-up delay-1">
-        <div class="zone-icon"><i class="fas fa-ferris-wheel"></i></div>
-        <span style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,0.1); padding:0.2rem 0.75rem; border-radius:20px; border:1px solid rgba(201,168,76,0.25);">Zone 02</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; margin:0.75rem 0;">Carnival Zone</h3>
-        <p style="color:var(--text-muted); line-height:1.8; margin-bottom:1rem; font-size:0.9rem;">Carnival rides, skill games, and immersive attractions for an interactive entertainment environment unlike anything in West Africa.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-          ${['Carnival Rides', 'Skill Games', 'Immersive Attractions'].map(t => `<span style="font-size:0.7rem; color:var(--gold); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:0.2rem 0.6rem; border-radius:20px;">${t}</span>`).join('')}
+      <div class="zone-card reveal d1">
+        <span class="zone-badge">Zone 02</span>
+        <div class="zone-icon-wrap"><i class="fas fa-hat-wizard"></i></div>
+        <h3 class="zone-title">Carnival Zone</h3>
+        <p class="zone-desc">Carnival rides, skill games and immersive attractions for an interactive entertainment environment unlike anything in West Africa.</p>
+        <div class="zone-tags">
+          ${['Carnival Rides','Skill Games','Immersive Attractions'].map(t=>`<span class="ztag">${t}</span>`).join('')}
         </div>
       </div>
 
-      <div class="zone-card fade-up delay-2">
-        <div class="zone-icon"><i class="fas fa-utensils"></i></div>
-        <span style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,0.1); padding:0.2rem 0.75rem; border-radius:20px; border:1px solid rgba(201,168,76,0.25);">Zone 03</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; margin:0.75rem 0;">Food Village</h3>
-        <p style="color:var(--text-muted); line-height:1.8; margin-bottom:1rem; font-size:0.9rem;">Curated food vendors, communal seating, dessert stations, and a vibrant bar program. The culinary heart of ALIV.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-          ${['Curated Vendors', 'Bar Program', 'Dessert Stations', 'Battle of the Jollof'].map(t => `<span style="font-size:0.7rem; color:var(--gold); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:0.2rem 0.6rem; border-radius:20px;">${t}</span>`).join('')}
+      <div class="zone-card reveal d2">
+        <span class="zone-badge">Zone 03</span>
+        <div class="zone-icon-wrap"><i class="fas fa-utensils"></i></div>
+        <h3 class="zone-title">Food Village</h3>
+        <p class="zone-desc">Curated food vendors, communal seating, dessert stations and a vibrant bar programme. The culinary heartbeat of ALIV.</p>
+        <div class="zone-tags">
+          ${['Curated Vendors','Bar Programme','Dessert Stations','Battle of the Jollof'].map(t=>`<span class="ztag">${t}</span>`).join('')}
         </div>
       </div>
 
-      <div class="zone-card fade-up delay-3">
-        <div class="zone-icon"><i class="fas fa-video"></i></div>
-        <span style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,0.1); padding:0.2rem 0.75rem; border-radius:20px; border:1px solid rgba(201,168,76,0.25);">Zone 04</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; margin:0.75rem 0;">Creator Lounge + Brand Activation</h3>
-        <p style="color:var(--text-muted); line-height:1.8; margin-bottom:1rem; font-size:0.9rem;">Content production, influencer engagement, branded activations, livestream setups, and interactive digital experiences.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-          ${['Creator Lounge', 'Brand Activations', 'Live Streaming', 'Product Demos'].map(t => `<span style="font-size:0.7rem; color:var(--gold); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:0.2rem 0.6rem; border-radius:20px;">${t}</span>`).join('')}
+      <div class="zone-card reveal d3">
+        <span class="zone-badge">Zone 04</span>
+        <div class="zone-icon-wrap"><i class="fas fa-video"></i></div>
+        <h3 class="zone-title">Creator Lounge<br/>+ Brand Activation</h3>
+        <p class="zone-desc">Content production studios, influencer hubs, branded activations and interactive digital experiences for the next generation of African creatives.</p>
+        <div class="zone-tags">
+          ${['Creator Lounge','Brand Activations','Live Streaming','Product Demos'].map(t=>`<span class="ztag">${t}</span>`).join('')}
         </div>
       </div>
 
-      <div class="zone-card fade-up delay-4">
-        <div class="zone-icon"><i class="fas fa-archway"></i></div>
-        <span style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,0.1); padding:0.2rem 0.75rem; border-radius:20px; border:1px solid rgba(201,168,76,0.25);">Zone 05</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; margin:0.75rem 0;">Entrance & Arrival Plaza</h3>
-        <p style="color:var(--text-muted); line-height:1.8; margin-bottom:1rem; font-size:0.9rem;">Your first impression of ALIV. A grand welcome arch, seamless ticket scanning, and the unmistakable sense that something extraordinary awaits.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-          ${['Welcome Arch', 'Photo Moments', 'Seamless Entry'].map(t => `<span style="font-size:0.7rem; color:var(--gold); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:0.2rem 0.6rem; border-radius:20px;">${t}</span>`).join('')}
+      <div class="zone-card reveal d4">
+        <span class="zone-badge">Zone 05</span>
+        <div class="zone-icon-wrap"><i class="fas fa-archway"></i></div>
+        <h3 class="zone-title">Entrance<br/>& Arrival Plaza</h3>
+        <p class="zone-desc">Your first impression of ALIV. A grand welcome arch, seamless entry, and the unmistakable feeling that something extraordinary lies ahead.</p>
+        <div class="zone-tags">
+          ${['Welcome Arch','Photo Moments','Seamless Entry'].map(t=>`<span class="ztag">${t}</span>`).join('')}
         </div>
       </div>
 
@@ -685,54 +970,57 @@ function homePage(): string {
   </div>
 </section>
 
-<!-- ============================================================
+<!-- ══════════════════════════════════════════
      PROGRAMMING
-============================================================ -->
-<section id="programming" style="background:var(--black);">
-  <div style="max-width:1280px; margin:0 auto;">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;" class="responsive-grid">
-      
-      <div class="fade-up">
-        <p class="section-label">18 Nights of Culture</p>
-        <h2 class="section-title">What's <span class="gold-text">Happening</span></h2>
-        <div class="section-divider"></div>
-        <p style="color:var(--text-muted); line-height:1.9; margin-bottom:2rem;">
-          From the Grand Opening ribbon-cutting on December 17th to a spectacular New Year's celebration, every night at ALIV tells a different story. Here's a taste of what's in store.
-        </p>
-        <div style="background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2); border-radius:12px; padding:1.75rem;">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
-            <div style="width:10px; height:10px; background:var(--gold); border-radius:50%;"></div>
-            <span style="font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold);">Grand Opening</span>
-          </div>
-          <h4 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:0.5rem;">December 17th, 2026</h4>
-          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.7;">Ribbon cutting ceremony · News & media coverage · Live performances · The cultural playground opens its doors for the very first time.</p>
+══════════════════════════════════════════ -->
+<section id="programming" class="section">
+  <div class="container">
+    <div class="prog-grid">
+
+      <div class="reveal-l">
+        <span class="s-label">18 Nights of Culture</span>
+        <h2 class="s-title">What's<br/><span class="gold">Happening</span></h2>
+        <div class="s-rule"></div>
+        <p class="s-lead">From the Grand Opening ribbon-cutting to a spectacular New Year's Eve, every night at ALIV tells a different story.</p>
+
+        <div class="grand-opening" style="margin-top:2.5rem;">
+          <span class="s-label" style="display:block;margin-bottom:0.5rem;">Grand Opening</span>
+          <div class="go-date gold">Dec 17</div>
+          <p class="go-sub">2026</p>
+          <p class="go-desc">Ribbon-cutting ceremony · News and media coverage · Live performances · The cultural playground opens its doors for the very first time.</p>
+        </div>
+
+        <!-- Mini logo in programming section -->
+        <div style="margin-top:2.5rem;padding:1.5rem;background:var(--black3);border:1px solid rgba(201,168,76,0.12);border-radius:6px;text-align:center;">
+          <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" style="width:180px;filter:drop-shadow(0 0 15px rgba(201,168,76,0.3));"/>
+          <p style="font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.75rem;">alivfest.com</p>
         </div>
       </div>
 
-      <div class="fade-up delay-2">
-        <div style="display:grid; gap:0.75rem;">
+      <div class="reveal-r">
+        <div class="events-list">
           ${[
-            { icon: '🍳', name: 'Brunch Series', desc: 'Curated daytime dining experiences' },
-            { icon: '💃', name: 'Dance Shows & Performances', desc: 'Live choreography and cultural dance acts' },
-            { icon: '👗', name: 'Fashion Show', desc: 'Celebrating African and diaspora designers' },
-            { icon: '🎮', name: 'Game Night', desc: 'Competitive fun for all guests' },
-            { icon: '🎤', name: 'Afrobeats Karaoke', desc: 'Sing your favourite Afrobeats anthems' },
-            { icon: '🎨', name: 'Paint Fest (Jouvert)', desc: 'Vibrant colour festival celebration' },
-            { icon: '🖼️', name: 'Art Installation Night', desc: 'Immersive visual art experiences' },
-            { icon: '🎩', name: 'Magic Show', desc: 'World-class illusion and entertainment' },
-            { icon: '🎬', name: 'Movie Night', desc: 'Open-air cinema under the Accra sky' },
-            { icon: '🕺', name: 'Themed Night: 60s & 70s', desc: 'Retro soul, funk, and cultural nostalgia' },
-            { icon: '🍛', name: 'Battle of the Jollof', desc: 'West Africa&#39;s greatest culinary competition' },
-            { icon: '🎪', name: 'Cirque de Soir', desc: 'Acrobatics, fire, and circus arts' },
-            { icon: '😂', name: 'Comedy Night', desc: 'Africa&#39;s top comedians take the stage' },
-            { icon: '💼', name: 'Entrepreneur Night', desc: 'Celebrating local aspiring business owners' },
-          ].map((e, i) => `
-          <div class="program-item" style="animation-delay:${i * 0.05}s;">
-            <span style="font-size:1.2rem;">${e.icon}</span>
-            <div class="program-dot"></div>
-            <div>
-              <span style="font-size:0.9rem; font-weight:600; color:var(--cream);">${e.name}</span>
-              <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.1rem;">${e.desc}</p>
+            {e:'🍳',n:'Brunch Series',d:'Curated daytime dining experiences'},
+            {e:'💃',n:'Dance Shows & Performances',d:'Live choreography and cultural dance acts'},
+            {e:'👗',n:'Fashion Show',d:'Celebrating African and diaspora designers'},
+            {e:'🎮',n:'Game Night',d:'Competitive fun for all guests'},
+            {e:'🎤',n:'Afrobeats Karaoke',d:'Sing your favourite Afrobeats anthems'},
+            {e:'🎨',n:'Paint Fest (Jouvert)',d:'Vibrant colour festival celebration'},
+            {e:'🖼️',n:'Art Installation Night',d:'Immersive visual art experiences'},
+            {e:'🎩',n:'Magic Show',d:'World-class illusion and entertainment'},
+            {e:'🎬',n:'Movie Night',d:'Open-air cinema under the Accra sky'},
+            {e:'🕺',n:'Themed Night: 60s & 70s',d:'Retro soul, funk and cultural nostalgia'},
+            {e:'🍛',n:'Battle of the Jollof',d:'West Africa greatest culinary competition'},
+            {e:'🎪',n:'Cirque de Soir',d:'Acrobatics, fire and circus arts'},
+            {e:'😂',n:'Comedy Night',d:'Top African comedians take the stage'},
+            {e:'💼',n:'Entrepreneur Night',d:'Celebrating local aspiring business owners'},
+          ].map(ev=>`
+          <div class="event-row">
+            <span class="event-emoji">${ev.e}</span>
+            <div class="event-dot"></div>
+            <div style="flex:1;">
+              <div class="event-name">${ev.n}</div>
+              <div class="event-desc">${ev.d}</div>
             </div>
           </div>`).join('')}
         </div>
@@ -741,265 +1029,212 @@ function homePage(): string {
   </div>
 </section>
 
-<!-- ============================================================
-     EXPERIENCE PREVIEW (VISUAL QUOTE SECTION)
-============================================================ -->
-<section id="experience" style="background:var(--black-soft); text-align:center; padding:8rem 1.5rem;">
-  <div style="max-width:900px; margin:0 auto;" class="fade-up">
-    <p class="section-label" style="margin-bottom:2rem;">Our Promise</p>
-    <blockquote style="font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,3rem); line-height:1.4; font-style:italic; font-weight:400; margin-bottom:3rem;">
-      "To build world-class experiences where hospitality meets immersion, where <span class="gold-text">strangers become community</span>, and every event feels like pure joy — lived, not performed."
-    </blockquote>
-    <p style="color:var(--text-muted); letter-spacing:0.2em; font-size:0.85rem; text-transform:uppercase;">— ALIV Vision Statement</p>
-    <div style="display:flex; gap:2rem; justify-content:center; margin-top:4rem; flex-wrap:wrap;">
-      <div style="text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--gold);">21–45</div>
-        <p style="color:var(--text-muted); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">Target Age Range</p>
-      </div>
-      <div style="width:1px; background:rgba(201,168,76,0.2);"></div>
-      <div style="text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--gold);">3K–5K</div>
-        <p style="color:var(--text-muted); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">Daily Capacity</p>
-      </div>
-      <div style="width:1px; background:rgba(201,168,76,0.2);"></div>
-      <div style="text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--gold);">Dec 17</div>
-        <p style="color:var(--text-muted); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">Grand Opening</p>
-      </div>
+<!-- ══ QUOTE BAND ══ -->
+<div class="quote-band">
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">
+      To build world-class experiences where hospitality meets immersion, where <span class="gold">strangers become community</span>, and every event feels like pure joy — lived, not performed.
+    </p>
+    <p class="quote-attr">— ALIV Vision Statement</p>
+    <div class="quote-stats">
+      <div class="qs"><div class="qs-num gold">21–45</div><div class="qs-label">Target Age Range</div></div>
+      <div class="qs-divider"></div>
+      <div class="qs"><div class="qs-num gold">3K–5K</div><div class="qs-label">Daily Capacity</div></div>
+      <div class="qs-divider"></div>
+      <div class="qs"><div class="qs-num gold">Dec 17</div><div class="qs-label">Grand Opening</div></div>
+      <div class="qs-divider"></div>
+      <div class="qs"><div class="qs-num gold">Jan 3</div><div class="qs-label">Grand Finale</div></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ============================================================
+<!-- ══════════════════════════════════════════
      SPONSORSHIP
-============================================================ -->
-<section id="sponsors" style="background:var(--black);">
-  <div style="max-width:1280px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:4rem;" class="fade-up">
-      <p class="section-label">Partner With ALIV</p>
-      <h2 class="section-title">Sponsorship <span class="gold-text">Opportunities</span></h2>
-      <div class="section-divider" style="margin:1.5rem auto;"></div>
-      <p style="color:var(--text-muted); max-width:600px; margin:0 auto; line-height:1.8;">
-        ALIV is a cultural platform, not a one-off event. Sponsors gain access to one of West Africa&#39;s most engaged, experience-driven audiences during the most celebrated season in Accra.
+══════════════════════════════════════════ -->
+<section id="sponsors" class="section">
+  <div class="container">
+    <div class="sponsors-header reveal">
+      <span class="s-label" style="display:block;margin-bottom:0.75rem;">Partner With ALIV</span>
+      <h2 class="s-title">Sponsorship <span class="gold">Opportunities</span></h2>
+      <div class="s-rule center"></div>
+      <p class="s-lead" style="max-width:600px;margin:0 auto;">
+        ALIV is a cultural platform, not a one-off event. Sponsors gain access to one of West Africa's most engaged, experience-driven audiences during the most celebrated season in Accra.
       </p>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-bottom:3rem;" class="responsive-grid">
+    <div class="tiers-grid">
       ${[
-        { tier: 'Presenting Partner', count: '1 Available', price: '$300,000', color: 'linear-gradient(135deg,#C9A84C,#F0D080)', perks: ['Exclusive naming rights', 'Stage branding', 'Premium digital exposure', 'VIP event hosting', 'Full campaign integration'] },
-        { tier: 'Infrastructure Partner', count: '3 Available', price: '$100,000 each', color: 'linear-gradient(135deg,#9B7A3A,#C9A84C)', perks: ['Zone sponsorship', 'Prominent on-site branding', 'VIP hospitality package', 'Social media campaign', 'Press mentions'] },
-        { tier: 'Experience Partner', count: '4 Available', price: '$50,000 each', color: 'linear-gradient(135deg,#6B5528,#9B7A3A)', perks: ['Themed night sponsorship', 'On-site activation space', 'Brand integration', 'Social content package', 'Guest passes'] },
-        { tier: 'Activation Sponsor', count: '5 Available', price: '$20,000 each', color: 'linear-gradient(135deg,#3D2F14,#6B5528)', perks: ['Branded activation booth', 'Digital listing', 'Social mention', 'Logo placement', 'Guest passes'] },
-      ].map((s, i) => `
-      <div class="zone-card fade-up" style="animation-delay:${i*0.1}s;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.5rem;">
+        {name:'Presenting Partner',count:'1 Available',price:'$300,000',top:true,
+         perks:['Exclusive naming rights across all touchpoints','Main stage branding + title sponsorship','Premium digital and social campaign integration','VIP event hosting and cabana allocation','Full creative campaign collaboration']},
+        {name:'Infrastructure Partner',count:'3 Available',price:'$100,000',top:false,
+         perks:['Zone or stage naming sponsorship','Prominent on-site branding','VIP hospitality package','Social media campaign integration','Press and media mentions']},
+        {name:'Experience Partner',count:'4 Available',price:'$50,000',top:false,
+         perks:['Themed night or zone sponsorship','On-site activation space','Brand integration across content','Social content package','Guest passes included']},
+        {name:'Activation Sponsor',count:'5 Available',price:'$20,000',top:false,
+         perks:['Branded activation booth','Digital listing and exposure','Social media mention','Logo placement on collateral','Guest passes included']},
+      ].map(t=>`
+      <div class="tier-card ${t.top?'top':''} reveal">
+        <div class="tier-header">
           <div>
-            <p style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.3rem;">${s.count}</p>
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700;">${s.tier}</h3>
+            <div class="tier-availability">${t.count}</div>
+            <div class="tier-name">${t.name}</div>
           </div>
-          <div style="background:${s.color}; border-radius:6px; padding:0.4rem 1rem;">
-            <span style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--black);">${s.price}</span>
-          </div>
+          <div class="tier-price">${t.price}</div>
         </div>
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem;">
-          ${s.perks.map(p => `<li style="display:flex; align-items:center; gap:0.6rem; font-size:0.85rem; color:rgba(245,240,232,0.75);"><i class="fas fa-check" style="color:var(--gold); font-size:0.7rem;"></i>${p}</li>`).join('')}
+        <ul class="tier-perks">
+          ${t.perks.map(p=>`<li><i class="fas fa-check"></i>${p}</li>`).join('')}
         </ul>
-      </div>
-      `).join('')}
+      </div>`).join('')}
     </div>
 
-    <div style="text-align:center;">
-      <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:0.9rem;">Total Sponsorship Target: <span style="color:var(--gold); font-weight:600;">$900K – $1.1M</span></p>
-      <a href="mailto:sponsors@alivfest.com" class="btn-gold">Become a Partner</a>
+    <div class="sponsor-total reveal">
+      <p>Total Sponsorship Target</p>
+      <strong>$900,000 – $1,100,000</strong>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;" class="reveal">
+      <a href="mailto:sponsors@alivfest.com" class="btn-primary"><i class="fas fa-handshake"></i>Become a Partner</a>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     TICKETS / EMAIL SIGNUP
-============================================================ -->
-<section id="tickets" style="background:var(--black-soft); text-align:center;">
-  <div style="max-width:700px; margin:0 auto;" class="fade-up">
-    <p class="section-label">Early Access</p>
-    <h2 class="section-title" style="margin-bottom:1rem;">
-      Don't Miss <span class="gold-text">ALIV 2026</span>
+<!-- ══════════════════════════════════════════
+     EARLY ACCESS
+══════════════════════════════════════════ -->
+<section id="access" class="section">
+  <div class="access-inner">
+
+    <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" class="access-logo reveal"/>
+
+    <span class="s-label reveal" style="display:block;margin-bottom:0.75rem;">Early Access</span>
+    <h2 class="s-title reveal" style="margin-bottom:1rem;">
+      Don't Miss<br/><span class="gold">ALIV 2026</span>
     </h2>
-    <div class="section-divider" style="margin:1.5rem auto;"></div>
-    <p style="color:var(--text-muted); line-height:1.9; margin-bottom:3rem; font-size:1rem;">
+    <div class="s-rule center reveal"></div>
+    <p class="s-lead reveal" style="margin-bottom:2.5rem;">
       Join the early access list for first priority on tickets, VIP packages, exclusive pre-sale pricing, and ALIV announcements. Accra won't be the same this December.
     </p>
 
-    <form id="signup-form" style="display:flex; flex-direction:column; gap:1rem; max-width:480px; margin:0 auto;">
-      <input type="text" id="signup-name" class="form-input" placeholder="Your Name" />
-      <input type="email" id="signup-email" class="form-input" placeholder="Your Email Address" required />
-      <button type="submit" class="btn-gold" style="width:100%; padding:1.1rem;">
-        <span id="signup-btn-text"><i class="fas fa-ticket-alt" style="margin-right:0.5rem;"></i>Join the Early Access List</span>
-      </button>
-    </form>
-
-    <div id="signup-success" style="display:none; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.4); border-radius:10px; padding:1.5rem; margin-top:1.5rem; max-width:480px; margin-left:auto; margin-right:auto;">
-      <i class="fas fa-check-circle" style="color:var(--gold); font-size:2rem; margin-bottom:0.75rem;"></i>
-      <p id="signup-success-msg" style="color:var(--cream); font-weight:600;"></p>
+    <div class="form-wrap reveal">
+      <form id="sf">
+        <div class="field"><input type="text" id="fn" class="f-input" placeholder="Your Name"/></div>
+        <div class="field"><input type="email" id="fe" class="f-input" placeholder="Your Email Address" required/></div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
+          <span id="sbt"><i class="fas fa-ticket-alt"></i>&nbsp;Join the Early Access List</span>
+        </button>
+      </form>
+      <div class="success-box" id="sb">
+        <i class="fas fa-check-circle"></i>
+        <p id="sm"></p>
+      </div>
+      <p style="color:var(--muted);font-size:0.75rem;margin-top:1.25rem;letter-spacing:0.05em;">
+        No spam, ever. Only the most important ALIV updates.
+      </p>
     </div>
-
-    <p style="color:var(--text-muted); font-size:0.78rem; margin-top:1.5rem; letter-spacing:0.05em;">
-      No spam, ever. We'll only send you the most important ALIV updates.
-    </p>
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-============================================================ -->
+<!-- ══ FOOTER ══ -->
 <footer>
-  <div style="max-width:1280px; margin:0 auto;">
-    <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem;" class="footer-grid">
-      
-      <div>
-        <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" style="height:40px; margin-bottom:1.25rem; filter:drop-shadow(0 0 8px rgba(201,168,76,0.3));" />
-        <p style="color:var(--text-muted); line-height:1.8; font-size:0.9rem; max-width:280px; margin-bottom:1.5rem;">
-          The Cultural Playground of December in Accra. An 18-night destination experience built on joy, community, and world-class culture.
-        </p>
-        <div style="display:flex; gap:1rem;">
-          ${['instagram', 'twitter', 'tiktok', 'youtube'].map(s => `
-          <a href="#" style="width:38px; height:38px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--gold); text-decoration:none; font-size:0.85rem; transition:all 0.3s;" onmouseover="this.style.background='rgba(201,168,76,0.2)'" onmouseout="this.style.background='rgba(201,168,76,0.1)'">
-            <i class="fab fa-${s}"></i>
-          </a>`).join('')}
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <img src="https://www.genspark.ai/api/files/s/V5SAM1nc" alt="ALIV FEST" style="height:36px;filter:drop-shadow(0 0 10px rgba(201,168,76,0.35));"/>
+        <p>The Cultural Playground of December in Accra. An 18-night destination experience built on joy, community and world-class culture.</p>
+        <div class="social-row">
+          <a href="#" class="soc"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="soc"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="soc"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="soc"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
 
-      <div>
-        <h4 style="font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem;">Navigate</h4>
-        <div style="display:flex; flex-direction:column; gap:0.75rem;">
-          ${['About', 'Experience Zones', 'Programming', 'Sponsorship', 'Early Access'].map(l => `
-          <a href="#${l.toLowerCase().replace(/ /g,'-')}" style="color:var(--text-muted); text-decoration:none; font-size:0.9rem; transition:color 0.3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--text-muted)'">${l}</a>`).join('')}
-        </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="#about">About</a>
+        <a href="#zones">Experience Zones</a>
+        <a href="#programming">Programming</a>
+        <a href="#sponsors">Sponsorship</a>
+        <a href="#access">Early Access</a>
       </div>
 
-      <div>
-        <h4 style="font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem;">Event Info</h4>
-        <div style="display:flex; flex-direction:column; gap:0.75rem;">
-          <p style="color:var(--text-muted); font-size:0.9rem;">Dec 17, 2026 — Jan 3, 2027</p>
-          <p style="color:var(--text-muted); font-size:0.9rem;">Accra, Ghana</p>
-          <p style="color:var(--text-muted); font-size:0.9rem;">Black Star Square</p>
-          <p style="color:var(--text-muted); font-size:0.9rem;">Ages 21+</p>
-        </div>
+      <div class="footer-col">
+        <h5>Event</h5>
+        <p>Dec 17, 2026 — Jan 3, 2027</p>
+        <p>Accra, Ghana</p>
+        <p>Black Star Square</p>
+        <p>Ages 21+</p>
       </div>
 
-      <div>
-        <h4 style="font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem;">Contact</h4>
-        <div style="display:flex; flex-direction:column; gap:0.75rem;">
-          <a href="mailto:hello@alivfest.com" style="color:var(--text-muted); text-decoration:none; font-size:0.9rem; transition:color 0.3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--text-muted)'">hello@alivfest.com</a>
-          <a href="mailto:sponsors@alivfest.com" style="color:var(--text-muted); text-decoration:none; font-size:0.9rem; transition:color 0.3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--text-muted)'">sponsors@alivfest.com</a>
-          <a href="mailto:press@alivfest.com" style="color:var(--text-muted); text-decoration:none; font-size:0.9rem; transition:color 0.3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--text-muted)'">press@alivfest.com</a>
-        </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:hello@alivfest.com">hello@alivfest.com</a>
+        <a href="mailto:sponsors@alivfest.com">sponsors@alivfest.com</a>
+        <a href="mailto:press@alivfest.com">press@alivfest.com</a>
       </div>
     </div>
 
-    <div style="border-top:1px solid rgba(201,168,76,0.1); padding-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-      <p style="color:var(--text-muted); font-size:0.8rem;">© 2026 ALIV. All rights reserved. Confidential & Proprietary.</p>
-      <p style="color:var(--text-muted); font-size:0.8rem;">Prepared by Shannon Fernandez, Co-Founder</p>
+    <div class="footer-bottom">
+      <p>© 2026 ALIV. All rights reserved. Confidential & Proprietary.</p>
+      <p>Prepared by Shannon Fernandez, Co-Founder</p>
     </div>
   </div>
 </footer>
 
-<!-- ============================================================
-     RESPONSIVE CSS
-============================================================ -->
-<style>
-  @media (max-width: 768px) {
-    .hidden-mobile { display: none !important; }
-    .show-mobile { display: block !important; }
-    .responsive-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-    .responsive-grid-3 { grid-template-columns: 1fr !important; }
-    [data-wide="true"] { grid-column: span 1 !important; }
-    .stat-card { border-right: none !important; border-bottom: 1px solid rgba(201,168,76,0.1) !important; }
-    .footer-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-    section { padding: 4rem 1.25rem !important; }
-  }
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
-  }
-</style>
-
-<!-- ============================================================
-     SCRIPTS
-============================================================ -->
+<!-- ══ SCRIPTS ══ -->
 <script>
-  // ---- Navbar scroll ----
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) navbar.classList.add('scrolled');
-    else navbar.classList.remove('scrolled');
-  });
+// Navbar
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
 
-  // ---- Mobile menu ----
-  document.getElementById('hamburger').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.add('open');
-  });
-  document.getElementById('menu-close').addEventListener('click', closeMobileMenu);
-  function closeMobileMenu() {
-    document.getElementById('mobile-menu').classList.remove('open');
-  }
+// Mobile menu
+document.getElementById('hamburger').onclick=()=>document.getElementById('mob-menu').classList.add('open');
+document.getElementById('mob-close').onclick=closeMob;
+function closeMob(){document.getElementById('mob-menu').classList.remove('open');}
 
-  // ---- Countdown ----
-  function updateCountdown() {
-    const target = new Date('2026-12-17T18:00:00').getTime();
-    const now = Date.now();
-    const diff = target - now;
-    if (diff <= 0) {
-      document.getElementById('countdown').innerHTML = '<div class="countdown-box"><p style="color:var(--gold); font-family:Bebas Neue,sans-serif; font-size:2rem; letter-spacing:0.1em;">ITS HAPPENING NOW!</p></div>';
-      return;
+// Countdown
+(function tick(){
+  const end=new Date('2026-12-17T18:00:00').getTime();
+  const d=end-Date.now();
+  if(d<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>{document.getElementById(id).textContent='00';});return;}
+  document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(3,'0');
+  document.getElementById('cd-h').textContent=String(Math.floor(d%86400000/3600000)).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(Math.floor(d%3600000/60000)).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(Math.floor(d%60000/1000)).padStart(2,'0');
+  setTimeout(tick,1000);
+})();
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.12});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
+
+// Signup form
+document.getElementById('sf').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=document.getElementById('fn').value;
+  const email=document.getElementById('fe').value;
+  const btn=document.getElementById('sbt');
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>&nbsp;Joining...';
+  try{
+    const r=await fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email})});
+    const data=await r.json();
+    if(data.success){
+      document.getElementById('sf').style.display='none';
+      document.getElementById('sm').textContent=data.message;
+      document.getElementById('sb').style.display='block';
+    }else{
+      btn.innerHTML='<i class="fas fa-ticket-alt"></i>&nbsp;Join the Early Access List';
+      alert(data.message);
     }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = String(d).padStart(3, '0');
-    document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
-    document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
-    document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+  }catch{
+    btn.innerHTML='<i class="fas fa-ticket-alt"></i>&nbsp;Join the Early Access List';
+    alert('Something went wrong. Please try again.');
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  // ---- Scroll animations ----
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // ---- Signup form ----
-  document.getElementById('signup-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = document.getElementById('signup-name').value;
-    const email = document.getElementById('signup-email').value;
-    const btn = document.getElementById('signup-btn-text');
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:0.5rem;"></i>Joining...';
-    try {
-      const res = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email })
-      });
-      const data = await res.json();
-      if (data.success) {
-        document.getElementById('signup-form').style.display = 'none';
-        const successEl = document.getElementById('signup-success');
-        document.getElementById('signup-success-msg').textContent = data.message;
-        successEl.style.display = 'block';
-      } else {
-        btn.innerHTML = '<i class="fas fa-ticket-alt" style="margin-right:0.5rem;"></i>Join the Early Access List';
-        alert(data.message);
-      }
-    } catch {
-      btn.innerHTML = '<i class="fas fa-ticket-alt" style="margin-right:0.5rem;"></i>Join the Early Access List';
-      alert('Something went wrong. Please try again.');
-    }
-  });
+});
 </script>
 
 </body>
