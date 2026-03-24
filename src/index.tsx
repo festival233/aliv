@@ -845,7 +845,7 @@ footer{
       <a href="#comealiv" class="na">Come ALIV</a>
       <a href="#vip"      class="na">VIP Society</a>
       <a href="#shop"     class="na">Drip Shop</a>
-      <a href="#bealiv"   class="na">Be ALIV</a>
+      <a href="#bealiv"   class="na">Become ALIV</a>
       <a href="#access"   class="nbtn">Early Access</a>
     </div>
     <button id="hbg"><i class="fas fa-bars"></i></button>
@@ -860,7 +860,7 @@ footer{
   <a href="#comealiv" class="ml" onclick="cM()">Come ALIV</a>
   <a href="#vip"      class="ml" onclick="cM()">VIP Society</a>
   <a href="#shop"     class="ml" onclick="cM()">Drip Shop</a>
-  <a href="#bealiv"   class="ml" onclick="cM()">Be ALIV</a>
+  <a href="#bealiv"   class="ml" onclick="cM()">Become ALIV</a>
   <a href="#access"   class="ml" onclick="cM()" style="color:var(--g3);">Early Access</a>
 </div>
 
@@ -1304,7 +1304,7 @@ footer{
           <a href="#comealiv">Come ALIV</a>
           <a href="#vip">VIP Society</a>
           <a href="#shop">Drip Shop</a>
-          <a href="#bealiv">Be ALIV</a>
+          <a href="#bealiv">Become ALIV</a>
         </div>
       </div>
       <div>
