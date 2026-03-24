@@ -15,6 +15,18 @@ app.post('/api/signup', async (c) => {
   return c.json({ success: true, message: "You are on the list! See you in Accra." })
 })
 
+app.post('/api/vendor', async (c) => {
+  const body = await c.req.json()
+  const { business_name, contact_name, email, phone, category, description } = body
+  if (!email || !email.includes('@')) {
+    return c.json({ success: false, message: 'Please enter a valid email address.' }, 400)
+  }
+  if (!business_name || !contact_name) {
+    return c.json({ success: false, message: 'Business name and contact name are required.' }, 400)
+  }
+  return c.json({ success: true, message: "Thank you! Your vendor application has been received. Our team will be in touch." })
+})
+
 function homePage(): string {
   return /* html */`<!DOCTYPE html>
 <html lang="en">
@@ -581,6 +593,73 @@ body::after{
 .smsg p{font-size:.83rem;color:var(--cream);}
 
 /* ═══════════════════════════════════════
+   SECTION: BECOME A VENDOR
+═══════════════════════════════════════ */
+#vendor{background:var(--bg2);padding:8rem 0;position:relative;overflow:hidden;}
+#vendor::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(200,148,10,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.vd-inner{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 2rem;}
+.vd-hd{text-align:center;margin-bottom:4rem;}
+.vd-sub{
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--g3);margin-bottom:1.2rem;
+}
+.vd-sub::before,.vd-sub::after{content:'';display:block;width:28px;height:1px;background:var(--g2);}
+.vd-intro{
+  font-size:.9rem;color:rgba(245,237,216,.6);line-height:1.8;
+  max-width:560px;margin:0 auto;
+}
+.vd-cats{
+  display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:2rem 0 3rem;
+}
+.vd-cat{
+  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--g3);border:1px solid rgba(200,148,10,.22);
+  border-radius:2px;padding:.4rem .9rem;
+  background:rgba(200,148,10,.04);
+}
+.vd-form{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(200,148,10,.14);
+  border-radius:6px;padding:3rem 2.5rem;
+}
+.vd-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;}
+.vd-full{margin-bottom:1.2rem;}
+.vd-label{
+  display:block;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.45rem;
+}
+.vd-select{
+  width:100%;appearance:none;
+  background:rgba(255,255,255,.04) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C9940A'/%3E%3C/svg%3E") no-repeat right 1.1rem center;
+  border:1px solid rgba(200,148,10,.15);border-radius:3px;
+  color:var(--cream);font-family:'Montserrat',sans-serif;
+  font-size:.86rem;padding:.9rem 1.2rem;
+  transition:border-color .3s,background .3s;outline:none;cursor:pointer;
+}
+.vd-select:focus{border-color:rgba(200,148,10,.5);background-color:rgba(200,148,10,.04);}
+.vd-select option{background:#1A0E06;color:var(--cream);}
+.vd-textarea{resize:vertical;min-height:110px;line-height:1.6;}
+.vd-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:1.4rem;letter-spacing:.04em;}
+.vd-msg{
+  display:none;padding:1.4rem;
+  background:rgba(200,148,10,.08);border:1px solid rgba(200,148,10,.28);
+  border-radius:4px;gap:.8rem;align-items:center;justify-content:center;
+  margin-top:1.5rem;
+}
+.vd-msg.on{display:flex;}
+.vd-msg i{color:var(--g4);font-size:1.15rem;}
+.vd-msg p{font-size:.84rem;color:var(--cream);line-height:1.5;}
+@media(max-width:640px){
+  .vd-row{grid-template-columns:1fr;}
+  .vd-form{padding:2rem 1.4rem;}
+}
+
+/* ═══════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════ */
 footer{
@@ -722,10 +801,7 @@ footer{
           <i class="fas fa-map-marker-alt"></i>
           <p>Accra, Ghana — an iconic landmark in the heart of the city, opening December 17, 2026.</p>
         </div>
-        <div class="ab-pill" style="margin-top:.75rem;">
-          <i class="fas fa-users"></i>
-          <p>Experience-driven guests ages 21–45 · Local residents, diaspora travellers &amp; international visitors.</p>
-        </div>
+
       </div>
 
       <!-- Text -->
@@ -897,13 +973,80 @@ footer{
       <div class="ptcard ${t.top?'top':''} reveal" style="transition-delay:${i*.1}s;">
         <div class="ptav">${t.av}</div>
         <div class="ptnm">${t.nm}</div>
-        <ul class="ptperks">
-          ${t.pk.map(p=>`<li><i class="fas fa-check"></i>${p}</li>`).join('')}
-        </ul>
       </div>`).join('')}
     </div>
     <div style="text-align:center;margin-top:3rem;" class="reveal">
       <a href="mailto:sponsors@alivfest.com" class="btng"><i class="fas fa-handshake"></i> Become a Partner</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BECOME A VENDOR ══════════ -->
+<section id="vendor">
+  <div class="vd-inner">
+    <div class="vd-hd">
+      <div class="vd-sub">Partnerships</div>
+      <h2 class="sh reveal">Become a <span class="gold">Vendor</span></h2>
+      <div class="sr c reveal"></div>
+      <p class="vd-intro reveal">
+        Join the ALIV FEST marketplace. We welcome curated food, beverage, lifestyle and artisan vendors who share our commitment to quality, culture and unforgettable guest experiences.
+      </p>
+      <div class="vd-cats reveal">
+        <span class="vd-cat"><i class="fas fa-utensils"></i>&nbsp; Food &amp; Beverage</span>
+        <span class="vd-cat"><i class="fas fa-tshirt"></i>&nbsp; Fashion &amp; Lifestyle</span>
+        <span class="vd-cat"><i class="fas fa-paint-brush"></i>&nbsp; Art &amp; Craft</span>
+        <span class="vd-cat"><i class="fas fa-spa"></i>&nbsp; Beauty &amp; Wellness</span>
+        <span class="vd-cat"><i class="fas fa-box-open"></i>&nbsp; Brand Activation</span>
+      </div>
+    </div>
+
+    <div class="vd-form reveal">
+      <form id="vf">
+        <div class="vd-row">
+          <div>
+            <label class="vd-label" for="vbn">Business Name</label>
+            <input type="text" id="vbn" class="fi" placeholder="e.g. Accra Jollof Co." required/>
+          </div>
+          <div>
+            <label class="vd-label" for="vcn">Contact Name</label>
+            <input type="text" id="vcn" class="fi" placeholder="Your full name" required/>
+          </div>
+        </div>
+        <div class="vd-row">
+          <div>
+            <label class="vd-label" for="vem">Email Address</label>
+            <input type="email" id="vem" class="fi" placeholder="you@yourbrand.com" required/>
+          </div>
+          <div>
+            <label class="vd-label" for="vph">Phone Number</label>
+            <input type="tel" id="vph" class="fi" placeholder="+233 …"/>
+          </div>
+        </div>
+        <div class="vd-full">
+          <label class="vd-label" for="vcat">Vendor Category</label>
+          <select id="vcat" class="fi vd-select" required>
+            <option value="" disabled selected>Select a category</option>
+            <option value="food">Food &amp; Beverage</option>
+            <option value="fashion">Fashion &amp; Lifestyle</option>
+            <option value="art">Art &amp; Craft</option>
+            <option value="beauty">Beauty &amp; Wellness</option>
+            <option value="brand">Brand Activation</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="vd-full">
+          <label class="vd-label" for="vdesc">Tell Us About Your Business</label>
+          <textarea id="vdesc" class="fi vd-textarea" placeholder="Briefly describe your products or services and why you would be a great fit for ALIV FEST…"></textarea>
+        </div>
+        <button type="submit" class="btng" style="width:100%;justify-content:center;">
+          <span id="vbt"><i class="fas fa-store"></i>&nbsp;Submit Vendor Application</span>
+        </button>
+      </form>
+      <div class="vd-msg" id="vd-msg">
+        <i class="fas fa-check-circle"></i>
+        <p id="vd-txt"></p>
+      </div>
+      <p class="vd-note">Applications are reviewed on a rolling basis. Our team will contact shortlisted vendors directly.</p>
     </div>
   </div>
 </section>
@@ -961,6 +1104,7 @@ footer{
         <div class="fth">Partners</div>
         <div class="ftlinks">
           <a href="#partner">Sponsorship</a>
+          <a href="#vendor">Become a Vendor</a>
           <a href="mailto:sponsors@alivfest.com">Sponsorship Enquiry</a>
         </div>
       </div>
@@ -1017,7 +1161,7 @@ function cM(){document.getElementById('mmenu').classList.remove('open');}
   document.querySelectorAll('.reveal,.rl,.rr').forEach(function(el){o.observe(el);});
 })();
 
-/* ── Form ── */
+/* ── Early Access Form ── */
 document.getElementById('sf').addEventListener('submit',async function(e){
   e.preventDefault();
   var b=document.getElementById('sbt');
@@ -1038,6 +1182,38 @@ document.getElementById('sf').addEventListener('submit',async function(e){
     }
   }catch(err){
     b.innerHTML='<i class="fas fa-ticket-alt"></i>&nbsp;Join the Early Access List';
+    alert('Network error. Please try again.');
+  }
+});
+
+/* ── Vendor Application Form ── */
+document.getElementById('vf').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var b=document.getElementById('vbt');
+  b.innerHTML='<i class="fas fa-spinner fa-spin"></i>&nbsp;Submitting...';
+  try{
+    var r=await fetch('/api/vendor',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        business_name:document.getElementById('vbn').value,
+        contact_name:document.getElementById('vcn').value,
+        email:document.getElementById('vem').value,
+        phone:document.getElementById('vph').value,
+        category:document.getElementById('vcat').value,
+        description:document.getElementById('vdesc').value
+      })
+    });
+    var vdata=await r.json();
+    if(vdata.success){
+      document.getElementById('vf').style.display='none';
+      document.getElementById('vd-txt').textContent=vdata.message;
+      document.getElementById('vd-msg').classList.add('on');
+    }else{
+      b.innerHTML='<i class="fas fa-store"></i>&nbsp;Submit Vendor Application';
+      alert(vdata.message||'Please try again.');
+    }
+  }catch(err){
+    b.innerHTML='<i class="fas fa-store"></i>&nbsp;Submit Vendor Application';
     alert('Network error. Please try again.');
   }
 });
