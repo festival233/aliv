@@ -189,82 +189,130 @@ body::after{
 ═══════════════════════════════════════ */
 #hero{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;background:var(--bg0);
+  position:relative;overflow:hidden;
+  background:#050200;
 }
-/* radial warm brown bg matching brand */
+/* Deep dark base */
 .hbg{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 90% at 50% 50%, #2A1204 0%, #180902 35%, #0E0703 70%, #050200 100%);
+    radial-gradient(ellipse 100% 70% at 50% 100%, #1a0800 0%, #0a0300 40%, #050200 100%);
 }
-/* gold aurora top */
+/* Fire glow rising from bottom centre */
 .haur{
-  position:absolute;top:0;left:0;right:0;height:65%;
-  background:
-    radial-gradient(ellipse 90% 55% at 50% 0%,rgba(200,148,10,.14) 0%,transparent 70%),
-    radial-gradient(ellipse 45% 30% at 20% 0%,rgba(232,192,64,.06) 0%,transparent 65%),
-    radial-gradient(ellipse 45% 30% at 80% 0%,rgba(200,148,10,.06) 0%,transparent 65%);
-  animation:aur 14s ease-in-out infinite alternate;
-}
-@keyframes aur{0%{opacity:.7;}100%{opacity:1;transform:scaleX(1.05);}}
-/* sparkle dust */
-.hdust{
   position:absolute;inset:0;
   background:
-    radial-gradient(1.5px 1.5px at 7%  12%, rgba(255,224,96,.9) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 19% 28%, rgba(255,240,140,.5) 0%,transparent 100%),
-    radial-gradient(2px   2px   at 33%  6%, rgba(255,224,96,.8) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 46% 18%, rgba(255,248,180,.7) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 59%  9%, rgba(255,224,96,.7) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 71% 35%, rgba(255,240,140,.5) 0%,transparent 100%),
-    radial-gradient(2px   2px   at 83% 14%, rgba(255,224,96,.9) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 92% 27%, rgba(255,248,180,.6) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 13% 58%, rgba(255,224,96,.35) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 27% 73%, rgba(255,240,140,.4) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 54% 66%, rgba(255,224,96,.35) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 68% 80%, rgba(255,240,140,.4) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 86% 63%, rgba(255,224,96,.45) 0%,transparent 100%),
-    radial-gradient(1px   1px   at 94% 81%, rgba(255,248,180,.45) 0%,transparent 100%);
-  animation:twk 7s ease-in-out infinite alternate;
+    radial-gradient(ellipse 70% 55% at 50% 85%, rgba(200,80,0,.55) 0%, rgba(160,50,0,.25) 35%, transparent 70%),
+    radial-gradient(ellipse 45% 35% at 50% 90%, rgba(255,140,0,.35) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 30% at 50% 100%, rgba(180,60,0,.3) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 25% at 20% 75%, rgba(200,100,0,.15) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 25% at 80% 75%, rgba(200,100,0,.15) 0%, transparent 55%);
+  animation:fire 5s ease-in-out infinite alternate;
 }
-@keyframes twk{0%{opacity:.5;}50%{opacity:1;}100%{opacity:.55;}}
+@keyframes fire{
+  0%{opacity:.75;transform:scaleY(1);}
+  50%{opacity:1;transform:scaleY(1.04);}
+  100%{opacity:.8;transform:scaleY(.97);}
+}
+/* Lightning streaks */
+.hdust{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    /* ember particles */
+    radial-gradient(1.5px 1.5px at 8%  15%, rgba(255,180,50,.95) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 15% 35%, rgba(255,140,30,.7)  0%,transparent 100%),
+    radial-gradient(2px   2px   at 25%  8%, rgba(255,200,80,.85) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 38% 22%, rgba(255,160,40,.75) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 52%  5%, rgba(255,180,50,.9)  0%,transparent 100%),
+    radial-gradient(1px   1px   at 63% 40%, rgba(255,140,30,.6)  0%,transparent 100%),
+    radial-gradient(2px   2px   at 74% 12%, rgba(255,200,80,.9)  0%,transparent 100%),
+    radial-gradient(1px   1px   at 88% 30%, rgba(255,160,40,.7)  0%,transparent 100%),
+    radial-gradient(1px   1px   at 10% 60%, rgba(255,120,20,.4)  0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 30% 75%, rgba(255,180,50,.45) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 55% 68%, rgba(255,140,30,.4)  0%,transparent 100%),
+    radial-gradient(1px   1px   at 70% 82%, rgba(255,160,40,.45) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 65%, rgba(255,180,50,.5)  0%,transparent 100%),
+    radial-gradient(1px   1px   at 45% 88%, rgba(255,200,80,.5)  0%,transparent 100%),
+    /* lightning streaks — diagonal lines via thin gradients */
+    linear-gradient(125deg, transparent 30%, rgba(255,220,120,.06) 47%, rgba(255,255,200,.18) 48%, rgba(255,220,120,.06) 49%, transparent 65%),
+    linear-gradient(115deg, transparent 55%, rgba(255,200,100,.04) 68%, rgba(255,240,180,.12) 69%, rgba(255,200,100,.04) 70%, transparent 80%),
+    linear-gradient(135deg, transparent 10%, rgba(255,220,120,.03) 22%, rgba(255,255,200,.1)  23%, rgba(255,220,120,.03) 24%, transparent 38%);
+  animation:embers 6s ease-in-out infinite alternate;
+}
+@keyframes embers{
+  0%{opacity:.55;}
+  40%{opacity:1;}
+  70%{opacity:.75;}
+  100%{opacity:.6;}
+}
+/* Lightning bolt flash animation */
+.hbg::after{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    linear-gradient(128deg, transparent 38%, rgba(255,230,140,.0) 46%, rgba(255,240,180,.22) 47%, rgba(255,230,140,.0) 48%, transparent 58%),
+    linear-gradient(112deg, transparent 58%, rgba(255,220,120,.0) 66%, rgba(255,240,180,.15) 67%, rgba(255,220,120,.0) 68%, transparent 76%);
+  animation:bolt 8s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes bolt{
+  0%,100%{opacity:0;}
+  8%{opacity:1;}
+  10%{opacity:0;}
+  12%{opacity:.7;}
+  14%{opacity:0;}
+  60%{opacity:0;}
+  68%{opacity:.8;}
+  70%{opacity:0;}
+  72%{opacity:.5;}
+  74%{opacity:0;}
+}
+/* floor reflection */
+.hfloor{
+  position:absolute;bottom:0;left:0;right:0;height:35%;
+  background:linear-gradient(180deg,transparent 0%,rgba(180,60,0,.08) 40%,rgba(100,30,0,.18) 100%);
+  backdrop-filter:blur(2px);
+}
 
 .hin{
   position:relative;z-index:2;text-align:center;
-  padding:10rem 2rem 5rem;
+  padding:10rem 2rem 6rem;
   display:flex;flex-direction:column;align-items:center;
 }
 /* logo halo */
-.lhalo{position:relative;display:inline-block;margin-bottom:2.8rem;}
+.lhalo{position:relative;display:inline-block;margin-bottom:2.4rem;}
 .lhalo::before{
-  content:'';position:absolute;inset:-50px;
-  background:radial-gradient(ellipse 85% 55% at 50% 65%,rgba(200,148,10,.32) 0%,transparent 70%);
+  content:'';position:absolute;inset:-60px;
+  background:radial-gradient(ellipse 85% 50% at 50% 70%,rgba(220,100,10,.45) 0%,rgba(180,60,0,.2) 50%,transparent 75%);
   animation:hp 4s ease-in-out infinite;
 }
-@keyframes hp{0%,100%{opacity:.6;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
+@keyframes hp{0%,100%{opacity:.7;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
 .hlogo{
-  width:min(640px,90vw);
+  width:min(680px,92vw);
   height:auto;
-  filter:drop-shadow(0 0 35px rgba(200,148,10,.7)) drop-shadow(0 0 70px rgba(200,148,10,.3));
-  animation:fl 8s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 40px rgba(220,120,10,.85))
+    drop-shadow(0 0 80px rgba(200,80,0,.5))
+    drop-shadow(0 8px 30px rgba(0,0,0,.9));
+  animation:fl 7s ease-in-out infinite;
   position:relative;z-index:1;display:block;
 }
-@keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+@keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 /* thin gold divider */
 .hdiv{
-  width:220px;height:1px;margin:0 auto 1.8rem;
-  background:linear-gradient(90deg,transparent,rgba(200,148,10,.3),var(--g4),rgba(200,148,10,.3),transparent);
+  width:260px;height:1px;margin:0 auto 2rem;
+  background:linear-gradient(90deg,transparent,rgba(220,120,10,.4),rgba(255,200,80,.8),rgba(220,120,10,.4),transparent);
   position:relative;
 }
 .hdiv::before,.hdiv::after{
   content:'✦';position:absolute;top:50%;transform:translateY(-50%);
-  font-size:.5rem;color:var(--g3);opacity:.7;
+  font-size:.5rem;color:rgba(255,180,50,.8);opacity:.9;
 }
 .hdiv::before{left:-14px;}
 .hdiv::after{right:-14px;}
 .htag{
   font-size:clamp(.54rem,1.3vw,.73rem);letter-spacing:.55em;text-transform:uppercase;
-  color:var(--g3);margin-bottom:.8rem;font-weight:500;
+  color:rgba(255,180,60,.85);margin-bottom:.8rem;font-weight:500;
 }
 .hdate{
   font-family:'Cormorant Garamond',serif;
@@ -273,7 +321,7 @@ body::after{
 }
 .hloc{
   font-size:clamp(.62rem,1.3vw,.78rem);letter-spacing:.42em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:3rem;
+  color:rgba(245,237,216,.45);margin-bottom:3rem;
 }
 /* countdown */
 .cdw{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
@@ -334,12 +382,36 @@ body::after{
 }
 
 /* ═══════════════════════════════════════
+   INFO STRIP (below hero)
+═══════════════════════════════════════ */
+.infostrip{
+  background:#0a0400;
+  border-top:1px solid rgba(200,100,10,.2);
+  border-bottom:1px solid rgba(200,100,10,.2);
+  padding:1.1rem 2rem;
+  display:flex;align-items:center;justify-content:center;
+  gap:0;flex-wrap:wrap;
+  letter-spacing:.28em;text-transform:uppercase;
+  font-size:.62rem;font-weight:500;color:rgba(245,237,216,.65);
+}
+.infostrip span{
+  padding:0 1.6rem;
+  display:inline-flex;align-items:center;gap:.6rem;
+  white-space:nowrap;
+}
+.infostrip .idot{
+  display:inline-block;width:3px;height:3px;
+  background:rgba(220,120,10,.6);border-radius:50%;
+  margin:0;
+}
+
+/* ═══════════════════════════════════════
    TICKER
 ═══════════════════════════════════════ */
 .ticker{
-  background:rgba(200,148,10,.05);
-  border-top:1px solid rgba(200,148,10,.14);
-  border-bottom:1px solid rgba(200,148,10,.14);
+  background:rgba(200,80,0,.06);
+  border-top:1px solid rgba(200,100,10,.12);
+  border-bottom:1px solid rgba(200,100,10,.12);
   padding:.85rem 0;overflow:hidden;
 }
 .ttrack{
@@ -350,9 +422,9 @@ body::after{
 .ti{
   display:inline-flex;align-items:center;gap:2rem;padding:0 2.5rem;
   font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--g3);font-weight:600;
+  color:rgba(220,130,30,.9);font-weight:600;
 }
-.ti::after{content:'✦';font-size:.44rem;color:rgba(200,148,10,.35);}
+.ti::after{content:'✦';font-size:.44rem;color:rgba(200,80,10,.5);}
 @keyframes tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
 /* ═══════════════════════════════════════
@@ -409,58 +481,85 @@ body::after{
    SECTION: EXPERIENCE ZONES
 ═══════════════════════════════════════ */
 #zones{
-  padding:8rem 0;background:var(--bg1);
+  padding:7rem 0 8rem;background:#070300;
   position:relative;overflow:hidden;
 }
-.znhd{text-align:center;margin-bottom:4rem;}
+#zones::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(180,60,0,.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.znhd{
+  text-align:center;margin-bottom:4.5rem;
+}
+.znhd .exp-heading{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.8rem,6vw,5rem);
+  font-weight:400;color:#fff;letter-spacing:-.01em;
+  margin-bottom:.6rem;line-height:1.1;
+}
+.znhd .exp-sub{
+  font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(245,237,216,.4);font-weight:400;
+}
+/* 5-card icon row */
 .zn-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:2px;
+  grid-template-columns:repeat(5,1fr);
+  gap:1px;
+  background:rgba(200,100,10,.12);
+  border:1px solid rgba(200,100,10,.15);
 }
 .zcard{
-  background:var(--bg2);
-  padding:2.5rem 2rem;
-  border:1px solid rgba(200,148,10,.06);
+  background:#0c0401;
+  padding:2.2rem 1.4rem 2rem;
+  border:none;
   transition:all .4s cubic-bezier(.16,1,.3,1);
   position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
 }
 .zcard::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(200,148,10,.4),transparent);
-  transform:scaleX(0);transition:transform .4s;
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(220,100,10,.06) 0%,transparent 70%);
+  opacity:0;transition:opacity .4s;
 }
-.zcard:hover::before{transform:scaleX(1);}
-.zcard:hover{background:var(--bg3);border-color:rgba(200,148,10,.15);transform:translateY(-4px);}
+.zcard:hover::before{opacity:1;}
+.zcard:hover{background:#110500;box-shadow:inset 0 0 0 1px rgba(220,120,10,.28);transform:translateY(-3px);}
 .zcard.feat{
-  grid-column:span 2;
-  background:linear-gradient(135deg,var(--bg2),var(--bg3));
-  border-color:rgba(200,148,10,.18);
+  background:#0e0401;
+  box-shadow:inset 0 0 0 1px rgba(220,120,10,.22);
 }
-.zcard.feat::before{background:linear-gradient(90deg,var(--g1),var(--g4),var(--g1));transform:scaleX(1);}
-.znum{
-  font-family:'Bebas Neue',sans-serif;font-size:4rem;line-height:1;
-  color:rgba(200,148,10,.12);margin-bottom:.9rem;transition:color .4s;
+.zcard.feat::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(220,140,20,.7),transparent);
 }
-.zcard:hover .znum{color:rgba(200,148,10,.22);}
+.znum{display:none;}
 .zico{
-  width:52px;height:52px;border-radius:50%;margin-bottom:1.2rem;
-  background:rgba(200,148,10,.12);
-  border:1px solid rgba(200,148,10,.22);
+  width:56px;height:56px;border-radius:4px;margin-bottom:1.1rem;
+  background:rgba(200,80,10,.1);
+  border:1px solid rgba(220,120,10,.25);
   display:flex;align-items:center;justify-content:center;
-  color:var(--g3);font-size:1.1rem;
+  color:rgba(220,140,30,.9);font-size:1.25rem;
+  box-shadow:0 0 18px rgba(200,80,10,.15);
+  transition:all .4s;
 }
-.zico.lg{width:64px;height:64px;font-size:1.5rem;}
+.zcard:hover .zico{
+  background:rgba(200,80,10,.18);
+  box-shadow:0 0 28px rgba(200,80,10,.35);
+  color:#ffb347;
+}
+.zico.lg{width:56px;height:56px;font-size:1.25rem;}
 .zname{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.45rem;font-weight:600;margin-bottom:.7rem;line-height:1.3;
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(220,140,30,.95);margin-bottom:.6rem;line-height:1.4;
 }
-.zdesc{font-size:.82rem;color:rgba(245,237,216,.48);line-height:1.8;margin-bottom:1.2rem;font-weight:300;}
-.ztags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.zdesc{font-size:.76rem;color:rgba(245,237,216,.42);line-height:1.7;margin-bottom:.8rem;font-weight:300;}
+.ztags{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;}
 .ztag{
-  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:.28rem .65rem;border-radius:20px;
-  border:1px solid rgba(200,148,10,.2);color:var(--g3);font-weight:500;
+  font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.22rem .55rem;border-radius:2px;
+  border:1px solid rgba(200,100,10,.2);color:rgba(220,130,30,.7);font-weight:500;
 }
 
 /* ═══════════════════════════════════════
@@ -817,19 +916,22 @@ footer{
 ═══════════════════════════════════════ */
 @media(max-width:1024px){
   .ab-grid,.ev-grid{grid-template-columns:1fr!important;}
-  .zn-grid{grid-template-columns:1fr 1fr!important;}
-  .zcard.feat{grid-column:span 2!important;}
+  .zn-grid{grid-template-columns:repeat(3,1fr)!important;}
   .pt-grid{grid-template-columns:1fr 1fr!important;}
   .ftgrid{grid-template-columns:1fr 1fr!important;}
+  .infostrip{gap:.5rem;}
 }
 @media(max-width:768px){
   .nlinks{display:none;}
   #hbg{display:block;}
-  .zn-grid{grid-template-columns:1fr!important;}
-  .zcard.feat{grid-column:span 1!important;}
+  .zn-grid{grid-template-columns:1fr 1fr!important;}
   .pt-grid{grid-template-columns:1fr!important;}
   .ftgrid{grid-template-columns:1fr!important;}
   .ab-vis{display:none;}
+  .infostrip span{padding:0 .8rem;font-size:.55rem;}
+}
+@media(max-width:480px){
+  .zn-grid{grid-template-columns:1fr!important;}
 }
 </style>
 </head>
@@ -869,6 +971,7 @@ footer{
   <div class="hbg"></div>
   <div class="haur"></div>
   <div class="hdust"></div>
+  <div class="hfloor"></div>
 
   <div class="hin">
     <div class="lhalo">
@@ -897,6 +1000,17 @@ footer{
     <div class="sline"></div>
   </div>
 </section>
+
+<!-- INFO STRIP -->
+<div class="infostrip">
+  <span>December 17 &ndash; January 4</span>
+  <span class="idot"></span>
+  <span>Multiple Stages</span>
+  <span class="idot"></span>
+  <span>5 Curated Villages</span>
+  <span class="idot"></span>
+  <span>VIP Society</span>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -960,54 +1074,45 @@ footer{
 <div id="comealiv"></div>
 <section id="zones">
   <div class="container" style="position:relative;z-index:1;">
-    <div class="znhd">
-      <span class="slbl">The World of ALIV</span>
-      <h2 class="sh">5 Distinct <span class="gold">Experience Zones</span></h2>
-      <div class="sr c"></div>
-      <p class="sc" style="max-width:500px;margin:0 auto;">Each zone is its own universe. Explore them all — or find your favourite corner of ALIV.</p>
+    <div class="znhd reveal">
+      <h2 class="exp-heading">The Experience.</h2>
+      <p class="exp-sub">Curated moments from day to night.</p>
     </div>
     <div class="zn-grid">
 
-      <div class="zcard feat reveal">
-        <div class="znum">01</div>
-        <div class="zico lg"><i class="fas fa-music"></i></div>
-        <h3 class="zname">Main DJ Stage <span class="gold">+ VIP Area</span></h3>
-        <p class="zdesc">The nightlife hub — world-class DJ sets, premium sound &amp; lighting, and a nightclub atmosphere under the open Accra sky. VIP cabanas and bottle service all night long.</p>
-        <div class="ztags">
-          ${['DJ Performances','Dance Competitions','VIP Cabanas','Bottle Service','Elevated Viewing Decks'].map(t=>`<span class="ztag">${t}</span>`).join('')}
-        </div>
-      </div>
-
-      <div class="zcard reveal d1">
-        <div class="znum">02</div>
-        <div class="zico"><i class="fas fa-hat-wizard"></i></div>
-        <h3 class="zname">Carnival Zone</h3>
-        <p class="zdesc">Rides, skill games and immersive attractions unlike anything in West Africa.</p>
-        <div class="ztags">${['Carnival Rides','Skill Games','Immersive Attractions'].map(t=>`<span class="ztag">${t}</span>`).join('')}</div>
-      </div>
-
-      <div class="zcard reveal d2">
-        <div class="znum">03</div>
+      <div class="zcard reveal">
         <div class="zico"><i class="fas fa-utensils"></i></div>
         <h3 class="zname">Food Village</h3>
-        <p class="zdesc">Curated vendors, communal seating, dessert stations and a vibrant bar programme — the culinary heartbeat of ALIV.</p>
+        <p class="zdesc">Exquisite cuisine from around the world</p>
         <div class="ztags">${['Curated Vendors','Bar Programme','Battle of the Jollof'].map(t=>`<span class="ztag">${t}</span>`).join('')}</div>
       </div>
 
+      <div class="zcard reveal d1">
+        <div class="zico"><i class="fas fa-hat-wizard"></i></div>
+        <h3 class="zname">Carnival Rides</h3>
+        <p class="zdesc">Thrilling rides and spectacular views</p>
+        <div class="ztags">${['Carnival Rides','Skill Games','Immersive Attractions'].map(t=>`<span class="ztag">${t}</span>`).join('')}</div>
+      </div>
+
+      <div class="zcard feat reveal d2">
+        <div class="zico"><i class="fas fa-bullseye"></i></div>
+        <h3 class="zname">Carnival Games</h3>
+        <p class="zdesc">Classic games and fun challenges</p>
+        <div class="ztags">${['Skill Games','Competitions','Prizes'].map(t=>`<span class="ztag">${t}</span>`).join('')}</div>
+      </div>
+
       <div class="zcard reveal d3">
-        <div class="znum">04</div>
-        <div class="zico"><i class="fas fa-video"></i></div>
-        <h3 class="zname">Creator Lounge + Brand Activation</h3>
-        <p class="zdesc">Content studios, brand activations and digital experiences for the next generation of African creatives.</p>
+        <div class="zico"><i class="fas fa-fire"></i></div>
+        <h3 class="zname">Immersive &amp; Experiential</h3>
+        <p class="zdesc">Interactive and immersive experiences</p>
         <div class="ztags">${['Creator Lounge','Brand Activations','Live Streaming'].map(t=>`<span class="ztag">${t}</span>`).join('')}</div>
       </div>
 
       <div class="zcard reveal d4">
-        <div class="znum">05</div>
-        <div class="zico"><i class="fas fa-archway"></i></div>
-        <h3 class="zname">Entrance & Arrival Plaza</h3>
-        <p class="zdesc">A grand welcome arch and seamless entry — your first impression that something extraordinary lies ahead.</p>
-        <div class="ztags">${['Welcome Arch','Photo Moments','Seamless Entry'].map(t=>`<span class="ztag">${t}</span>`).join('')}</div>
+        <div class="zico"><i class="fas fa-music"></i></div>
+        <h3 class="zname">Party Area</h3>
+        <p class="zdesc">Epic DJ sets and all night celebrations</p>
+        <div class="ztags">${['DJ Performances','VIP Cabanas','Bottle Service'].map(t=>`<span class="ztag">${t}</span>`).join('')}</div>
       </div>
 
     </div>
