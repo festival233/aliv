@@ -1,11 +1,11 @@
 {
-  "name": "webapp",
+  "name": "alivfest",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "wrangler pages dev",
-    "deploy": "npm run build && wrangler pages deploy",
+    "preview": "wrangler pages dev dist",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name alivfest",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
@@ -16,5 +16,8 @@
     "@hono/vite-dev-server": "^0.18.2",
     "vite": "^6.3.5",
     "wrangler": "^4.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
