@@ -126,7 +126,7 @@ body::after{
   max-width:1280px;margin:0 auto;padding:0 2rem;
   display:flex;align-items:center;justify-content:space-between;
 }
-.nlogo{height:32px;filter:drop-shadow(0 0 10px rgba(232,192,64,.55));transition:filter .3s;}
+.nlogo{height:40px;width:auto;filter:drop-shadow(0 0 10px rgba(232,192,64,.55));transition:filter .3s;}
 .nlogo:hover{filter:drop-shadow(0 0 22px rgba(232,192,64,.9));}
 .nlinks{display:flex;gap:2.5rem;align-items:center;}
 .na{
@@ -231,8 +231,9 @@ body::after{
 }
 @keyframes hp{0%,100%{opacity:.6;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
 .hlogo{
-  width:min(580px,86vw);
-  filter:drop-shadow(0 0 28px rgba(200,148,10,.6)) drop-shadow(0 0 60px rgba(200,148,10,.22));
+  width:min(640px,90vw);
+  height:auto;
+  filter:drop-shadow(0 0 35px rgba(200,148,10,.7)) drop-shadow(0 0 70px rgba(200,148,10,.3));
   animation:fl 8s ease-in-out infinite;
   position:relative;z-index:1;display:block;
 }
@@ -359,7 +360,8 @@ body::after{
   background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(200,148,10,.1) 0%,transparent 70%);
 }
 .ab-logo{
-  width:100%;max-width:360px;
+  width:100%;max-width:380px;
+  height:auto;
   filter:drop-shadow(0 0 28px rgba(200,148,10,.45)) drop-shadow(0 0 56px rgba(200,148,10,.18));
   position:relative;z-index:1;
 }
@@ -552,7 +554,7 @@ body::after{
   position:relative;z-index:1;
   max-width:580px;margin:0 auto;text-align:center;padding:0 2rem;
 }
-.aclogo{width:210px;display:block;margin:0 auto 2.5rem;filter:drop-shadow(0 0 18px rgba(200,148,10,.38));}
+.aclogo{width:280px;height:auto;display:block;margin:0 auto 2.5rem;filter:drop-shadow(0 0 22px rgba(200,148,10,.5));}
 .fwrap{
   background:rgba(255,255,255,.02);
   border:1px solid rgba(200,148,10,.12);border-radius:6px;
@@ -590,7 +592,7 @@ footer{
   display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
   gap:3rem;margin-bottom:3rem;
 }
-.ftlogo{height:26px;display:block;margin-bottom:1.2rem;filter:drop-shadow(0 0 8px rgba(200,148,10,.3));}
+.ftlogo{height:36px;width:auto;display:block;margin-bottom:1.2rem;filter:drop-shadow(0 0 10px rgba(200,148,10,.35));}
 .ftcopy{font-size:.8rem;color:rgba(245,237,216,.38);line-height:1.85;font-weight:300;}
 .fth{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g3);margin-bottom:1.2rem;font-weight:600;}
 .ftlinks{display:flex;flex-direction:column;gap:.7rem;}
@@ -637,7 +639,7 @@ footer{
 <!-- NAV -->
 <nav id="nav">
   <div class="in">
-    <a href="#hero"><img src="/static/logo.svg" alt="ALIV FEST" class="nlogo"/></a>
+    <a href="#hero"><img src="/static/logo.png" alt="ALIV FEST" class="nlogo"/></a>
     <div class="nlinks">
       <a href="#about" class="na">About</a>
       <a href="#zones" class="na">Experience</a>
@@ -667,7 +669,7 @@ footer{
 
   <div class="hin">
     <div class="lhalo">
-      <img src="/static/logo.svg" alt="ALIV FEST" class="hlogo"/>
+      <img src="/static/logo.png" alt="ALIV FEST" class="hlogo"/>
     </div>
     <div class="hdiv"></div>
     <p class="htag">The Cultural Playground of December</p>
@@ -714,7 +716,7 @@ footer{
       <!-- Visual -->
       <div class="ab-vis rl">
         <div class="ab-card">
-          <img src="/static/logo.svg" alt="ALIV FEST" class="ab-logo"/>
+          <img src="/static/logo.png" alt="ALIV FEST" class="ab-logo"/>
         </div>
         <div class="ab-pill">
           <i class="fas fa-map-marker-alt"></i>
@@ -909,7 +911,7 @@ footer{
 <!-- ══════════ EARLY ACCESS ══════════ -->
 <section id="access">
   <div class="acin">
-    <img src="/static/logo.svg" alt="ALIV FEST" class="aclogo reveal"/>
+    <img src="/static/logo.png" alt="ALIV FEST" class="aclogo reveal"/>
     <span class="slbl reveal" style="display:block;margin-bottom:.75rem;">Early Access</span>
     <h2 class="sh reveal">Don't Miss <span class="gold">ALIV 2026</span></h2>
     <div class="sr c reveal"></div>
@@ -937,7 +939,7 @@ footer{
   <div class="container">
     <div class="ftgrid">
       <div>
-        <img src="/static/logo.svg" alt="ALIV FEST" class="ftlogo"/>
+        <img src="/static/logo.png" alt="ALIV FEST" class="ftlogo"/>
         <p class="ftcopy">A premium cultural destination experience in Accra, Ghana. Joy first — where hospitality meets immersion.</p>
         <div class="socrow">
           <a href="#" class="socbtn"><i class="fab fa-instagram"></i></a>
