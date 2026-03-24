@@ -4,249 +4,169 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALIV | Accra Carnival Experience</title>
+  <meta name="description" content="ALIV is a premium, multi-day December carnival destination in Accra combining music, culture, nightlife, food, rides, and brand activations.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
+  <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html"><img class="brand-mark" src="assets/aliv-logo.svg" alt="ALIV logo"><span>ALIV</span></a>
-      <nav class="nav">
-        <a href="#story">Story</a>
-        <a href="#zones">Zones</a>
+      <a class="brand" href="#top" aria-label="ALIV home">
+        <img src="aliv-logo.svg" alt="ALIV logo" class="brand-logo">
+        <span>ALIV</span>
+      </a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
+      <nav id="main-nav" class="main-nav">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
         <a href="#audience">Audience</a>
-        <a href="#brands">For Brands</a>
-        <a href="#concierge">AI Concierge</a>
-        <a href="#next-steps">Next Steps</a>
+        <a href="#partners">Partners</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
+  <main id="top">
     <section class="hero">
-      <div class="hero-card">
-        <div class="hero-scene">
-          <img src="assets/hero-scene.jpg" alt="Accra carnival scene">
-          <div class="hero-shade"></div>
-          <div class="hero-logo"><img src="assets/aliv-logo.svg" alt="ALIV logo"></div>
-          <div class="hero-copy">
-            <h1 class="hero-headline">The Accra Carnival Experience.</h1>
-            <p class="hero-sub">Where December comes alive — and experiences become legacy. A multi-day, destination-format outdoor cultural platform built around music, nightlife, food, rides, games, and immersive brand experiences.</p>
-            <div class="meta-row">
-              <span>Dec 17 — Jan 4</span><span class="dot"></span>
-              <span>Open daily</span><span class="dot"></span>
-              <span>Accra</span><span class="dot"></span>
-              <span>Founding Season 2026–2027</span>
-            </div>
-            <div class="cta-row">
-              <a class="btn btn-gold" href="#" onclick="openModal();return false;">Join waitlist</a>
-              <a class="btn btn-dark" href="#brands">View sponsorship story</a>
-            </div>
-          </div>
+      <img src="city-scene.jpg" alt="Night skyline in Accra" class="hero-image">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <p class="kicker">Founding Season · December 17 to January 4</p>
+        <h1>The Accra Carnival Experience, refined for today.</h1>
+        <p class="lead">ALIV brings music, nightlife, food, rides, and cultural moments into one premium destination format designed for guests, creators, and partners.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Request Partnership Deck</a>
+          <a href="#experience" class="btn btn-secondary">Explore Experience</a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="story">
-      <div class="center-copy">
-        <div class="eyebrow">The story</div>
-        <h2 class="display">Not just a party. A season you can walk through.</h2>
-        <p class="subtitle">This landing page turns your sponsorship deck into a story-led website: destination-format December–New Year energy, owned zones, repeat nights, measurable participation, and a stronger reason for people and brands to keep coming back.</p>
-      </div>
-      <div class="grid-4" style="margin-top:28px">
-        <div class="card"><div class="icon">🏟️</div><h3>Destination Format</h3><p>Built as one recognizable home for December energy rather than scattered one-off events.</p></div>
-        <div class="card"><div class="icon">🎯</div><h3>Experience First</h3><p>Movement, discovery, food, rides, games, nightlife, and activations all live in one walkable universe.</p></div>
-        <div class="card"><div class="icon">📆</div><h3>Multi-day Touchpoints</h3><p>Open daily across the season, with weekdays and peak nights giving brands more than a weekend story.</p></div>
-        <div class="card"><div class="icon">📊</div><h3>Measurable Engagement</h3><p>Check-ins, opt-ins, redemptions, dwell time, content capture, and post-event recap value.</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="zones">
-      <div class="center-copy">
-        <div class="eyebrow">Five worlds, one destination</div>
-        <h2 class="display">A walkable festival universe.</h2>
-        <p class="subtitle">The experience from the deck becomes a real website journey: party stage, food and cocktail village, amusement rides, carnival games, and immersive activations.</p>
-      </div>
-      <div class="grid-2" style="margin-top:28px">
-        <div class="panel">
-          <div class="media"><img src="assets/experience-scene.jpg" alt="Festival zones"></div>
-          <h3>The Experience</h3>
-          <p>Music pulls the crowd in, food and cocktails hold them, rides and games keep the energy playful, and activations turn the night into shareable proof.</p>
+    <section class="section" id="about">
+      <div class="container split">
+        <div>
+          <p class="kicker">About ALIV</p>
+          <h2>A clear vision, not event clutter.</h2>
+          <p>ALIV is built as one destination with repeat attendance across the season, rather than disconnected one-night events. The model is intentionally structured to deliver premium guest experience and measurable brand value.</p>
         </div>
-        <div class="grid-2">
-          <div class="card"><div class="icon">🎤</div><h3>Main Stage</h3><p>Headliner energy, premium nightlife, and big stage moments.</p></div>
-          <div class="card"><div class="icon">🍸</div><h3>Food & Cocktail Village</h3><p>Curated dining and social flow instead of random food stalls.</p></div>
-          <div class="card"><div class="icon">🎡</div><h3>Amusement Rides</h3><p>Visual spectacle and skyline moments people remember.</p></div>
-          <div class="card"><div class="icon">🎯</div><h3>Carnival Games</h3><p>Play, challenge, prizes, and easy content moments.</p></div>
+        <div class="stat-grid">
+          <article>
+            <h3>Multi-day Format</h3>
+            <p>Daily programming across the festive season.</p>
+          </article>
+          <article>
+            <h3>Premium Positioning</h3>
+            <p>Curated environments with high social share potential.</p>
+          </article>
+          <article>
+            <h3>Designed for Repeat Visits</h3>
+            <p>Programming and zone variety that reward return attendance.</p>
+          </article>
+          <article>
+            <h3>Partner Measurement</h3>
+            <p>Structured touchpoints with practical reporting outputs.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="center-copy">
-        <div class="eyebrow">Deck moments</div>
-        <h2 class="display">A website that actually moves.</h2>
-        <p class="subtitle">This carousel turns the deck into a richer journey instead of a dead PDF feeling.</p>
-      </div>
-      <div class="carousel" id="deckCarousel" style="margin-top:28px">
-        <div class="card"><div class="media"><img src="assets/audience-scene.jpg" alt="Audience"></div><h3>Target Audience</h3><p>Diaspora travelers, Accra tastemakers, creators, and connectors with high share behavior.</p></div>
-        <div class="card"><div class="media"><img src="assets/activation-scene.jpg" alt="Activations"></div><h3>Native Activations</h3><p>Portal moments, creator studios, glow rituals, play + prizes, and lounge takeovers that feel part of the night.</p></div>
-        <div class="card"><div class="media"><img src="assets/stage-scene.jpg" alt="Brand presence"></div><h3>How Brands Show Up</h3><p>Zone presence, signature builds, and moments + media instead of basic logo clutter.</p></div>
-        <div class="card"><div class="media"><img src="assets/city-scene.jpg" alt="Accra city"></div><h3>Market Opportunity</h3><p>December in Accra already has demand. The point is giving that demand a premium home brands can own.</p></div>
-      </div>
-      <div class="carousel-nav">
-        <button class="icon-btn" onclick="scrollCarousel(-1)">←</button>
-        <button class="icon-btn" onclick="scrollCarousel(1)">→</button>
+    <section class="section section-dark" id="experience">
+      <div class="container">
+        <p class="kicker">Experience</p>
+        <h2>Five worlds, one walkable destination.</h2>
+        <div class="cards">
+          <article class="card">
+            <img src="experience-scene.jpg" alt="Main stage and crowd">
+            <h3>Main Stage & Nightlife</h3>
+            <p>High-energy performances and premium social atmosphere.</p>
+          </article>
+          <article class="card">
+            <img src="activation-scene.jpg" alt="Immersive activations and lights">
+            <h3>Brand Activations</h3>
+            <p>Native integrations designed for participation and visibility.</p>
+          </article>
+          <article class="card">
+            <img src="audience-scene.jpg" alt="Festival audience">
+            <h3>Food, Play & Culture</h3>
+            <p>Dining, rides, games, and discovery that extend dwell time.</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section" id="audience">
-      <div class="grid-2">
-        <div class="panel">
-          <div class="eyebrow">Target audience</div>
-          <h3 style="font-size:30px; line-height:1.1; color:#f4dfb0">People who spend, share, and pull others in.</h3>
-          <p>The deck frames the audience around three core groups:</p>
+      <div class="container split">
+        <img src="page-3.png" alt="Audience and engagement moodboard" class="feature-image">
+        <div>
+          <p class="kicker">Audience</p>
+          <h2>People who attend, spend, and share.</h2>
           <ul>
-            <li>Diaspora ages 25–45 with itinerary-led celebration energy and group travel behavior</li>
-            <li>Accra tastemakers, VIP trend drivers, and early adopters of new experiences</li>
-            <li>Creators and connectors who multiply content, social proof, and crowd pull</li>
+            <li>Diaspora travelers (25–45) planning festive itineraries.</li>
+            <li>Accra tastemakers and culturally active social circles.</li>
+            <li>Creators and connectors who amplify in real time.</li>
           </ul>
-        </div>
-        <div class="panel">
-          <div class="media"><img src="assets/audience-scene.jpg" alt="Audience collage"></div>
-          <h3>High dwell. High share. Repeat nights.</h3>
-          <p>The point is not just attendance — it is repeat behavior across nights and social carry beyond the gate.</p>
+          <p>This is an audience profile built for repeat attendance and media carry beyond the event grounds.</p>
         </div>
       </div>
     </section>
 
-    <section class="section" id="brands">
-      <div class="highlight">
-        <div class="eyebrow">Why brands choose ALIV</div>
-        <h2 class="display" style="font-size:clamp(1.9rem,4vw,3.4rem)">Beyond visibility — real impact and proof.</h2>
-        <p class="subtitle">The sponsor story from the deck is simple: unmatched reach, category ownership, and measurable outcomes built into the experience instead of taped on top of it.</p>
-        <div class="grid-3" style="margin-top:24px">
-          <div class="wait-card"><h3>Pillar 1 — Reach</h3><p>High-dwell crowd, repeat visits across the season, and phones-up content behavior.</p></div>
-          <div class="wait-card"><h3>Pillar 2 — Ownership</h3><p>Exclusive presence, built-in touchpoints across zones, and native integration instead of loose clutter.</p></div>
-          <div class="wait-card"><h3>Pillar 3 — Outcomes</h3><p>QR check-ins, opt-ins, redemptions, content, recap reporting, and sponsor proof you can actually show.</p></div>
+    <section class="section section-dark" id="partners">
+      <div class="container">
+        <p class="kicker">For Partners</p>
+        <h2>Partnership built on reach, ownership, and outcomes.</h2>
+        <div class="pillars">
+          <article>
+            <h3>Reach</h3>
+            <p>Consistent high-footfall windows and content-rich environments.</p>
+          </article>
+          <article>
+            <h3>Ownership</h3>
+            <p>Category-aligned spaces and signature placements, not logo clutter.</p>
+          </article>
+          <article>
+            <h3>Outcomes</h3>
+            <p>Trackable touchpoints including check-ins, opt-ins, and recap reporting.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="grid-3">
-        <div class="timeline-step"><h3>Arrival & Discovery</h3><p>Branded entry portals, high-visibility zone placement, and first impressions that feel like part of the night.</p></div>
-        <div class="timeline-step"><h3>Engagement & Participation</h3><p>Interactive sampling, activations, hands-on brand experiences, and check-ins tied to behavior.</p></div>
-        <div class="timeline-step"><h3>Conversion & Proof</h3><p>Lead capture where relevant, UGC generation, content recap, and sponsor-ready reporting after the event.</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="concierge">
-      <div class="center-copy">
-        <div class="eyebrow">ALIV Concierge</div>
-        <h2 class="display">A premium AI guide layer.</h2>
-        <p class="subtitle">This demo front-end concept can later connect to WhatsApp, a CRM, or a real assistant. For now it shows how the brand can feel more futuristic and useful.</p>
-      </div>
-      <div class="grid-2" style="margin-top:28px">
-        <div class="panel">
-          <h3>What it can guide</h3>
-          <p>VIP interest, sponsor routing, zone discovery, activations, next steps, and launch updates without making the site feel dry.</p>
+    <section class="section" id="contact">
+      <div class="container contact">
+        <div>
+          <p class="kicker">Next Step</p>
+          <h2>Discuss fit and reserve your category.</h2>
+          <p>Request the latest partnership deck and availability details for the founding season.</p>
         </div>
-        <div id="conciergeFeed" class="grid-2" style="gap:12px">
-          <div class="wait-card"><p style="margin:0">Welcome to ALIV Concierge. Ask about VIP, sponsors, rides, audience, or next steps.</p></div>
-        </div>
-      </div>
-      <div class="form-row" style="margin-top:18px">
-        <input class="input" id="conciergeInput" placeholder="Ask ALIV Concierge a question">
-        <button class="btn btn-gold" onclick="askConcierge()">Send</button>
-      </div>
-    </section>
-
-    <section class="section" id="next-steps">
-      <div class="grid-2">
-        <div class="panel">
-          <div class="eyebrow">Next steps</div>
-          <h3 style="font-size:30px; line-height:1.1; color:#f4dfb0">From fit call to lock-in.</h3>
-          <p>Using the deck structure, the next-step story becomes:</p>
-          <ul>
-            <li>15-minute fit call to confirm goals and best path</li>
-            <li>48-hour hold to reserve category and align footprint</li>
-            <li>Lock-in with agreement, deposit, kickoff, and go-live assets</li>
-          </ul>
-          <div class="cta-row">
-            <a class="btn btn-gold" href="#" onclick="openModal();return false;">Request details</a>
-          </div>
-        </div>
-        <div class="panel">
-          <h3>Tell the website where to send serious interest.</h3>
-          <div class="form-row"><input class="input" placeholder="Brand / company"></div>
-          <div class="form-row"><input class="input" placeholder="Contact email"></div>
-          <div class="form-row"><textarea class="textarea" placeholder="What kind of partnership or access are you looking for?"></textarea></div>
-          <div class="cta-row" style="justify-content:flex-start"><a class="btn btn-dark" href="mailto:info@alivfest.com">Email info@alivfest.com</a></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-trigger">Why turn the deck into a website?</button>
-          <div class="faq-body">Because decks explain. Websites invite. A site lets people click, linger, share, sign up, and move through the story at their own speed.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-trigger">Can this connect to real email tools?</button>
-          <div class="faq-body">Yes. Right now the form saves locally for demo purposes. Next step is wiring it into Mailchimp, Brevo, ConvertKit, or your preferred CRM.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-trigger">Can this become a multi-page site later?</button>
-          <div class="faq-body">Yes. This package gives you a strong story-led landing page first. It can expand into tickets, sponsors, VIP, lineup, and partner forms without starting over.</div>
-        </div>
+        <form class="contact-form" onsubmit="return submitForm(event)">
+          <label>
+            Name
+            <input type="text" id="name" required>
+          </label>
+          <label>
+            Company
+            <input type="text" id="company" required>
+          </label>
+          <label>
+            Email
+            <input type="email" id="email" required>
+          </label>
+          <label>
+            Interest
+            <textarea id="interest" rows="4" placeholder="Sponsorship category, activation idea, or hospitality request"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+          <p id="form-note" class="form-note" aria-live="polite"></p>
+        </form>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <strong style="text-transform:uppercase; letter-spacing:.2em; font-size:13px;">ALIV</strong>
-        <div style="margin-top:8px; color:rgba(255,255,255,.66); font-size:12px; text-transform:uppercase; letter-spacing:.16em;">© 2026 • Accra • Founding Season</div>
-      </div>
-      <div class="footer-links">
-        <a href="#story">Story</a>
-        <a href="#zones">Zones</a>
-        <a href="#audience">Audience</a>
-        <a href="#brands">For Brands</a>
-        <a href="#next-steps">Next Steps</a>
-      </div>
+      <p>© <span id="year"></span> ALIV · Accra, Ghana</p>
+      <a href="mailto:info@alivfest.com">info@alivfest.com</a>
     </div>
   </footer>
 
-  
-<div class="modal-backdrop" id="signupModal" onclick="if(event.target.id==='signupModal') closeModal()">
-  <div class="modal">
-    <div class="modal-top">
-      <div>
-        <div class="eyebrow">Coming soon</div>
-        <h3 style="margin-top:10px; font-size:22px; text-transform:uppercase; letter-spacing:.08em; color:#f4dfb0;">Join the ALIV insider list.</h3>
-        <p class="card-copy">Get first access to launch details, partner updates, reveal drops, and founding season news.</p>
-      </div>
-      <button class="icon-btn" onclick="closeModal()">✕</button>
-    </div>
-    <div class="countdown">
-      <div class="time-box"><div class="time-num" id="days">0</div><div class="time-label">Days</div></div>
-      <div class="time-box"><div class="time-num" id="hours">0</div><div class="time-label">Hours</div></div>
-      <div class="time-box"><div class="time-num" id="mins">0</div><div class="time-label">Minutes</div></div>
-      <div class="time-box"><div class="time-num" id="secs">0</div><div class="time-label">Seconds</div></div>
-    </div>
-    <form class="modal-form" onsubmit="submitSignup(event)">
-      <input class="input" id="nameInput" placeholder="Your name">
-      <input class="input" id="emailInput" placeholder="Your email">
-      <button class="btn btn-gold" type="submit">Notify me</button>
-      <div class="note" id="signupNote">This demo stores signups locally until you connect your real email workflow.</div>
-    </form>
-  </div>
-</div>
-
   <script src="script.js"></script>
-  <script>initCountdown('2026-12-17T18:00:00');</script>
 </body>
 </html>
