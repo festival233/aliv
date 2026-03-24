@@ -840,12 +840,11 @@ footer{
   <div class="in">
     <a href="#hero"><img src="/static/logo.png" alt="ALIV FEST" class="nlogo"/></a>
     <div class="nlinks">
-      <a href="#about"  class="na">Enter ALIV</a>
-      <a href="#zones"  class="na">Access ALIV</a>
-      <a href="#events" class="na">Come ALIV</a>
-      <a href="#vip"    class="na">VIP Society</a>
-      <a href="#shop"   class="na">Drip Shop</a>
-      <a href="#access" class="nbtn">Early Access</a>
+      <a href="#about"    class="na">Enter ALIV</a>
+      <a href="#comealiv" class="na">Come ALIV</a>
+      <a href="#vip"      class="na">VIP Society</a>
+      <a href="#shop"     class="na">Drip Shop</a>
+      <a href="#access"   class="nbtn">Access ALIV</a>
     </div>
     <button id="hbg"><i class="fas fa-bars"></i></button>
   </div>
@@ -854,12 +853,11 @@ footer{
 <!-- MOBILE MENU -->
 <div id="mmenu">
   <button id="mc"><i class="fas fa-times"></i></button>
-  <a href="#about"  class="ml" onclick="cM()">Enter ALIV</a>
-  <a href="#zones"  class="ml" onclick="cM()">Access ALIV</a>
-  <a href="#events" class="ml" onclick="cM()">Come ALIV</a>
-  <a href="#vip"    class="ml" onclick="cM()">VIP Society</a>
-  <a href="#shop"   class="ml" onclick="cM()">Drip Shop</a>
-  <a href="#access" class="ml" onclick="cM()" style="color:var(--g3);">Early Access</a>
+  <a href="#about"    class="ml" onclick="cM()">Enter ALIV</a>
+  <a href="#comealiv" class="ml" onclick="cM()">Come ALIV</a>
+  <a href="#vip"      class="ml" onclick="cM()">VIP Society</a>
+  <a href="#shop"     class="ml" onclick="cM()">Drip Shop</a>
+  <a href="#access"   class="ml" onclick="cM()" style="color:var(--g3);">Access ALIV</a>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -885,7 +883,7 @@ footer{
     </div>
 
     <div class="hcta">
-      <a href="#access" class="btng"><i class="fas fa-ticket-alt"></i> Get Early Access</a>
+      <a href="#access" class="btng"><i class="fas fa-ticket-alt"></i> Access ALIV</a>
       <a href="#about"  class="btno"><i class="fas fa-play"></i> Discover ALIV</a>
     </div>
   </div>
@@ -954,7 +952,8 @@ footer{
   </div>
 </section>
 
-<!-- ══════════ ZONES ══════════ -->
+<!-- ══════════ COME ALIV: ZONES + EVENTS ══════════ -->
+<div id="comealiv"></div>
 <section id="zones">
   <div class="container" style="position:relative;z-index:1;">
     <div class="znhd">
@@ -1256,18 +1255,18 @@ footer{
 <section id="access">
   <div class="acin">
     <img src="/static/logo.png" alt="ALIV FEST" class="aclogo reveal"/>
-    <span class="slbl reveal" style="display:block;margin-bottom:.75rem;">Early Access</span>
-    <h2 class="sh reveal">Don't Miss <span class="gold">ALIV 2026</span></h2>
+    <span class="slbl reveal" style="display:block;margin-bottom:.75rem;">Tickets &amp; Info</span>
+    <h2 class="sh reveal">Access <span class="gold">ALIV</span></h2>
     <div class="sr c reveal"></div>
     <p class="sc reveal" style="margin-bottom:0;">
-      Be first in line for tickets, VIP packages and exclusive pre-sale access. Accra won't be the same this December.
+      Tickets drop soon. Sign up now to be first in line — early access, VIP packages and exclusive pre-sale info sent straight to you.
     </p>
     <div class="fwrap reveal">
       <form id="sf">
         <div class="fg"><input type="text"  id="fn" class="fi" placeholder="Your Name"/></div>
         <div class="fg"><input type="email" id="fe" class="fi" placeholder="Your Email Address" required/></div>
         <button type="submit" class="btng" style="width:100%;justify-content:center;">
-          <span id="sbt"><i class="fas fa-ticket-alt"></i>&nbsp;Join the Early Access List</span>
+          <span id="sbt"><i class="fas fa-ticket-alt"></i>&nbsp;Get Ticket Info</span>
         </button>
       </form>
       <div class="smsg" id="smsg">
@@ -1296,10 +1295,10 @@ footer{
         <div class="fth">Navigate</div>
         <div class="ftlinks">
           <a href="#about">Enter ALIV</a>
-          <a href="#zones">Access ALIV</a>
-          <a href="#events">Come ALIV</a>
+          <a href="#comealiv">Come ALIV</a>
           <a href="#vip">VIP Society</a>
           <a href="#shop">Drip Shop</a>
+          <a href="#access">Access ALIV</a>
         </div>
       </div>
       <div>
