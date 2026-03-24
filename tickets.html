@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALIVFEST — Tickets</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">ALIVFEST <span>ACCRA · DECEMBER SEASON</span></a>
+      <nav class="main-nav">
+        <a href="index.html">HOME</a>
+        <a href="experience.html">EXPERIENCE</a>
+        <a class="active" href="tickets.html">TICKETS</a>
+        <a href="vip.html">VIP</a>
+      </nav>
+      <a class="btn primary" href="vip.html">VIP SOCIETY</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section-card">
+      <h1>Tickets & Access.</h1>
+      <p>Reserve your entry and receive festival updates. This form is static and ready for backend integration.</p>
+      <form>
+        <div class="form-row">
+          <input type="text" placeholder="Full name" required />
+          <input type="email" placeholder="Email address" required />
+        </div>
+        <div class="form-row">
+          <select>
+            <option>General Admission</option>
+            <option>Weekend Pass</option>
+            <option>Season Pass</option>
+          </select>
+          <input type="number" min="1" max="10" value="2" />
+        </div>
+        <p><button class="btn primary" type="button">CONFIRM INTEREST</button></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Questions? Visit VIP page for premium plans.</div>
+  </footer>
+</body>
+</html>
