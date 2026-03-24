@@ -140,11 +140,11 @@ body::after{
 }
 .nlogo{height:40px;width:auto;filter:drop-shadow(0 0 10px rgba(232,192,64,.55));transition:filter .3s;}
 .nlogo:hover{filter:drop-shadow(0 0 22px rgba(232,192,64,.9));}
-.nlinks{display:flex;gap:2.5rem;align-items:center;}
+.nlinks{display:flex;gap:1.6rem;align-items:center;}
 .na{
   color:rgba(245,237,216,.7);text-decoration:none;
-  font-size:0.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-  transition:color .3s;position:relative;
+  font-size:0.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  transition:color .3s;position:relative;white-space:nowrap;
 }
 .na::after{
   content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
@@ -660,6 +660,126 @@ body::after{
 }
 
 /* ═══════════════════════════════════════
+   SECTION: VIP SOCIETY
+═══════════════════════════════════════ */
+#vip{
+  background:var(--bg0);padding:8rem 0;
+  position:relative;overflow:hidden;
+}
+#vip::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(200,148,10,.09) 0%,transparent 65%);
+  pointer-events:none;
+}
+.vip-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 2rem;}
+.vip-hd{text-align:center;margin-bottom:5rem;}
+.vip-crown{
+  font-size:2.4rem;margin-bottom:1rem;
+  filter:drop-shadow(0 0 18px rgba(255,224,96,.4));
+}
+.vip-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;
+  margin-bottom:4rem;
+}
+.vip-card{
+  background:linear-gradient(160deg,rgba(200,148,10,.09),rgba(200,148,10,.02));
+  border:1px solid rgba(200,148,10,.22);border-radius:6px;
+  padding:2.5rem 2rem;position:relative;overflow:hidden;
+  transition:transform .4s,box-shadow .4s;
+}
+.vip-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--g1),var(--g4),var(--g1));
+}
+.vip-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(200,148,10,.14);}
+.vip-ico{
+  width:52px;height:52px;border-radius:4px;
+  background:rgba(200,148,10,.12);border:1px solid rgba(200,148,10,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;color:var(--g3);margin-bottom:1.4rem;
+}
+.vip-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;font-weight:600;margin-bottom:.7rem;line-height:1.3;
+}
+.vip-desc{font-size:.84rem;color:rgba(245,237,216,.55);line-height:1.8;}
+.vip-perks{
+  margin-top:1.1rem;display:flex;flex-direction:column;gap:.5rem;
+}
+.vip-perk{
+  display:flex;gap:.6rem;align-items:center;
+  font-size:.76rem;color:rgba(245,237,216,.5);
+}
+.vip-perk i{color:var(--g3);font-size:.6rem;flex-shrink:0;}
+.vip-cta{text-align:center;margin-top:2rem;}
+.vip-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(200,148,10,.07);border:1px solid rgba(200,148,10,.18);
+  border-radius:2px;padding:.55rem 1.2rem;
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g3);
+  margin-bottom:3rem;
+}
+@media(max-width:768px){
+  .vip-grid{grid-template-columns:1fr;}
+}
+
+/* ═══════════════════════════════════════
+   SECTION: DRIP SHOP
+═══════════════════════════════════════ */
+#shop{
+  background:var(--bg1);padding:8rem 0;
+  position:relative;overflow:hidden;
+}
+#shop::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(200,148,10,.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.shop-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 2rem;}
+.shop-hd{text-align:center;margin-bottom:4.5rem;}
+.shop-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+  margin-bottom:3.5rem;
+}
+.shop-item{
+  background:var(--bg2);
+  border:1px solid rgba(200,148,10,.08);border-radius:4px;
+  overflow:hidden;transition:transform .35s,border-color .35s;
+  cursor:pointer;
+}
+.shop-item:hover{transform:translateY(-5px);border-color:rgba(200,148,10,.28);}
+.shop-thumb{
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,rgba(200,148,10,.06),rgba(200,148,10,.01));
+  font-size:3.5rem;position:relative;overflow:hidden;
+}
+.shop-thumb::after{
+  content:'Coming Soon';
+  position:absolute;bottom:0;left:0;right:0;
+  background:rgba(14,7,3,.75);
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--g3);text-align:center;padding:.5rem;
+}
+.shop-info{padding:1.2rem 1.4rem 1.5rem;}
+.shop-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:600;margin-bottom:.35rem;
+}
+.shop-cat{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.shop-note{
+  text-align:center;
+  font-size:.8rem;color:rgba(245,237,216,.4);
+  letter-spacing:.06em;margin-top:1rem;
+}
+@media(max-width:900px){
+  .shop-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+  .shop-grid{grid-template-columns:1fr;}
+}
+
+/* ═══════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════ */
 footer{
@@ -720,10 +840,11 @@ footer{
   <div class="in">
     <a href="#hero"><img src="/static/logo.png" alt="ALIV FEST" class="nlogo"/></a>
     <div class="nlinks">
-      <a href="#about" class="na">About</a>
-      <a href="#zones" class="na">Experience</a>
-      <a href="#events" class="na">Events</a>
-      <a href="#partner" class="na">Partners</a>
+      <a href="#about"  class="na">Enter ALIV</a>
+      <a href="#zones"  class="na">Access ALIV</a>
+      <a href="#events" class="na">Come ALIV</a>
+      <a href="#vip"    class="na">VIP Society</a>
+      <a href="#shop"   class="na">Drip Shop</a>
       <a href="#access" class="nbtn">Early Access</a>
     </div>
     <button id="hbg"><i class="fas fa-bars"></i></button>
@@ -733,11 +854,12 @@ footer{
 <!-- MOBILE MENU -->
 <div id="mmenu">
   <button id="mc"><i class="fas fa-times"></i></button>
-  <a href="#about"   class="ml" onclick="cM()">About</a>
-  <a href="#zones"   class="ml" onclick="cM()">Experience</a>
-  <a href="#events"  class="ml" onclick="cM()">Events</a>
-  <a href="#partner" class="ml" onclick="cM()">Partners</a>
-  <a href="#access"  class="ml" onclick="cM()" style="color:var(--g3);">Early Access</a>
+  <a href="#about"  class="ml" onclick="cM()">Enter ALIV</a>
+  <a href="#zones"  class="ml" onclick="cM()">Access ALIV</a>
+  <a href="#events" class="ml" onclick="cM()">Come ALIV</a>
+  <a href="#vip"    class="ml" onclick="cM()">VIP Society</a>
+  <a href="#shop"   class="ml" onclick="cM()">Drip Shop</a>
+  <a href="#access" class="ml" onclick="cM()" style="color:var(--g3);">Early Access</a>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -1051,6 +1173,85 @@ footer{
   </div>
 </section>
 
+<!-- ══════════ VIP SOCIETY ══════════ -->
+<section id="vip">
+  <div class="vip-inner">
+    <div class="vip-hd">
+      <div class="vip-crown reveal">♛</div>
+      <span class="slbl reveal">Exclusive Access</span>
+      <h2 class="sh reveal">VIP <span class="gold">Society</span></h2>
+      <div class="sr c reveal"></div>
+      <p class="sc reveal" style="max-width:520px;margin:0 auto;">
+        The highest tier of ALIV — where every detail is elevated. Private cabanas, dedicated hosts, premium bottle service and unobstructed front-row access to every stage.
+      </p>
+    </div>
+
+    <div class="vip-badge reveal"><i class="fas fa-crown"></i> Members-Only Experience &nbsp;·&nbsp; Limited Availability</div>
+
+    <div class="vip-grid">
+      ${[
+        {icon:'fa-couch',       title:'Private Cabanas',          desc:'Your own exclusive space at the Main Stage. Plush seating, private service and a dedicated host for the entire night.',
+          perks:['Prime viewing position','Dedicated cabana host','Private entry lane']},
+        {icon:'fa-wine-bottle', title:'Premium Bottle Service',   desc:'Curated bottle packages delivered to your cabana — champagne, spirits and cocktails from our top-tier bar programme.',
+          perks:['Curated spirits selection','Signature ALIV cocktails','Personalised setup']},
+        {icon:'fa-star',        title:'VIP Lounge Access',        desc:'Escape to the exclusive VIP lounge — a quiet retreat between acts with premium food, drinks and a private atmosphere.',
+          perks:['Private lounge entry','Premium catering','Quiet zone between sets']},
+        {icon:'fa-ticket-alt',  title:'All-Access Wristband',     desc:'Move freely across all 5 experience zones, skip the queues and gain priority entry to every special event on the calendar.',
+          perks:['Skip-the-queue privilege','All-zone access','Priority event entry']},
+      ].map((c,i)=>`
+      <div class="vip-card reveal" style="transition-delay:${i*.1}s;">
+        <div class="vip-ico"><i class="fas ${c.icon}"></i></div>
+        <div class="vip-title">${c.title}</div>
+        <p class="vip-desc">${c.desc}</p>
+        <div class="vip-perks">
+          ${c.perks.map(p=>`<div class="vip-perk"><i class="fas fa-check"></i>${p}</div>`).join('')}
+        </div>
+      </div>`).join('')}
+    </div>
+
+    <div class="vip-cta reveal">
+      <a href="#access" class="btng"><i class="fas fa-crown"></i>&nbsp;Request VIP Access</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DRIP SHOP ══════════ -->
+<section id="shop">
+  <div class="shop-inner">
+    <div class="shop-hd">
+      <span class="slbl reveal">Official Merchandise</span>
+      <h2 class="sh reveal">Drip <span class="gold">Shop</span></h2>
+      <div class="sr c reveal"></div>
+      <p class="sc reveal" style="max-width:480px;margin:0 auto;">
+        Wear the culture. Limited-edition ALIV FEST pieces — designed to carry the spirit of December well beyond Accra.
+      </p>
+    </div>
+
+    <div class="shop-grid">
+      ${[
+        {emoji:'👕', name:'ALIV Classic Tee',         cat:'Apparel'},
+        {emoji:'🧢', name:'ALIV Snapback Cap',         cat:'Headwear'},
+        {emoji:'🩱', name:'ALIV Fest Bodysuit',        cat:'Apparel'},
+        {emoji:'🧣', name:'Gold Edition Scarf',        cat:'Accessories'},
+        {emoji:'🛍️',name:'ALIV Tote Bag',             cat:'Accessories'},
+        {emoji:'📿', name:'ALIV Gold Bracelet',        cat:'Jewellery'},
+      ].map((s,i)=>`
+      <div class="shop-item reveal" style="transition-delay:${i*.08}s;">
+        <div class="shop-thumb">${s.emoji}</div>
+        <div class="shop-info">
+          <div class="shop-name">${s.name}</div>
+          <div class="shop-cat">${s.cat}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+
+    <p class="shop-note reveal">✦ &nbsp; The Drip Shop drops closer to December 2026 &nbsp; ✦</p>
+    <div style="text-align:center;margin-top:2.5rem;" class="reveal">
+      <a href="#access" class="btng"><i class="fas fa-bell"></i>&nbsp;Notify Me When It Drops</a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════ EARLY ACCESS ══════════ -->
 <section id="access">
   <div class="acin">
@@ -1092,12 +1293,13 @@ footer{
         </div>
       </div>
       <div>
-        <div class="fth">Festival</div>
+        <div class="fth">Navigate</div>
         <div class="ftlinks">
-          <a href="#about">About ALIV</a>
-          <a href="#zones">Experience Zones</a>
-          <a href="#events">Events</a>
-          <a href="#access">Early Access</a>
+          <a href="#about">Enter ALIV</a>
+          <a href="#zones">Access ALIV</a>
+          <a href="#events">Come ALIV</a>
+          <a href="#vip">VIP Society</a>
+          <a href="#shop">Drip Shop</a>
         </div>
       </div>
       <div>
