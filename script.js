@@ -12,7 +12,7 @@ function submitForm(event) {
   event.preventDefault();
   const note = document.getElementById('form-note');
   if (note) {
-    note.textContent = 'Thanks. Your inquiry has been captured for follow-up.';
+    note.textContent = 'Thanks! Your ticket request has been received. We will contact you shortly.';
   }
   event.target.reset();
   return false;
