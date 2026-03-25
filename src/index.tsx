@@ -68,19 +68,27 @@ function homePage(): string {
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  background:var(--space);
+  background:#0a0500;
   color:var(--cream);
   font-family:'Montserrat',sans-serif;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
-/* ── Global cosmic backdrop ── */
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:-2;
-  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
-  opacity:.18;
+/* ═══════════════════════════════════════
+   GLOBAL FIXED COSMIC BACKDROP
+   — always visible through every section
+═══════════════════════════════════════ */
+#cosmic-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url('/static/backdrop-cosmic.jpg') 48% 52% / cover no-repeat;
+  /* The starburst sits at 48% left, 52% top */
 }
-/* Subtle film grain */
+/* Dark scrim so text stays readable while the image shows through */
+#cosmic-bg::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(6,3,0,.55);
+}
+/* Subtle film grain overlay */
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -125,13 +133,15 @@ body::after{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   padding:1.3rem 0;
   transition:all .5s cubic-bezier(.16,1,.3,1);
+  /* transparent by default so backdrop shows */
+  background:linear-gradient(180deg,rgba(6,3,0,.75) 0%,rgba(6,3,0,0) 100%);
 }
 #nav.scrolled{
-  background:rgba(8,5,2,.92);
+  background:rgba(6,3,0,.88);
   backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
   padding:.75rem 0;
-  border-bottom:1px solid rgba(212,165,32,.18);
-  box-shadow:0 4px 60px rgba(0,0,0,.9),0 1px 0 rgba(212,165,32,.06);
+  border-bottom:1px solid rgba(212,165,32,.25);
+  box-shadow:0 4px 60px rgba(0,0,0,.9),0 1px 0 rgba(212,165,32,.08);
 }
 #nav .in{max-width:1300px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;}
 .nlogo{height:36px;width:auto;filter:drop-shadow(0 0 12px rgba(255,215,0,.6));transition:filter .3s;}
@@ -179,36 +189,32 @@ body::after{
 #hero{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;
-  background:#050200;
+  background:transparent; /* let fixed backdrop show at full strength */
 }
-/* Real cosmic backdrop behind everything */
+/* Hero — transparent so the fixed backdrop shows through at full intensity */
 .hbg-img{
-  position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
-  opacity:.9;
-  animation:hbgscale 20s ease-in-out infinite alternate;
+  display:none; /* not needed — backdrop is fixed behind page */
 }
 @keyframes hbgscale{0%{transform:scale(1);}100%{transform:scale(1.06);}}
-/* Dark vignette overlay — keeps text readable */
+/* Gentle vignette: darken edges, leave the central starburst glowing through */
 .hbg-vignette{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 70% at 50% 50%,rgba(5,2,0,.1) 0%,rgba(5,2,0,.55) 100%),
-    linear-gradient(180deg,rgba(5,2,0,.7) 0%,transparent 25%,transparent 55%,rgba(5,2,0,.9) 100%);
+    radial-gradient(ellipse 55% 55% at 48% 52%,transparent 20%,rgba(4,2,0,.5) 80%,rgba(4,2,0,.85) 100%),
+    linear-gradient(180deg,rgba(4,2,0,.65) 0%,transparent 18%,transparent 60%,rgba(4,2,0,.92) 100%);
 }
-/* Warm amber radial bloom from bottom-center matching the backdrop wave source */
+/* Extra amber bloom around the starburst to lift its warmth */
 .hbg-glow{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 80%,rgba(212,140,0,.18) 0%,rgba(212,100,0,.08) 35%,transparent 65%),
-    radial-gradient(ellipse 40% 40% at 50% 45%,rgba(255,215,0,.06) 0%,transparent 60%);
+    radial-gradient(ellipse 50% 45% at 48% 52%,rgba(255,200,50,.12) 0%,rgba(212,140,0,.06) 40%,transparent 70%);
   animation:hglow 5s ease-in-out infinite alternate;
 }
-@keyframes hglow{0%{opacity:.7;}100%{opacity:1;transform:scale(1.03);}}
-/* Floor fade */
+@keyframes hglow{0%{opacity:.7;}100%{opacity:1;transform:scale(1.04);}}
+/* Floor fade into next section */
 .hfloor{
-  position:absolute;bottom:0;left:0;right:0;height:30%;
-  background:linear-gradient(180deg,transparent,rgba(5,2,0,.95));
+  position:absolute;bottom:0;left:0;right:0;height:35%;
+  background:linear-gradient(180deg,transparent,rgba(4,2,0,.9));
 }
 
 .hin{
@@ -296,8 +302,8 @@ body::after{
    INFO STRIP
 ═══════════════════════════════════════ */
 .infostrip{
-  background:rgba(20,10,4,.92);
-  border-top:1px solid rgba(212,165,32,.15);
+  background:rgba(6,3,0,.82);
+  border-top:1px solid rgba(212,165,32,.2);
   border-bottom:1px solid rgba(212,165,32,.15);
   padding:1rem 2rem;
   display:flex;align-items:center;justify-content:center;
@@ -311,7 +317,7 @@ body::after{
 /* ═══════════════════════════════════════
    TICKER
 ═══════════════════════════════════════ */
-.ticker{background:rgba(10,8,4,.85);border-bottom:1px solid rgba(212,165,32,.1);padding:.8rem 0;overflow:hidden;}
+.ticker{background:rgba(6,3,0,.78);border-bottom:1px solid rgba(212,165,32,.15);padding:.8rem 0;overflow:hidden;}
 .ttrack{display:flex;white-space:nowrap;animation:tick 32s linear infinite;}
 .ttrack:hover{animation-play-state:paused;}
 .ti{display:inline-flex;align-items:center;gap:2rem;padding:0 2.5rem;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(212,165,32,.8);font-weight:600;}
@@ -323,7 +329,7 @@ body::after{
 ═══════════════════════════════════════ */
 #about{
   padding:10rem 0 11rem;position:relative;overflow:hidden;
-  background:rgba(10,10,15,.88);
+  background:rgba(6,3,0,.72);
 }
 /* Subtle cosmic glow on About — no image, just gradients */
 #about::before{
@@ -373,19 +379,18 @@ body::after{
 ═══════════════════════════════════════ */
 #zones{
   position:relative;overflow:hidden;
-  background:rgba(10,8,4,.85);
+  background:rgba(6,3,0,.7);
 }
-/* Backdrop overlay for zones — lets global cosmic bg show */
+/* thin golden gradient top/bottom fade so sections blend into each other */
 .zones-bg{
   position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
-  opacity:.22;
+  background:none;
 }
 .zones-bg-gradient{
   position:absolute;inset:0;
   background:
-    linear-gradient(180deg,rgba(10,10,15,.95) 0%,rgba(10,10,15,.6) 20%,rgba(10,10,15,.6) 80%,rgba(10,10,15,.95) 100%),
-    radial-gradient(ellipse 80% 50% at 50% 40%,rgba(212,165,32,.06) 0%,transparent 70%);
+    linear-gradient(180deg,rgba(6,3,0,.85) 0%,transparent 12%,transparent 88%,rgba(6,3,0,.85) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 40%,rgba(212,165,32,.04) 0%,transparent 70%);
 }
 .zones-intro{
   padding:9rem 2.5rem 6rem;
@@ -443,14 +448,13 @@ body::after{
 ═══════════════════════════════════════ */
 #events{
   position:relative;overflow:hidden;
-  background:rgba(26,14,8,.9);
+  background:rgba(10,5,0,.75);
   padding:10rem 0;
 }
-/* Cosmic backdrop tint for events */
 #events::before{
   content:'';position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center bottom / cover no-repeat;
-  opacity:.14;
+  background:linear-gradient(180deg,rgba(6,3,0,.85) 0%,transparent 12%,transparent 88%,rgba(6,3,0,.85) 100%);
+  pointer-events:none;
 }
 #events::after{
   content:'';position:absolute;inset:0;
@@ -482,8 +486,7 @@ body::after{
 }
 .qband-bg{
   position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
-  opacity:.65;
+  background:rgba(6,3,0,.5);
 }
 .qband-overlay{
   position:absolute;inset:0;
@@ -499,12 +502,12 @@ body::after{
    SECTION: BECOME ALIV — PARTNER
 ═══════════════════════════════════════ */
 #partner{
-  background:rgba(10,10,15,.9);
+  background:rgba(6,3,0,.72);
   padding:10rem 0;position:relative;overflow:hidden;
 }
 #partner::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 55% at 50% 50%,rgba(212,165,32,.07) 0%,transparent 68%);
+  background:radial-gradient(ellipse 70% 55% at 50% 50%,rgba(212,165,32,.06) 0%,transparent 68%);
   pointer-events:none;
 }
 .pt-hd{text-align:center;margin-bottom:5.5rem;position:relative;z-index:1;}
@@ -538,13 +541,13 @@ body::after{
    SECTION: BECOME A VENDOR
 ═══════════════════════════════════════ */
 #vendor{
-  background:rgba(26,14,8,.88);
+  background:rgba(10,5,0,.75);
   padding:10rem 0;position:relative;overflow:hidden;
 }
 #vendor::before{
   content:'';position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center right / cover no-repeat;
-  opacity:.16;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(212,165,32,.07) 0%,transparent 62%);
+  pointer-events:none;
 }
 #vendor::after{
   content:'';position:absolute;inset:0;
@@ -594,13 +597,11 @@ body::after{
 }
 .vip-bg{
   position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
-  opacity:.45;
+  background:none;
 }
 .vip-bg-overlay{
   position:absolute;inset:0;
-  background:
-    linear-gradient(180deg,rgba(10,10,15,.95) 0%,rgba(10,10,15,.7) 15%,rgba(10,10,15,.7) 85%,rgba(10,10,15,.95) 100%);
+  background:rgba(6,3,0,.7);
 }
 .vip-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 2.5rem;}
 .vip-hd{text-align:center;margin-bottom:5.5rem;}
@@ -636,13 +637,13 @@ body::after{
    SECTION: DRIP SHOP
 ═══════════════════════════════════════ */
 #shop{
-  background:rgba(10,10,15,.92);padding:10rem 0;
+  background:rgba(6,3,0,.75);padding:10rem 0;
   position:relative;overflow:hidden;
 }
 #shop::before{
   content:'';position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
-  opacity:.1;pointer-events:none;
+  background:radial-gradient(ellipse 80% 55% at 50% 100%,rgba(212,165,32,.06) 0%,transparent 65%);
+  pointer-events:none;
 }
 .shop-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 2.5rem;}
 .shop-hd{text-align:center;margin-bottom:5rem;}
@@ -675,13 +676,11 @@ body::after{
 }
 .access-bg{
   position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
-  opacity:.55;
+  background:none;
 }
 .access-overlay{
   position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 80% 80% at 50% 50%,rgba(10,10,15,.4) 0%,rgba(10,10,15,.88) 100%);
+  background:rgba(6,3,0,.65);
 }
 .acin{position:relative;z-index:1;max-width:560px;margin:0 auto;text-align:center;padding:0 2rem;}
 .aclogo{width:280px;height:auto;display:block;margin:0 auto 3rem;filter:drop-shadow(0 0 40px rgba(255,215,0,.8)) drop-shadow(0 0 80px rgba(212,165,32,.35));}
@@ -705,14 +704,14 @@ body::after{
    FOOTER
 ═══════════════════════════════════════ */
 footer{
-  background:rgba(10,10,15,.96);
-  border-top:1px solid rgba(212,165,32,.15);
+  background:rgba(4,2,0,.85);
+  border-top:1px solid rgba(212,165,32,.2);
   padding:7rem 0 3rem;position:relative;overflow:hidden;
 }
 footer::before{
   content:'';position:absolute;inset:0;
-  background:url('/static/backdrop-cosmic.jpg') center bottom / cover no-repeat;
-  opacity:.08;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(212,165,32,.06) 0%,transparent 60%);
+  pointer-events:none;
 }
 .ftgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3.5rem;position:relative;z-index:1;}
 .ftlogo{height:38px;width:auto;display:block;margin-bottom:1.5rem;filter:drop-shadow(0 0 14px rgba(255,215,0,.5));}
@@ -753,9 +752,26 @@ footer::before{
   .vip-grid{grid-template-columns:1fr!important;}
   .zcard{border-right:none;border-bottom:1px solid rgba(212,165,32,.1);}
 }
+
+/* ═══════════════════════════════════════
+   Z-INDEX STACK
+   0  : #cosmic-bg (fixed backdrop image)
+   1  : all sections / footer / strips
+   2  : inner content (zones-intro, zn-grid, etc.)
+   1000: navbar
+   9998: film grain
+   999 : mobile menu
+═══════════════════════════════════════ */
+section,footer,.infostrip,.ticker,.qband{
+  position:relative;
+  z-index:1;
+}
 </style>
 </head>
 <body>
+
+<!-- FIXED COSMIC BACKDROP — persists through all sections -->
+<div id="cosmic-bg"></div>
 
 <!-- NAV -->
 <nav id="nav">
