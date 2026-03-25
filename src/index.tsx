@@ -409,8 +409,8 @@ body::after{
 .zn-grid{
   display:grid;grid-template-columns:repeat(5,1fr);
   position:relative;z-index:2;
-  border-top:1px solid rgba(212,165,32,.12);
-  background:rgba(10,8,4,.7);
+  border-top:1px solid rgba(212,165,32,.18);
+  background:rgba(10,5,0,.7);
   backdrop-filter:blur(4px);
 }
 .zcard{
