@@ -321,8 +321,71 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
   color:#FFDB80;
   text-shadow:0 2px 12px rgba(0,0,0,.5),0 0 50px rgba(255,200,40,.55),0 0 100px rgba(220,150,10,.35);
   max-width:780px;line-height:1.5;
-  margin-bottom:3rem;
+  margin-bottom:2.8rem;
 }
+
+/* ═══════════════════════════════════════════
+   OFFICIAL SLOGAN — sparkle treatment
+═══════════════════════════════════════════ */
+.hero-legacy{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.45rem,3.2vw,2.5rem);
+  font-style:italic;font-weight:500;
+  letter-spacing:.05em;
+  /* shimmer gold gradient text */
+  background:linear-gradient(90deg,
+    #C8860A 0%,
+    #FFE066 22%,
+    #FFF4C2 40%,
+    #FFD040 55%,
+    #FFF4C2 68%,
+    #FFE066 82%,
+    #C8860A 100%);
+  background-size:250% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:slogan-shimmer 4s linear infinite, slogan-pulse 3s ease-in-out infinite;
+  max-width:860px;line-height:1.45;
+  margin-bottom:2rem;
+  position:relative;
+  padding:.3rem 0;
+  /* hard shadow for readability behind the gradient text */
+  filter:drop-shadow(0 2px 18px rgba(0,0,0,.85)) drop-shadow(0 0 40px rgba(200,140,10,.55));
+}
+/* Shimmer sweep */
+@keyframes slogan-shimmer{
+  0%  {background-position:200% center;}
+  100%{background-position:-200% center;}
+}
+/* Gentle breath / pulse */
+@keyframes slogan-pulse{
+  0%,100%{filter:drop-shadow(0 2px 18px rgba(0,0,0,.85)) drop-shadow(0 0 35px rgba(200,140,10,.45));}
+  50%    {filter:drop-shadow(0 2px 18px rgba(0,0,0,.85)) drop-shadow(0 0 65px rgba(255,210,40,.8));}
+}
+
+/* Sparkle particles flanking the slogan */
+.hero-legacy::before,
+.hero-legacy::after{
+  content:'';
+  position:absolute;top:50%;
+  width:220px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,210,60,.55),transparent);
+  transform:translateY(-50%);
+  animation:spark-line 3s ease-in-out infinite;
+}
+.hero-legacy::before{right:calc(100% + .6rem);}
+.hero-legacy::after {left:calc(100% + .6rem); animation-delay:.4s;}
+@keyframes spark-line{
+  0%,100%{opacity:.3;transform:translateY(-50%) scaleX(.6);}
+  50%    {opacity:.9;transform:translateY(-50%) scaleX(1);}
+}
+
+/* Floating sparkle dots rendered via JS canvas overlay — see script */
+#slogan-sparkles{
+  position:absolute;inset:0;pointer-events:none;z-index:3;
+}
+
 .hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem;}
 .hdate-strip{
   display:flex;gap:2rem;align-items:center;flex-wrap:wrap;justify-content:center;
@@ -991,8 +1054,11 @@ footer{
 
     <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="hero-wordmark reveal" style="mix-blend-mode:lighten;"/>
     <p class="hero-sub reveal d1">The Accra Carnival Experience</p>
-    <p class="hero-tagline reveal d2">18 Days Like Nowhere Else</p>
-    <p class="hero-legacy reveal d3">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
+    <div style="position:relative;display:inline-block;max-width:860px;width:100%;">
+      <canvas id="slogan-sparkles" aria-hidden="true"></canvas>
+      <p class="hero-legacy reveal d2">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
+    </div>
+    <p class="hero-tagline reveal d3">18 Days Like Nowhere Else</p>
     <div class="hero-cta reveal d4">
       <a href="#access" class="btn-gold"><i class="fas fa-ticket-alt"></i>&nbsp; Early Access</a>
       <a href="#experience" class="btn-outline"><i class="fas fa-compass"></i>&nbsp; Explore ALIV</a>
@@ -1757,6 +1823,131 @@ function showMsg(el, type, text) {
   el.style.display = 'block';
   setTimeout(() => { el.style.display = 'none'; }, 7000);
 }
+
+// ═══════════════════════════════════════════════════════
+// SLOGAN SPARKLES — floating gold particles around the
+// official tagline "Where December Comes Alive…"
+// ═══════════════════════════════════════════════════════
+(function initSloganSparkles() {
+  const canvas = document.getElementById('slogan-sparkles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Size canvas to match its parent wrapper
+  function resize() {
+    const parent = canvas.parentElement;
+    canvas.width  = parent.offsetWidth;
+    canvas.height = parent.offsetHeight + 60; // extra vertical room
+    canvas.style.top    = '-30px';
+    canvas.style.left   = '0';
+    canvas.style.width  = '100%';
+    canvas.style.height = (parent.offsetHeight + 60) + 'px';
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Particle pool
+  const GOLD = [
+    [255, 230,  80],
+    [255, 200,  40],
+    [255, 255, 180],
+    [220, 160,  20],
+    [255, 245, 140],
+  ];
+  const COUNT = 48;
+  const particles = [];
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function spawn() {
+    const [r,g,b] = GOLD[Math.floor(Math.random() * GOLD.length)];
+    return {
+      x:    rand(0, canvas.width),
+      y:    rand(0, canvas.height),
+      size: rand(1.2, 3.8),
+      alpha:rand(0, 1),
+      da:   rand(0.008, 0.022) * (Math.random() < .5 ? 1 : -1),
+      dx:   rand(-0.18, 0.18),
+      dy:   rand(-0.28, -0.08),   // gentle drift upward
+      r, g, b,
+      // star shape toggle
+      star: Math.random() < 0.35,
+      rot:  rand(0, Math.PI * 2),
+      drot: rand(-0.02, 0.02),
+    };
+  }
+
+  for (let i = 0; i < COUNT; i++) {
+    const p = spawn();
+    p.alpha = Math.random(); // stagger starts
+    particles.push(p);
+  }
+
+  function drawStar(ctx, x, y, r, rot) {
+    const spikes = 4, outer = r, inner = r * 0.4;
+    ctx.beginPath();
+    for (let i = 0; i < spikes * 2; i++) {
+      const angle = rot + (i * Math.PI) / spikes;
+      const radius = i % 2 === 0 ? outer : inner;
+      ctx.lineTo(x + Math.cos(angle) * radius, y + Math.sin(angle) * radius);
+    }
+    ctx.closePath();
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of particles) {
+      // Fade in/out
+      p.alpha += p.da;
+      if (p.alpha >= 1)    { p.alpha = 1;  p.da *= -1; }
+      if (p.alpha <= 0)    {
+        // Respawn at a new position once fully faded
+        Object.assign(p, spawn());
+        p.alpha = 0;
+        p.da = Math.abs(p.da);
+        continue;
+      }
+
+      // Drift
+      p.x   += p.dx;
+      p.y   += p.dy;
+      p.rot += p.drot;
+
+      // Wrap horizontally
+      if (p.x < -10)              p.x = canvas.width  + 10;
+      if (p.x > canvas.width + 10) p.x = -10;
+      // Wrap vertically
+      if (p.y < -10)               p.y = canvas.height + 10;
+
+      ctx.save();
+      ctx.globalAlpha = p.alpha * 0.9;
+
+      if (p.star) {
+        // 4-point star / sparkle
+        ctx.fillStyle = \`rgba(\${p.r},\${p.g},\${p.b},1)\`;
+        ctx.shadowColor = \`rgba(\${p.r},\${p.g},\${p.b},.9)\`;
+        ctx.shadowBlur  = p.size * 5;
+        drawStar(ctx, p.x, p.y, p.size * 1.6, p.rot);
+        ctx.fill();
+      } else {
+        // Glowing dot
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2.2);
+        grad.addColorStop(0,   \`rgba(\${p.r},\${p.g},\${p.b},1)\`);
+        grad.addColorStop(0.4, \`rgba(\${p.r},\${p.g},\${p.b},.6)\`);
+        grad.addColorStop(1,   \`rgba(\${p.r},\${p.g},\${p.b},0)\`);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
 </script>
 </body>
 </html>`)
