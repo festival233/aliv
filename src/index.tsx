@@ -302,27 +302,21 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .hbg::after{
   content:'';position:absolute;inset:0;
   background:
-    /* very light vignette only at hard edges, center fully open */
-    radial-gradient(ellipse 60% 55% at 50% 40%,transparent 0%,transparent 40%,rgba(12,5,0,.2) 70%,rgba(12,5,0,.7) 100%),
-    /* top fade for nav readability — minimal */
-    linear-gradient(180deg,rgba(12,5,0,.35) 0%,transparent 12%,transparent 68%,rgba(12,5,0,.92) 100%),
-    /* warm center glow punch */
-    radial-gradient(ellipse 50% 45% at 50% 40%,rgba(255,220,80,.14) 0%,transparent 65%);
+    /* very soft top fade for nav only */
+    linear-gradient(180deg,rgba(180,100,10,.12) 0%,transparent 14%,transparent 85%,rgba(220,160,20,.06) 100%),
+    /* warm center radiance */
+    radial-gradient(ellipse 55% 50% at 50% 38%,rgba(255,230,100,.1) 0%,transparent 70%);
 }
 .hfloor{
-  position:absolute;bottom:0;left:0;right:0;height:30%;z-index:1;
-  background:linear-gradient(transparent,rgba(18,9,1,.98));
+  position:absolute;bottom:0;left:0;right:0;height:15%;z-index:1;
+  /* no dark floor — very gentle warm shimmer at bottom edge only */
+  background:linear-gradient(transparent,rgba(220,160,30,.08));
 }
 .hin{
   position:relative;z-index:2;text-align:center;
   padding:12rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;
 }
-/* Subtle smoke layer sits behind hero text, preserves luminous surround */
-.hin::before{
-  content:'';position:absolute;inset:-2rem -6rem;z-index:-1;
-  background:radial-gradient(ellipse 80% 85% at 50% 48%,rgba(6,2,0,.58) 0%,rgba(6,2,0,.38) 45%,transparent 75%);
-  pointer-events:none;
-}
+/* no dark smoke behind hero text — cosmic bg shines through */
 .hero-wordmark{
   width:clamp(280px,62vw,760px);height:auto;
   filter:
@@ -421,28 +415,32 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 .hdate-item{
   font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(58,24,0,.7);font-weight:600;
+  /* bright on hero — cosmic bg is vibrant amber/gold */
+  color:rgba(255,238,190,.92);font-weight:600;
+  text-shadow:0 1px 8px rgba(0,0,0,.55),0 0 20px rgba(160,80,5,.35);
 }
-.hdate-dot{width:3px;height:3px;border-radius:50%;background:rgba(140,80,10,.4);}
+.hdate-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,210,80,.65);}
 .scroll-cue{
   position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
   z-index:2;display:flex;flex-direction:column;align-items:center;gap:.6rem;
-  font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(80,36,0,.55);
+  font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,220,130,.75);
+  text-shadow:0 1px 6px rgba(0,0,0,.5);
   animation:scuepulse 2.5s ease-in-out infinite;
 }
 @keyframes scuepulse{0%,100%{opacity:.4;transform:translateX(-50%) translateY(0);}50%{opacity:.9;transform:translateX(-50%) translateY(4px);}}
-.scroll-cue .sline{width:1px;height:40px;background:linear-gradient(transparent,rgba(200,151,42,.6));}
+.scroll-cue .sline{width:1px;height:40px;background:linear-gradient(transparent,rgba(255,200,80,.7));}
 
 /* ════════════════════════════════════════════════════════════
    INFO STRIP
 ════════════════════════════════════════════════════════════ */
 .infostrip{
-  background:rgba(10,4,0,.6);
+  background:rgba(255,215,100,.2);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-top:1px solid rgba(220,160,50,.4);
-  border-bottom:1px solid rgba(220,160,50,.4);
+  border-top:1px solid rgba(180,100,10,.35);
+  border-bottom:1px solid rgba(180,100,10,.35);
   padding:.85rem 0;overflow:hidden;
-  box-shadow:0 0 60px rgba(210,130,0,.25),inset 0 1px 0 rgba(255,220,80,.12);
+  box-shadow:0 0 30px rgba(210,130,0,.12),inset 0 1px 0 rgba(255,220,80,.12);
 }
 .istrip-in{
   display:flex;align-items:center;justify-content:center;
@@ -450,10 +448,10 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 .istrip-in span{
   font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;
-  color:rgba(255,210,80,1);font-weight:600;
-  text-shadow:0 0 18px rgba(255,200,50,.5);
+  color:#5A2800;font-weight:700;
+  text-shadow:0 1px 3px rgba(255,200,100,.3);
 }
-.idot{width:3px;height:3px;border-radius:50%;background:rgba(200,151,42,.4);display:inline-block;}
+.idot{width:3px;height:3px;border-radius:50%;background:rgba(140,70,10,.4);display:inline-block;}
 
 /* ════════════════════════════════════════════════════════════
    ABOUT / INTRO
