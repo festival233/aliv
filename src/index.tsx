@@ -75,20 +75,17 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 /* ═══════════════════════════════════════
-   GLOBAL FIXED COSMIC BACKDROP
-   — always visible through every section
+   GLOBAL FIXED BACKDROP — pure CSS, no extra element
+   site-backdrop.jpg is the page-wide background
 ═══════════════════════════════════════ */
-#cosmic-bg{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:url('/static/backdrop-cosmic.jpg') 48% 52% / cover no-repeat;
-  /* The starburst sits at 48% left, 52% top */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  /* Image + dark scrim stacked as multiple backgrounds */
+  background:
+    linear-gradient(rgba(6,3,0,.45),rgba(6,3,0,.45)),
+    url('/static/site-backdrop.jpg') center center / cover no-repeat;
 }
-/* Dark scrim so text stays readable while the image shows through */
-#cosmic-bg::after{
-  content:'';position:absolute;inset:0;
-  background:rgba(6,3,0,.55);
-}
-/* Subtle film grain overlay */
+/* Subtle film grain — top of stack, pointer-events none */
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -192,50 +189,29 @@ body::after{
   background:transparent; /* let fixed backdrop show at full strength */
 }
 /* Hero — transparent so the fixed backdrop shows through at full intensity */
-.hbg-img{
-  display:none; /* not needed — backdrop is fixed behind page */
-}
-@keyframes hbgscale{0%{transform:scale(1);}100%{transform:scale(1.06);}}
-/* Gentle vignette: darken edges, leave the central starburst glowing through */
+.hbg-img{ display:none; }
+@keyframes hbgscale{}
+/* Only top+bottom fades — center is fully clear so ALIV FEST shows at full brightness */
 .hbg-vignette{
   position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 55% 55% at 48% 52%,transparent 20%,rgba(4,2,0,.5) 80%,rgba(4,2,0,.85) 100%),
-    linear-gradient(180deg,rgba(4,2,0,.65) 0%,transparent 18%,transparent 60%,rgba(4,2,0,.92) 100%);
+  background:linear-gradient(180deg,rgba(8,4,0,.75) 0%,transparent 16%,transparent 60%,rgba(8,4,0,.97) 100%);
 }
-/* Extra amber bloom around the starburst to lift its warmth */
-.hbg-glow{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 50% 45% at 48% 52%,rgba(255,200,50,.12) 0%,rgba(212,140,0,.06) 40%,transparent 70%);
-  animation:hglow 5s ease-in-out infinite alternate;
-}
-@keyframes hglow{0%{opacity:.7;}100%{opacity:1;transform:scale(1.04);}}
-/* Floor fade into next section */
+.hbg-glow{ display:none; }
+@keyframes hglow{}
+/* Deep floor fade — blends smoothly into the next section */
 .hfloor{
-  position:absolute;bottom:0;left:0;right:0;height:35%;
-  background:linear-gradient(180deg,transparent,rgba(4,2,0,.9));
+  position:absolute;bottom:0;left:0;right:0;height:44%;
+  background:linear-gradient(180deg,transparent,rgba(8,4,0,.99));
 }
 
+/* Content sits at bottom — ALIV FEST in backdrop fills the upper portion */
 .hin{
   position:relative;z-index:2;text-align:center;
-  padding:8rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;
+  padding:0 2rem 5rem;display:flex;flex-direction:column;align-items:center;
+  width:100%;
 }
-/* Hero wordmark — official 3D gold image */
-.hwm{
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:1.5rem;
-  animation:fl 8s ease-in-out infinite;
-}
-.hwm img{
-  width:clamp(340px,72vw,820px);
-  height:auto;
-  display:block;
-  /* Lift the natural glow already in the image with a matching drop-shadow */
-  filter:
-    drop-shadow(0 0 60px rgba(255,200,40,.55))
-    drop-shadow(0 0 120px rgba(212,140,0,.30));
-}
+/* Title lives in backdrop — overlay wordmark hidden */
+.hwm{ display:none; }
 @keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 
 /* Thin gold divider */
@@ -755,7 +731,7 @@ footer::before{
 
 /* ═══════════════════════════════════════
    Z-INDEX STACK
-   0  : #cosmic-bg (fixed backdrop image)
+   0  : body::before (fixed backdrop — site-backdrop.jpg)
    1  : all sections / footer / strips
    2  : inner content (zones-intro, zn-grid, etc.)
    1000: navbar
@@ -769,9 +745,6 @@ section,footer,.infostrip,.ticker,.qband{
 </style>
 </head>
 <body>
-
-<!-- FIXED COSMIC BACKDROP — persists through all sections -->
-<div id="cosmic-bg"></div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -810,11 +783,7 @@ section,footer,.infostrip,.ticker,.qband{
   <div class="hfloor"></div>
 
   <div class="hin">
-    <!-- Hero wordmark — official 3D gold starburst image -->
-    <div class="hwm">
-      <img src="/static/hero-wordmark.png" alt="ALIV FEST"/>
-    </div>
-
+    <!-- ALIV FEST title is baked into the backdrop — no overlay needed -->
     <div class="hdiv"></div>
     <p class="htag">The Cultural Playground of December</p>
     <p class="hdate">December 17, 2026 &nbsp;&mdash;&nbsp; January 3, 2027</p>
