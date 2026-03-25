@@ -977,7 +977,7 @@ footer{
             <div class="stat-lbl">Nights of Culture</div>
           </div>
           <div class="stat-box">
-            <div class="stat-num">5+</div>
+            <div class="stat-num">5</div>
             <div class="stat-lbl">Distinct Zones</div>
           </div>
           <div class="stat-box">
@@ -1212,7 +1212,7 @@ footer{
       </div>
       <div class="val-card reveal d3" style="border-color:rgba(200,151,42,.25);background:rgba(20,10,0,.7);">
         <div class="val-icon" style="font-size:1.4rem;"><i class="fas fa-quote-left" style="color:rgba(200,151,42,.4);"></i></div>
-        <p class="mission-text" style="font-size:1rem;">ALIV was created because Accra deserved something more immersive, more beautiful, and more alive than anything it&rsquo;s had before.</p>
+        <p class="mission-text" style="font-size:1rem;">ALIV was created to add a new layer to the magic of December in Accra &mdash; bringing the joy of carnival rides and games into the city&rsquo;s already vibrant season of music, culture, nightlife, food, and celebration.</p>
       </div>
     </div>
   </div>
@@ -1225,75 +1225,67 @@ footer{
   <div class="wrap">
     <div class="exp-header reveal">
       <div class="slbl">Experience ALIV</div>
-      <h2 class="sh">Seven Zones.<br/><span class="gold">One World to Explore.</span></h2>
+      <h2 class="sh">Five Zones.<br/><span class="gold">One World to Explore.</span></h2>
       <hr class="gr c"/>
       <p class="sc">Every zone pulls you deeper in. Wander, discover, stay longer &mdash; there&rsquo;s always another reason to keep moving.</p>
     </div>
-    <div class="zones-grid">
+    <div class="zones-grid" style="grid-template-columns:repeat(3,1fr);">
       <div class="zone-card reveal d1">
         <div class="zone-num">01</div>
         <span class="zone-icon"><i class="fas fa-door-open"></i></span>
         <div class="zone-name">Entrance &amp; Arrival Plaza</div>
-        <p class="zone-body">The first impression of ALIV. A designed arrival moment that welcomes guests into the world of the festival and sets the tone from the moment they enter.</p>
+        <p class="zone-body">The first impression of ALIV. A designed arrival moment that welcomes you into the world of the festival and sets the tone from the second you walk in.</p>
         <div class="zone-tags">
-          <span class="zone-tag">Welcome Experience</span>
-          <span class="zone-tag">Brand Identity</span>
+          <span class="zone-tag">Arrival Experience</span>
           <span class="zone-tag">First Impression</span>
+          <span class="zone-tag">The Welcome</span>
         </div>
       </div>
       <div class="zone-card reveal d2">
         <div class="zone-num">02</div>
         <span class="zone-icon"><i class="fas fa-music"></i></span>
-        <div class="zone-name">Main DJ Stage + Party Area</div>
-        <p class="zone-body">The heartbeat of ALIV. High-energy DJ sets, major nightlife moments, crowd energy, and the festival&rsquo;s core party atmosphere.</p>
+        <div class="zone-name">Main Stage + VIP Society</div>
+        <p class="zone-body">The heartbeat of ALIV. High-energy DJ sets, major nightlife moments, full-crowd energy &mdash; and an elevated VIP experience with premium hospitality, private sections, and exclusive views right at the stage.</p>
         <div class="zone-tags">
           <span class="zone-tag">Afrobeats</span>
           <span class="zone-tag">Amapiano</span>
-          <span class="zone-tag">DJ Culture</span>
+          <span class="zone-tag">VIP Cabanas</span>
+          <span class="zone-tag">Bottle Service</span>
         </div>
       </div>
       <div class="zone-card reveal d3">
         <div class="zone-num">03</div>
-        <span class="zone-icon"><i class="fas fa-crown"></i></span>
-        <div class="zone-name">VIP Society</div>
-        <p class="zone-body">An elevated way to experience the night. Private sections, premium service, high-touch hospitality, and exclusive views near the main stage.</p>
-        <div class="zone-tags">
-          <span class="zone-tag">Cabanas</span>
-          <span class="zone-tag">Bottle Service</span>
-          <span class="zone-tag">Exclusive Access</span>
-        </div>
-      </div>
-      <div class="zone-card reveal d1">
-        <div class="zone-num">04</div>
         <span class="zone-icon"><i class="fas fa-ferris-wheel"></i></span>
-        <div class="zone-name">Carnival Zone</div>
-        <p class="zone-body">Playful, nostalgic, and visually alive. Rides, games, movement, lights, and interactive fun that creates energy beyond the stage.</p>
+        <div class="zone-name">Carnival Rides + Games</div>
+        <p class="zone-body">Playful, nostalgic, and visually alive. Rides, games, movement, lights, and interactive fun that create energy far beyond the stage.</p>
         <div class="zone-tags">
           <span class="zone-tag">Rides</span>
           <span class="zone-tag">Games</span>
+          <span class="zone-tag">Lights &amp; Energy</span>
           <span class="zone-tag">Interactive</span>
         </div>
       </div>
-      <div class="zone-card reveal d2">
-        <div class="zone-num">05</div>
+      <div class="zone-card reveal d1" style="grid-column:1;">
+        <div class="zone-num">04</div>
         <span class="zone-icon"><i class="fas fa-utensils"></i></span>
         <div class="zone-name">Food Village</div>
-        <p class="zone-body">A cultural and social destination within the experience. Curated food vendors, premium bites, social gathering moments, and flavor-driven discovery.</p>
+        <p class="zone-body">A cultural and social destination within the experience. Curated food vendors, premium bites, gathering moments, and flavor-driven discovery you&rsquo;ll keep coming back to.</p>
         <div class="zone-tags">
           <span class="zone-tag">Curated Vendors</span>
           <span class="zone-tag">Premium Bites</span>
           <span class="zone-tag">Social Hub</span>
         </div>
       </div>
-      <div class="zone-card reveal d3">
-        <div class="zone-num">06</div>
+      <div class="zone-card reveal d2" style="grid-column:2/span 2;">
+        <div class="zone-num">05</div>
         <span class="zone-icon"><i class="fas fa-bolt"></i></span>
-        <div class="zone-name">Sponsor Activation + Creator Lounge</div>
-        <p class="zone-body">Where brands come to life. Interactive pop-ups, branded moments, and a dedicated creator space for social storytelling, content, and media capture.</p>
+        <div class="zone-name">Immersive Activations + Creator Lounge</div>
+        <p class="zone-body">Where interactive experiences, branded moments, content creation, and social storytelling come to life in one dynamic zone. This is where the experience gets captured &mdash; and where it spreads.</p>
         <div class="zone-tags">
-          <span class="zone-tag">Brand Activations</span>
+          <span class="zone-tag">Interactive Moments</span>
           <span class="zone-tag">Creator Content</span>
-          <span class="zone-tag">Social Moments</span>
+          <span class="zone-tag">Brand Activations</span>
+          <span class="zone-tag">Social Storytelling</span>
         </div>
       </div>
     </div>
