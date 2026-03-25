@@ -77,8 +77,8 @@ app.get('*', (c) => {
   --grad-gold-h:linear-gradient(90deg,transparent,#D4A030,#FFD860,#D4A030,transparent);
   --grad-dark:linear-gradient(180deg,rgba(18,10,0,0) 0%,rgba(18,10,0,.92) 100%);
   /* glass card base — warm amber glass */
-  --glass-card:rgba(80,38,4,.32);
-  --glass-card-hover:rgba(100,50,5,.48);
+  --glass-card:rgba(14,6,0,.68);
+  --glass-card-hover:rgba(22,9,0,.78);
   --glass-border:rgba(220,160,50,.28);
   --glass-border-hover:rgba(255,210,80,.65);
 }
@@ -288,6 +288,12 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
   position:relative;z-index:2;text-align:center;
   padding:12rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;
 }
+/* Subtle smoke layer sits behind hero text, preserves luminous surround */
+.hin::before{
+  content:'';position:absolute;inset:-2rem -6rem;z-index:-1;
+  background:radial-gradient(ellipse 80% 85% at 50% 48%,rgba(6,2,0,.58) 0%,rgba(6,2,0,.38) 45%,transparent 75%);
+  pointer-events:none;
+}
 .hero-wordmark{
   width:clamp(280px,62vw,760px);height:auto;
   filter:
@@ -339,7 +345,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
    INFO STRIP
 ════════════════════════════════════════════════════════════ */
 .infostrip{
-  background:rgba(60,28,0,.45);
+  background:rgba(10,4,0,.6);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-top:1px solid rgba(220,160,50,.4);
   border-bottom:1px solid rgba(220,160,50,.4);
@@ -446,7 +452,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
   background:linear-gradient(180deg,rgba(30,14,0,.3),rgba(40,18,0,.22));
 }
 .aud-intro{max-width:640px;margin:0 auto 4.5rem;text-align:center;}
-.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(220,160,50,.22);}
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(220,160,50,.2);}
 .aud-card{
   background:var(--glass-card);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
@@ -495,9 +501,9 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .val-body{font-size:.86rem;color:rgba(255,235,195,.82);line-height:1.8;font-weight:300;}
 .why-built{
   max-width:740px;margin:4rem auto 0;text-align:center;
-  padding:3rem;border:1px solid rgba(220,160,50,.22);
-  background:rgba(70,35,0,.3);
-  backdrop-filter:blur(14px);
+  padding:3rem;border:1px solid rgba(220,160,50,.25);
+  background:rgba(10,4,0,.6);
+  backdrop-filter:blur(16px);
 }
 .why-built p{
   font-family:'Cormorant Garamond',serif;
@@ -647,10 +653,10 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .vip-note{
   max-width:600px;margin:0 auto 3.5rem;text-align:center;
   padding:2rem 2.5rem;
-  border:1px solid rgba(220,160,50,.35);
-  background:rgba(80,38,4,.38);
+  border:1px solid rgba(220,160,50,.3);
+  background:rgba(10,4,0,.62);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  box-shadow:inset 0 1px 0 rgba(255,220,80,.12),0 0 50px rgba(180,100,0,.25);
+  box-shadow:inset 0 1px 0 rgba(255,220,80,.1),0 0 40px rgba(160,80,0,.2);
 }
 .vip-note p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(255,242,210,.92);line-height:1.7;}
 .vip-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
@@ -675,12 +681,11 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .shop-card:hover{border-color:var(--glass-border-hover);transform:translateY(-5px);box-shadow:0 16px 48px rgba(180,100,0,.32);}
 .shop-img{
   height:220px;
-  background:radial-gradient(ellipse at 50% 40%,rgba(200,110,0,.35) 0%,rgba(70,32,4,.65) 100%);
+  background:radial-gradient(ellipse at 50% 40%,rgba(120,60,0,.45) 0%,rgba(20,8,0,.8) 100%);
   display:flex;align-items:center;justify-content:center;
-  font-size:3.5rem;color:rgba(255,200,60,.7);
-  border-bottom:1px solid rgba(220,160,50,.25);
+  font-size:3.5rem;color:rgba(255,200,60,.75);
+  border-bottom:1px solid rgba(220,160,50,.22);
   position:relative;overflow:hidden;
-  filter:drop-shadow(0 0 18px rgba(255,200,60,.25));
 }
 .shop-img::after{
   content:'';position:absolute;inset:0;
@@ -722,8 +727,8 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 .sponsor-benefits{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:2rem 0;}
 .sp-benefit{
-  padding:1.5rem;border:1px solid rgba(220,160,50,.18);
-  background:rgba(60,28,0,.38);text-align:center;
+  padding:1.5rem;border:1px solid rgba(220,160,50,.2);
+  background:rgba(10,4,0,.55);text-align:center;
   backdrop-filter:blur(12px);
 }
 .sp-benefit-icon{font-size:1.1rem;color:var(--gold);margin-bottom:.7rem;display:block;}
@@ -775,8 +780,8 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
 .form-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600;}
 .form-input,.form-select,.form-textarea{
-  background:rgba(80,38,0,.28);
-  border:1px solid rgba(220,160,50,.32);
+  background:rgba(8,3,0,.62);
+  border:1px solid rgba(220,160,50,.3);
   color:var(--cream);padding:.85rem 1.1rem;
   font-family:'Montserrat',sans-serif;font-size:.88rem;font-weight:300;
   outline:none;transition:border-color .3s;width:100%;
@@ -877,7 +882,7 @@ footer{
 .soc:hover{border-color:var(--bright);color:var(--bright);background:rgba(200,151,42,.08);}
 .footer-email-form{display:flex;gap:0;margin-top:.8rem;}
 .footer-email-form input{
-  background:rgba(80,38,0,.28);border:1px solid rgba(220,160,50,.28);
+  background:rgba(8,3,0,.55);border:1px solid rgba(220,160,50,.28);
   border-right:none;color:var(--cream);padding:.7rem 1rem;
   font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:300;
   outline:none;flex:1;
@@ -987,11 +992,12 @@ footer{
     <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="hero-wordmark reveal" style="mix-blend-mode:lighten;"/>
     <p class="hero-sub reveal d1">The Accra Carnival Experience</p>
     <p class="hero-tagline reveal d2">18 Days Like Nowhere Else</p>
-    <div class="hero-cta reveal d3">
+    <p class="hero-legacy reveal d3">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
+    <div class="hero-cta reveal d4">
       <a href="#access" class="btn-gold"><i class="fas fa-ticket-alt"></i>&nbsp; Early Access</a>
       <a href="#experience" class="btn-outline"><i class="fas fa-compass"></i>&nbsp; Explore ALIV</a>
     </div>
-    <div class="hdate-strip reveal d4">
+    <div class="hdate-strip reveal d5">
       <span class="hdate-item">December 17, 2026</span>
       <span class="hdate-dot"></span>
       <span class="hdate-item">January 3, 2027</span>
@@ -1150,7 +1156,7 @@ footer{
         <p class="season-body">The loudest nights of the week. Full crowd, full energy &mdash; the kind of atmosphere you come back for again and again.</p>
       </div>
     </div>
-    <div style="margin-top:3.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:rgba(80,38,0,.32);backdrop-filter:blur(14px);border:1px solid rgba(220,160,50,.2);" class="reveal">
+     <div style="margin-top:3.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:rgba(10,4,0,.6);backdrop-filter:blur(14px);border:1px solid rgba(220,160,50,.22);" class="reveal">
       <div style="padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(220,160,50,.15);">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--bright);margin-bottom:.4rem;text-shadow:0 0 16px rgba(255,200,50,.4);">Culture Nights</div>
         <p style="font-size:.8rem;color:rgba(255,235,195,.62);font-weight:300;">Curated culture, creativity &amp; connection</p>
@@ -1276,8 +1282,8 @@ footer{
         <div class="val-title">Built to Last</div>
         <p class="val-body">ALIV is designed to grow. The kind of thing Accra will talk about for years, and return to every December.</p>
       </div>
-      <div class="val-card reveal d3" style="border-color:rgba(220,160,50,.35);background:rgba(80,38,0,.4);">
-        <div class="val-icon" style="font-size:1.4rem;"><i class="fas fa-quote-left" style="color:rgba(200,151,42,.4);"></i></div>
+      <div class="val-card reveal d3" style="border-color:rgba(220,160,50,.32);background:rgba(10,4,0,.72);">
+        <div class="val-icon" style="font-size:1.4rem;"><i class="fas fa-quote-left" style="color:rgba(255,200,60,.55);"></i></div>
         <p class="mission-text" style="font-size:1rem;">ALIV was created to add a new layer to the magic of December in Accra &mdash; bringing the joy of carnival rides and games into the city&rsquo;s already vibrant season of music, culture, nightlife, food, and celebration.</p>
       </div>
     </div>
