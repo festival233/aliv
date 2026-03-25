@@ -175,11 +175,11 @@ body::after{
   position:relative;overflow:hidden;
   background:#050200;
 }
-/* Real cosmic image behind everything */
+/* Real cosmic image behind everything — use the plain nebula (no text in image) */
 .hbg-img{
   position:absolute;inset:0;
-  background:url('/static/hero-logo-burst.jpg') center center / cover no-repeat;
-  opacity:.75;
+  background:url('/static/nebula-dark-swirl.jpg') center center / cover no-repeat;
+  opacity:.65;
   animation:hbgscale 20s ease-in-out infinite alternate;
 }
 @keyframes hbgscale{0%{transform:scale(1);}100%{transform:scale(1.06);}}
@@ -187,8 +187,8 @@ body::after{
 .hbg-vignette{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 60% 60% at 50% 50%,rgba(5,2,0,.1) 0%,rgba(5,2,0,.65) 100%),
-    linear-gradient(180deg,rgba(5,2,0,.55) 0%,transparent 35%,transparent 65%,rgba(5,2,0,.8) 100%);
+    radial-gradient(ellipse 70% 70% at 50% 50%,rgba(5,2,0,.15) 0%,rgba(5,2,0,.7) 100%),
+    linear-gradient(180deg,rgba(5,2,0,.6) 0%,transparent 30%,transparent 60%,rgba(5,2,0,.85) 100%);
 }
 /* Gold halo around center — amplifies the burst */
 .hbg-glow{
@@ -207,15 +207,20 @@ body::after{
   position:relative;z-index:2;text-align:center;
   padding:10rem 2rem 7rem;display:flex;flex-direction:column;align-items:center;
 }
-/* Big gold logo — no halo box, just drop shadow glow */
-.hlogo{
-  width:min(640px,85vw);height:auto;
-  filter:
-    drop-shadow(0 0 60px rgba(255,215,0,.9))
-    drop-shadow(0 0 120px rgba(212,165,32,.6))
-    drop-shadow(0 4px 20px rgba(0,0,0,.95));
+/* Hero wordmark — CSS-drawn gold 3D text, no image overlap */
+.hwm{
+  display:flex;flex-direction:column;align-items:center;
+  line-height:.88;margin-bottom:2.5rem;
   animation:fl 8s ease-in-out infinite;
-  display:block;margin-bottom:2.5rem;
+}
+.hwm-aliv,.hwm-fest{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,18vw,14rem);
+  letter-spacing:.06em;
+  background:var(--grad-gold);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 40px rgba(255,215,0,.6)) drop-shadow(0 4px 8px rgba(0,0,0,.95));
+  display:block;
 }
 @keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 
@@ -781,8 +786,11 @@ footer::before{
   <div class="hfloor"></div>
 
   <div class="hin">
-    <!-- Gold logo, no background box -->
-    <img src="/static/logo-gold.png" alt="ALIV FEST" class="hlogo"/>
+    <!-- Hero wordmark — Bebas Neue gold, no duplicate PNG -->
+    <div class="hwm">
+      <span class="hwm-aliv">ALIV</span>
+      <span class="hwm-fest">FEST</span>
+    </div>
 
     <div class="hdiv"></div>
     <p class="htag">The Cultural Playground of December</p>
