@@ -53,7 +53,7 @@ app.get('*', (c) => {
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>ALIV FEST 2026 — The Accra Carnival Experience</title>
-<meta name="description" content="ALIV FEST is a premium destination-format carnival and concert experience in Accra, Ghana. December 17, 2026 – January 4, 2027."/>
+<meta name="description" content="ALIV FEST is a premium destination-format carnival and concert experience in Accra, Ghana. December 17, 2026 – January 3, 2027."/>
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -274,15 +274,21 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .hero-sub{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.1rem,2.5vw,1.7rem);
-  font-weight:300;font-style:italic;
-  color:rgba(240,224,192,.8);letter-spacing:.06em;
-  margin-bottom:.7rem;
+  font-size:clamp(1.6rem,3.5vw,2.6rem);
+  font-weight:400;font-style:italic;
+  color:#F5E6C8;letter-spacing:.06em;
+  text-shadow:0 2px 24px rgba(0,0,0,.8),0 0 60px rgba(200,151,42,.25);
+  margin-bottom:1rem;
 }
 .hero-tagline{
-  font-size:clamp(.6rem,1.4vw,.78rem);
-  letter-spacing:.4em;text-transform:uppercase;
-  color:var(--gold);font-weight:500;margin-bottom:3rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3vw,2.2rem);
+  font-style:italic;font-weight:400;
+  letter-spacing:.03em;text-transform:none;
+  color:#C8A04A;
+  text-shadow:0 2px 20px rgba(0,0,0,.9),0 0 40px rgba(0,0,0,.6);
+  max-width:780px;line-height:1.5;
+  margin-bottom:3rem;
 }
 .hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem;}
 .hdate-strip{
@@ -916,9 +922,10 @@ footer{
   <div class="hbg"></div>
   <div class="hfloor"></div>
   <div class="hin">
-    <img src="/static/hero-wordmark.png" alt="ALIV FEST" class="hero-wordmark reveal"/>
+
+    <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="hero-wordmark reveal" style="mix-blend-mode:lighten;"/>
     <p class="hero-sub reveal d1">The Accra Carnival Experience</p>
-    <p class="hero-tagline reveal d2">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
+    <p class="hero-tagline reveal d2">18 Days Like Nowhere Else</p>
     <div class="hero-cta reveal d3">
       <a href="#access" class="btn-gold"><i class="fas fa-ticket-alt"></i>&nbsp; Early Access</a>
       <a href="#experience" class="btn-outline"><i class="fas fa-compass"></i>&nbsp; Explore ALIV</a>
@@ -926,11 +933,9 @@ footer{
     <div class="hdate-strip reveal d4">
       <span class="hdate-item">December 17, 2026</span>
       <span class="hdate-dot"></span>
-      <span class="hdate-item">January 4, 2027</span>
+      <span class="hdate-item">January 3, 2027</span>
       <span class="hdate-dot"></span>
       <span class="hdate-item">Accra, Ghana</span>
-      <span class="hdate-dot"></span>
-      <span class="hdate-item">18 Nights of Pure Joy</span>
     </div>
   </div>
   <div class="scroll-cue">
@@ -942,7 +947,7 @@ footer{
 <!-- ── INFO STRIP ── -->
 <div class="infostrip">
   <div class="istrip-in">
-    <span>Dec 17 &ndash; Jan 4</span>
+    <span>Dec 17 &ndash; Jan 3</span>
     <span class="idot"></span>
     <span>18 Nights</span>
     <span class="idot"></span>
@@ -950,7 +955,7 @@ footer{
     <span class="idot"></span>
     <span>Accra, Ghana</span>
     <span class="idot"></span>
-    <span>Multiple Stages</span>
+    <span>One Main Stage</span>
     <span class="idot"></span>
     <span>Peak Nights: Thu &ndash; Sun</span>
   </div>
@@ -964,7 +969,7 @@ footer{
     <div class="about-grid">
       <div class="about-label-col rl">
         <div class="slbl">The Experience</div>
-        <h2 class="sh">A World<br/><span class="gold">Guests Step Into</span></h2>
+        <h2 class="sh">A World You<br/><span class="gold">Step Into</span></h2>
         <hr class="gr"/>
         <div class="about-stats">
           <div class="stat-box">
@@ -983,10 +988,10 @@ footer{
       </div>
       <div class="rr">
         <p class="about-body">
-          ALIV FEST is a premium destination-format carnival and concert experience in Accra, designed to bring together music, culture, nightlife, food, immersive activations, and celebration across a multi-day seasonal run.
+          ALIV FEST is a premium destination-format immersive carnival experience unlike anything Accra has seen before. For the first time ever, Accra will experience the magic of music, culture, rides, nightlife, food, immersive activations, and celebration all in one place across a multi-day seasonal run.
         </p>
         <p class="about-body" style="margin-top:1.5rem;">
-          More than an event, ALIV is a world guests step into &mdash; built for discovery, participation, repeat visits, and unforgettable moments.
+          More than an event or festival, ALIV is a world of its own you can step into &mdash; built for discovery, enjoyment, unbelievable energy, and unforgettable moments.
         </p>
       </div>
     </div>
@@ -998,130 +1003,149 @@ footer{
   <div class="ticker-track">
     <span class="ti">ALIV FEST 2026</span>
     <span class="ti">Accra, Ghana</span>
-    <span class="ti">Dec 17 &mdash; Jan 4</span>
-    <span class="ti">18 Nights</span>
-    <span class="ti">Culture &amp; Nightlife</span>
-    <span class="ti">Premium Experience</span>
-    <span class="ti">Carnival Energy</span>
-    <span class="ti">DJ Culture</span>
+    <span class="ti">Dec 17 &mdash; Jan 3</span>
+    <span class="ti">18 Days Like Nowhere Else</span>
+    <span class="ti">Rides &amp; Carnival</span>
     <span class="ti">Food Village</span>
+    <span class="ti">Afrobeats &amp; Amapiano</span>
     <span class="ti">VIP Society</span>
+    <span class="ti">Immersive Experiences</span>
+    <span class="ti">Peak Nights Thu &mdash; Sun</span>
     <span class="ti">ALIV FEST 2026</span>
     <span class="ti">Accra, Ghana</span>
-    <span class="ti">Dec 17 &mdash; Jan 4</span>
-    <span class="ti">18 Nights</span>
-    <span class="ti">Culture &amp; Nightlife</span>
-    <span class="ti">Premium Experience</span>
-    <span class="ti">Carnival Energy</span>
-    <span class="ti">DJ Culture</span>
+    <span class="ti">Dec 17 &mdash; Jan 3</span>
+    <span class="ti">18 Days Like Nowhere Else</span>
+    <span class="ti">Rides &amp; Carnival</span>
     <span class="ti">Food Village</span>
+    <span class="ti">Afrobeats &amp; Amapiano</span>
     <span class="ti">VIP Society</span>
+    <span class="ti">Immersive Experiences</span>
+    <span class="ti">Peak Nights Thu &mdash; Sun</span>
   </div>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════
-     WHY ALIV
+     WHAT AWAITS YOU
 ════════════════════════════════════════════════════════════ -->
 <section id="why">
   <div class="wrap">
     <div class="reveal" style="text-align:center;margin-bottom:1rem;">
-      <div class="slbl">Why ALIV</div>
+      <div class="slbl">At ALIV FEST</div>
     </div>
-    <h2 class="sh reveal" style="text-align:center;">Why ALIV.<br/><span class="gold">Why Now.</span></h2>
+    <h2 class="sh reveal" style="text-align:center;">What Awaits<br/><span class="gold">You</span></h2>
+    <p class="sc reveal" style="text-align:center;max-width:540px;margin:0 auto 4rem;">Eighteen days of something you&rsquo;ve never quite experienced before &mdash; right here in Accra.</p>
     <div class="why-grid">
       <div class="why-card reveal d1">
         <div class="why-num">01</div>
-        <div class="why-title">Cultural Moment</div>
-        <p class="why-body">December in Accra draws diaspora travelers, tastemakers, and premium social audiences from across the globe.</p>
+        <div class="why-title">Rides, Games &amp; Real Enjoyment</div>
+        <p class="why-body">From carnival thrills to playful competition, ALIV brings the kind of fun that keeps the night moving.</p>
       </div>
       <div class="why-card reveal d2">
         <div class="why-num">02</div>
-        <div class="why-title">Structured Platform</div>
-        <p class="why-body">A multi-day experience designed for repeat visits, evolving programming, and sustained visibility across 18 nights.</p>
+        <div class="why-title">Food, Music &amp; Nightlife</div>
+        <p class="why-body">Good food, loud music, and the energy of being exactly where you want to be.</p>
       </div>
       <div class="why-card reveal d3">
         <div class="why-num">03</div>
-        <div class="why-title">Repeat Engagement</div>
-        <p class="why-body">Guests have reasons to return across multiple nights, zones, and programming moments throughout the season.</p>
+        <div class="why-title">Immersive Moments Everywhere</div>
+        <p class="why-body">Interactive activations, photo-worthy scenes, and surprises across every zone of the experience.</p>
       </div>
       <div class="why-card reveal d4">
         <div class="why-num">04</div>
-        <div class="why-title">Measurable Value</div>
-        <p class="why-body">ALIV is built for participation, not just placement &mdash; with engagement designed to be visible and reportable.</p>
+        <div class="why-title">A Night You Won&rsquo;t Want To End</div>
+        <p class="why-body">Every zone gives you another reason to stay longer, do more, and come back again.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     SEASON
+     THE EXPERIENCE — WHAT'S HAPPENING
 ════════════════════════════════════════════════════════════ -->
 <section id="season">
   <div class="wrap">
     <div style="text-align:center;margin-bottom:1rem;" class="reveal">
-      <div class="slbl">The Season</div>
+      <div class="slbl">18 Days of It All</div>
     </div>
-    <h2 class="sh reveal" style="text-align:center;margin-bottom:.5rem;">How the Season Works</h2>
-    <p class="sc reveal" style="text-align:center;max-width:560px;margin:0 auto;">A multi-week platform designed for repeat visits, evolving programming, and sustained visibility.</p>
+    <h2 class="sh reveal" style="text-align:center;margin-bottom:.5rem;">Something Happening<br/><span class="gold">Every Single Night</span></h2>
+    <p class="sc reveal" style="text-align:center;max-width:580px;margin:0 auto;">From carnival energy to late-night music, food culture to signature December moments &mdash; ALIV is always on.</p>
     <div class="season-grid" style="margin-top:4rem;">
       <div class="season-block reveal d1">
-        <span class="season-icon"><i class="fas fa-calendar-alt"></i></span>
-        <div class="season-title">Dec 17 &ndash; Jan 4</div>
-        <div class="season-sub">The Full Season</div>
-        <p class="season-body">Open daily across the holiday period &mdash; a multi-week platform designed for repeat attendance and evolving experiences.</p>
+        <span class="season-icon"><i class="fas fa-headphones"></i></span>
+        <div class="season-title">Music &amp; Nightlife</div>
+        <div class="season-sub">Every Night</div>
+        <p class="season-body">Afrobeats, Amapiano, and high-energy DJ sets from the main stage. The crowd is always alive, the energy never drops.</p>
       </div>
       <div class="season-block reveal d2">
-        <span class="season-icon"><i class="fas fa-infinity"></i></span>
-        <div class="season-title">Open Daily</div>
-        <div class="season-sub">Culture &amp; Activations</div>
-        <p class="season-body">Culture, activations, rides, food, social moments, and nightlife energy every single night of the season.</p>
+        <span class="season-icon"><i class="fas fa-ferris-wheel"></i></span>
+        <div class="season-title">Carnival &amp; Rides</div>
+        <div class="season-sub">Thrills &amp; Play</div>
+        <p class="season-body">Carnival attractions, rides, games, and live activation energy that pull you deeper into the experience with every step.</p>
       </div>
       <div class="season-block reveal d3">
         <span class="season-icon"><i class="fas fa-fire"></i></span>
         <div class="season-title">Peak Nights</div>
         <div class="season-sub">Thursday &ndash; Sunday</div>
-        <p class="season-body">Heightened energy, headline DJ moments, premium crowd density, and elevated atmosphere across peak programming nights.</p>
+        <p class="season-body">The loudest nights of the week. Full crowd, full energy &mdash; the kind of atmosphere you come back for again and again.</p>
+      </div>
+    </div>
+    <div style="margin-top:3.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:rgba(200,151,42,.08);" class="reveal">
+      <div style="padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(200,151,42,.12);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--bright);margin-bottom:.4rem;">Culture Nights</div>
+        <p style="font-size:.8rem;color:rgba(240,224,192,.45);font-weight:300;">Curated culture, creativity &amp; connection</p>
+      </div>
+      <div style="padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(200,151,42,.12);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--bright);margin-bottom:.4rem;">Nightlife Nights</div>
+        <p style="font-size:.8rem;color:rgba(240,224,192,.45);font-weight:300;">DJ-led, full-crowd, main stage energy</p>
+      </div>
+      <div style="padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(200,151,42,.12);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--bright);margin-bottom:.4rem;">Carnival Nights</div>
+        <p style="font-size:.8rem;color:rgba(240,224,192,.45);font-weight:300;">Lights, rides &amp; carnival zone in full swing</p>
+      </div>
+      <div style="padding:2rem 1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--bright);margin-bottom:.4rem;">Social Sundays</div>
+        <p style="font-size:.8rem;color:rgba(240,224,192,.45);font-weight:300;">Laid-back social energy &amp; food village vibes</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     AUDIENCE
+     WHO'S COMING
 ════════════════════════════════════════════════════════════ -->
 <section id="audience">
   <div class="wrap">
     <div class="aud-intro reveal">
-      <div class="slbl">Built For</div>
-      <h2 class="sh">ALIV is Built<br/><span class="gold">For This Audience</span></h2>
+      <div class="slbl">This Is For You</div>
+      <h2 class="sh">If December Is Your<br/><span class="gold">Season, This Is Your Place</span></h2>
       <hr class="gr c"/>
-      <p class="sc">Culturally connected, socially active audiences who want more than a night out &mdash; they want an experience.</p>
+      <p class="sc">You love good music, real energy, and experiences you&rsquo;ll actually talk about. ALIV was made for you.</p>
     </div>
     <div class="aud-grid">
       <div class="aud-card reveal d1">
         <span class="aud-icon"><i class="fas fa-plane-departure"></i></span>
-        <div class="aud-title">Diaspora Travelers</div>
-        <p class="aud-body">Returning home for the December season seeking premium experiences and cultural connection.</p>
+        <div class="aud-title">Coming Home for December</div>
+        <p class="aud-body">You&rsquo;re flying in for the season and you want something worth the trip. ALIV is exactly that.</p>
       </div>
       <div class="aud-card reveal d2">
         <span class="aud-icon"><i class="fas fa-star"></i></span>
-        <div class="aud-title">Accra Tastemakers</div>
-        <p class="aud-body">Local premium social audiences, creatives, and influencers who set the cultural agenda.</p>
+        <div class="aud-title">Accra Locals</div>
+        <p class="aud-body">You live for the city&rsquo;s energy in December and you want the experience that matches your taste.</p>
       </div>
       <div class="aud-card reveal d3">
         <span class="aud-icon"><i class="fas fa-camera"></i></span>
-        <div class="aud-title">Creators + Connectors</div>
-        <p class="aud-body">Content creators, media professionals, and social storytellers amplifying the experience.</p>
+        <div class="aud-title">Creators &amp; Connectors</div>
+        <p class="aud-body">You create content, build community, and need an environment that feeds both. ALIV is the backdrop.</p>
       </div>
       <div class="aud-card reveal d4">
         <span class="aud-icon"><i class="fas fa-cocktail"></i></span>
-        <div class="aud-title">Premium Social Audiences</div>
-        <p class="aud-body">High-energy nightlife audiences seeking elevated environments and exclusive access.</p>
+        <div class="aud-title">Nightlife People</div>
+        <p class="aud-body">You know good vibes when you feel them. You want elevated experiences, not average ones.</p>
       </div>
       <div class="aud-card reveal d5">
         <span class="aud-icon"><i class="fas fa-glass-cheers"></i></span>
-        <div class="aud-title">Celebration Seekers</div>
-        <p class="aud-body">Birthday groups, friend squads, and social circles looking for the ultimate holiday moment.</p>
+        <div class="aud-title">Here to Celebrate</div>
+        <p class="aud-body">Birthdays, squads, milestones &mdash; ALIV is the kind of backdrop that makes celebrations unforgettable.</p>
       </div>
     </div>
   </div>
@@ -1134,60 +1158,61 @@ footer{
   <div class="wrap">
     <div class="enter-header reveal">
       <div class="slbl">Enter ALIV</div>
-      <h2 class="sh">A New Kind of<br/><span class="gold">December Experience</span></h2>
+      <h2 class="sh">Accra&rsquo;s Most Immersive<br/><span class="gold">December Experience</span></h2>
       <hr class="gr c"/>
-      <p class="sc">in Accra</p>
+      <p class="sc" style="max-width:580px;margin:0 auto;">Not just a festival. Not just a party. A whole world to step into &mdash; built around the energy, culture, and spirit of December in Accra.</p>
     </div>
 
     <div class="mission-grid">
       <div class="mission-block rl">
-        <div class="mission-label">Who We Are</div>
-        <p class="mission-text">ALIV FEST is a destination-format cultural experience built to bring people together through music, joy, movement, hospitality, and immersive design. Created for the energy of December in Accra, ALIV blends carnival excitement, nightlife, premium social experiences, food culture, and branded activations into one walkable platform.</p>
+        <div class="mission-label">What ALIV Is</div>
+        <p class="mission-text">ALIV FEST is a premium, destination-format immersive carnival experience. Rides, music, food, nightlife, cultural moments, and unforgettable social energy &mdash; all in one place, open across 18 days of December in Accra.</p>
+        <p class="mission-text" style="margin-top:1.5rem;">It&rsquo;s the kind of experience where you arrive for one thing and leave having done ten. Where every corner reveals something new. Where you&rsquo;re not just watching &mdash; you&rsquo;re inside it.</p>
       </div>
       <div class="rr" style="display:flex;flex-direction:column;gap:2.5rem;">
         <div class="mission-block">
-          <div class="mission-label">Our Mission</div>
-          <p class="mission-text">To create a world-class Accra experience where culture, celebration, and connection come alive through immersive entertainment and intentional design.</p>
+          <div class="mission-label">Why We Built It</div>
+          <p class="mission-text">December in Accra deserved something bigger. A world-class experience rooted in culture, designed for real enjoyment, and built to make this the most talked-about season Accra has ever had.</p>
         </div>
         <div class="mission-block">
-          <div class="mission-label">Our Vision</div>
-          <p class="mission-text">To build a signature seasonal platform that becomes part of how December is experienced in Accra &mdash; one that guests return to, brands want to be part of, and the culture remembers.</p>
+          <div class="mission-label">What Makes It Different</div>
+          <p class="mission-text">Everything in one place. Music, carnival, food, nightlife, activations, VIP moments, and signature experiences designed to pull you back night after night.</p>
         </div>
       </div>
     </div>
 
     <div style="text-align:center;margin-bottom:2rem;" class="reveal">
-      <div class="slbl">Our Values</div>
+      <div class="slbl">What We Stand For</div>
     </div>
     <div class="values-grid">
       <div class="val-card reveal d1">
         <div class="val-icon"><i class="fas fa-heart"></i></div>
         <div class="val-title">Experience First</div>
-        <p class="val-body">We create moments people feel, not just events they attend.</p>
+        <p class="val-body">Everything is designed around how it feels to be there &mdash; not how it looks on paper.</p>
       </div>
       <div class="val-card reveal d2">
         <div class="val-icon"><i class="fas fa-drum"></i></div>
         <div class="val-title">Culture Forward</div>
-        <p class="val-body">ALIV is rooted in energy, creativity, and the spirit of celebration.</p>
+        <p class="val-body">ALIV is rooted in Accra&rsquo;s energy, creativity, and the spirit of celebration that makes December electric.</p>
       </div>
       <div class="val-card reveal d3">
         <div class="val-icon"><i class="fas fa-users"></i></div>
-        <div class="val-title">Participation Over Placement</div>
-        <p class="val-body">Guests and partners should feel part of the experience, not observers of it.</p>
+        <div class="val-title">You&rsquo;re In It, Not Watching It</div>
+        <p class="val-body">Every zone, every night, every moment is designed for you to participate &mdash; not observe.</p>
       </div>
       <div class="val-card reveal d1">
         <div class="val-icon"><i class="fas fa-crown"></i></div>
-        <div class="val-title">Elevated Hospitality</div>
-        <p class="val-body">Premium means intentional, memorable, and beautifully designed at every touchpoint.</p>
+        <div class="val-title">Elevated at Every Level</div>
+        <p class="val-body">Premium means real quality at every touchpoint &mdash; the atmosphere, the service, the details.</p>
       </div>
       <div class="val-card reveal d2">
         <div class="val-icon"><i class="fas fa-monument"></i></div>
-        <div class="val-title">Legacy Building</div>
-        <p class="val-body">ALIV is designed to grow into a platform with long-term cultural and commercial value.</p>
+        <div class="val-title">Built to Last</div>
+        <p class="val-body">ALIV is designed to grow. The kind of thing Accra will talk about for years, and return to every December.</p>
       </div>
       <div class="val-card reveal d3" style="border-color:rgba(200,151,42,.25);background:rgba(20,10,0,.7);">
         <div class="val-icon" style="font-size:1.4rem;"><i class="fas fa-quote-left" style="color:rgba(200,151,42,.4);"></i></div>
-        <p class="mission-text" style="font-size:1rem;">ALIV was created to deliver something more immersive, more beautiful, and more intentional than the typical event format.</p>
+        <p class="mission-text" style="font-size:1rem;">ALIV was created because Accra deserved something more immersive, more beautiful, and more alive than anything it&rsquo;s had before.</p>
       </div>
     </div>
   </div>
@@ -1200,9 +1225,9 @@ footer{
   <div class="wrap">
     <div class="exp-header reveal">
       <div class="slbl">Experience ALIV</div>
-      <h2 class="sh">Five Zones.<br/><span class="gold">One Walkable Cultural Platform.</span></h2>
+      <h2 class="sh">Seven Zones.<br/><span class="gold">One World to Explore.</span></h2>
       <hr class="gr c"/>
-      <p class="sc">Defined zones create stronger flow, more discovery, more dwell time, and a more immersive guest experience.</p>
+      <p class="sc">Every zone pulls you deeper in. Wander, discover, stay longer &mdash; there&rsquo;s always another reason to keep moving.</p>
     </div>
     <div class="zones-grid">
       <div class="zone-card reveal d1">
@@ -1282,33 +1307,33 @@ footer{
   <div class="wrap">
     <div class="come-header">
       <div class="slbl reveal">Come ALIV</div>
-      <h2 class="sh reveal" style="font-size:clamp(2.8rem,6vw,5rem);">Where the Night<br/><span class="gold">Turns All the Way Up</span></h2>
-      <p class="come-tagline reveal">COME ALIV is where the pulse of the festival takes over. It is the sound, the crowd, the release, and the unforgettable energy of being fully in the moment.</p>
+      <h2 class="sh reveal" style="font-size:clamp(2.8rem,6vw,5rem);">The Music Never<br/><span class="gold">Stops Here</span></h2>
+      <p class="come-tagline reveal">This is what you came for. The DJ is deep in the set, the crowd is locked in, and you&rsquo;re exactly where you&rsquo;re supposed to be. ALIV nights are built for the people who know the difference between a party and an experience.</p>
     </div>
     <div class="nights-grid">
       <div class="night-card reveal d1">
         <span class="night-icon"><i class="fas fa-music"></i></span>
         <div class="night-title">Culture Nights</div>
-        <p class="night-body">Curated cultural programming, live showcases, and immersive experiences that celebrate the richness of the season.</p>
+        <p class="night-body">Afrobeats, cultural showcases, and programming that feels like home. Creative, vibrant, rooted in the moment.</p>
       </div>
       <div class="night-card reveal d2">
         <span class="night-icon"><i class="fas fa-headphones"></i></span>
         <div class="night-title">Nightlife Nights</div>
-        <p class="night-body">DJ-driven, high-energy, full-crowd nights where Afrobeats and Amapiano take over the main stage and beyond.</p>
+        <p class="night-body">Full crowd. Full energy. DJ-led nights where Afrobeats and Amapiano take the main stage and don&rsquo;t let go.</p>
       </div>
       <div class="night-card reveal d3">
         <span class="night-icon"><i class="fas fa-star"></i></span>
         <div class="night-title">Carnival Nights</div>
-        <p class="night-body">Lights, rides, movement, and the joyful energy of a fully activated carnival zone alongside the stage programming.</p>
+        <p class="night-body">The whole park is on. Lights, rides, movement, and the unmistakable feeling of a carnival at its peak.</p>
       </div>
       <div class="night-card reveal d4">
         <span class="night-icon"><i class="fas fa-sun"></i></span>
         <div class="night-title">Social Sundays</div>
-        <p class="night-body">More relaxed, social-first Sunday energy. Brunch vibes, group gatherings, and the perfect daytime-into-evening experience.</p>
+        <p class="night-body">Slower burn, bigger energy. Groups gather, the food village fills up, and the night surprises you every time.</p>
       </div>
     </div>
     <div class="come-quote reveal">
-      <blockquote>From major DJ-driven nights to celebration-fueled peak experiences, this is where ALIV transforms from a festival into a full nightlife world.</blockquote>
+      <blockquote>Whether it&rsquo;s your first night or your fifth, ALIV always gives you a reason to stay a little longer.</blockquote>
     </div>
   </div>
 </section>
@@ -1363,46 +1388,46 @@ footer{
   <div class="wrap">
     <div class="shop-header reveal">
       <div class="slbl">Drip Shop</div>
-      <h2 class="sh"><span class="gold">Wear</span> the Energy</h2>
+      <h2 class="sh">ALIV Merch<br/><span class="gold">Is Coming</span></h2>
       <hr class="gr c"/>
-      <p class="sc">The DRIP SHOP will feature curated ALIV merchandise designed to extend the experience beyond the festival grounds. Premium, wearable, collectible, and season-ready.</p>
+      <p class="sc">The ALIV DRIP SHOP is in the works. Wearable, collectible, and built for the energy of the season. Get on the list before anything drops.</p>
     </div>
     <div class="shop-grid">
       <div class="shop-card reveal d1">
         <div class="shop-img"><i class="fas fa-tint"></i></div>
         <div class="shop-info">
-          <div class="shop-name">Custom Water Bottle</div>
+          <div class="shop-name">Custom Water Bottles</div>
           <div class="shop-sub">ALIV FEST 2026 Edition</div>
-          <span class="shop-tag">Coming Soon</span>
+          <span class="shop-tag">Drop TBA</span>
         </div>
       </div>
       <div class="shop-card reveal d2">
         <div class="shop-img"><i class="fas fa-key"></i></div>
         <div class="shop-info">
-          <div class="shop-name">Gold Keychain</div>
-          <div class="shop-sub">Limited Collector&rsquo;s Item</div>
-          <span class="shop-tag">Coming Soon</span>
+          <div class="shop-name">Key Chains</div>
+          <div class="shop-sub">Collector&rsquo;s Item</div>
+          <span class="shop-tag">Drop TBA</span>
         </div>
       </div>
       <div class="shop-card reveal d3">
         <div class="shop-img"><i class="fas fa-tshirt"></i></div>
         <div class="shop-info">
-          <div class="shop-name">ALIV Classic Tee</div>
-          <div class="shop-sub">Premium Cotton</div>
-          <span class="shop-tag">Coming Soon</span>
+          <div class="shop-name">T-Shirts</div>
+          <div class="shop-sub">Premium Festival Tee</div>
+          <span class="shop-tag">Drop TBA</span>
         </div>
       </div>
       <div class="shop-card reveal d4">
         <div class="shop-img"><i class="fas fa-hat-cowboy"></i></div>
         <div class="shop-info">
-          <div class="shop-name">ALIV Snapback</div>
-          <div class="shop-sub">Gold Edition Cap</div>
-          <span class="shop-tag">Coming Soon</span>
+          <div class="shop-name">Hats</div>
+          <div class="shop-sub">ALIV Gold Edition</div>
+          <span class="shop-tag">Drop TBA</span>
         </div>
       </div>
     </div>
     <div class="shop-note reveal">
-      <p class="sc" style="margin-bottom:1.5rem;">Merch drops are still in development. Join Early Access to be first to know when products launch.</p>
+      <p class="sc" style="margin-bottom:1.5rem;">Merch drops are being finalized. Join Early Access to be first when products go live &mdash; limited quantities on everything.</p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
         <a href="#access" class="btn-gold"><i class="fas fa-bell"></i>&nbsp; Get Early Access</a>
         <a href="#access" class="btn-outline">Join Merch Waitlist</a>
@@ -1412,135 +1437,37 @@ footer{
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     BECOME ALIV
+     BECOME ALIV — TEASER ONLY
 ════════════════════════════════════════════════════════════ -->
 <section id="bealiv">
   <div class="wrap">
     <div class="bealiv-header reveal">
       <div class="slbl">Become ALIV</div>
-      <h2 class="sh">Partner With<br/><span class="gold">the Experience</span></h2>
+      <h2 class="sh">Be Part of Something<br/><span class="gold">Bigger Than a Night Out</span></h2>
       <hr class="gr c"/>
-      <p class="sc" style="max-width:560px;margin:0 auto;">Whether you&rsquo;re a brand or a vendor, ALIV offers you a presence inside one of Accra&rsquo;s most premium cultural moments.</p>
+      <p class="sc" style="max-width:600px;margin:0 auto 4rem;">ALIV FEST is building something Accra hasn&rsquo;t seen before &mdash; and there&rsquo;s a place for brands and vendors who want to be part of it.</p>
     </div>
-    <div class="bealiv-tracks">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;" class="bealiv-tracks">
 
-      <!-- SPONSORS -->
-      <div class="track reveal rl">
-        <div class="track-label"><i class="fas fa-handshake"></i>&nbsp; For Sponsors</div>
-        <p class="sc" style="margin-bottom:2rem;">ALIV offers brands more than visibility &mdash; it offers presence inside the experience. Built as a multi-zone, multi-day platform, ALIV gives partners the opportunity to connect with audiences through owned spaces, cultural relevance, premium energy, and measurable engagement.</p>
-        <div class="sponsor-benefits">
-          <div class="sp-benefit">
-            <span class="sp-benefit-icon"><i class="fas fa-broadcast-tower"></i></span>
-            <div class="sp-benefit-title">Extended Reach</div>
-            <p class="sp-benefit-body">Multi-day exposure and repeat audience touchpoints across 18 nights.</p>
-          </div>
-          <div class="sp-benefit">
-            <span class="sp-benefit-icon"><i class="fas fa-map-marked-alt"></i></span>
-            <div class="sp-benefit-title">Owned Environments</div>
-            <p class="sp-benefit-body">Defined spaces and moments brands can own within the experience.</p>
-          </div>
-          <div class="sp-benefit">
-            <span class="sp-benefit-icon"><i class="fas fa-chart-line"></i></span>
-            <div class="sp-benefit-title">Measurable Results</div>
-            <p class="sp-benefit-body">Traffic, scans, participation, sign-ups, content, and recap potential.</p>
-          </div>
-        </div>
-        <div class="tiers">
-          <div class="tier">
-            <div class="tier-dot" style="background:var(--bright);"></div>
-            <div>
-              <div class="tier-title">Presenting Partner</div>
-              <p class="tier-body">Lead visibility and season-wide naming-level alignment across the full ALIV platform.</p>
-            </div>
-          </div>
-          <div class="tier">
-            <div class="tier-dot"></div>
-            <div>
-              <div class="tier-title">Infrastructure Partners</div>
-              <p class="tier-body">Telecom, payment, beverage, and other critical platform categories.</p>
-            </div>
-          </div>
-          <div class="tier">
-            <div class="tier-dot"></div>
-            <div>
-              <div class="tier-title">Experience Partners</div>
-              <p class="tier-body">Zone ownership opportunities across key festival environments.</p>
-            </div>
-          </div>
-          <div class="tier">
-            <div class="tier-dot"></div>
-            <div>
-              <div class="tier-title">Activation Sponsors</div>
-              <p class="tier-body">Curated branded presence, guest engagement, and immersive pop-up moments.</p>
-            </div>
-          </div>
-        </div>
-        <div class="track-cta">
+      <!-- SPONSORS TEASER -->
+      <div class="track reveal rl" style="text-align:center;">
+        <div style="font-size:2.2rem;color:var(--gold);margin-bottom:1.5rem;"><i class="fas fa-handshake"></i></div>
+        <div class="track-label" style="justify-content:center;">For Sponsors &amp; Brands</div>
+        <p class="sc" style="margin:1.2rem 0 2rem;">Put your brand inside one of Accra&rsquo;s most talked-about experiences. Owned environments, real engagement, and a premium audience across 18 days.</p>
+        <div class="track-cta" style="flex-direction:column;align-items:center;">
           <a href="mailto:sponsors@alivfest.com" class="btn-gold"><i class="fas fa-file-alt"></i>&nbsp; Request Sponsorship Deck</a>
-          <a href="mailto:sponsors@alivfest.com" class="btn-outline">Start Sponsorship Conversation</a>
+          <a href="mailto:sponsors@alivfest.com" class="btn-outline" style="margin-top:.8rem;">Start a Conversation</a>
         </div>
       </div>
 
-      <!-- VENDORS -->
-      <div class="track reveal rr">
-        <div class="track-label"><i class="fas fa-store"></i>&nbsp; For Vendors</div>
-        <p class="sc" style="margin-bottom:2rem;">Vendors are an important part of the ALIV guest experience. From food and beverage to curated retail and experience-supporting offerings, ALIV is building a vendor environment that adds energy, quality, and discovery to the festival footprint.</p>
-        <div style="margin-bottom:2rem;">
-          <div class="mission-label" style="margin-bottom:1rem;">Vendor Types We&rsquo;re Looking For</div>
-          <div class="vendor-types">
-            <span class="vtype"><i class="fas fa-utensils"></i> Food Vendors</span>
-            <span class="vtype"><i class="fas fa-cocktail"></i> Beverage</span>
-            <span class="vtype"><i class="fas fa-ice-cream"></i> Specialty Treats</span>
-            <span class="vtype"><i class="fas fa-shopping-bag"></i> Lifestyle Retail</span>
-            <span class="vtype"><i class="fas fa-gem"></i> Accessories</span>
-            <span class="vtype"><i class="fas fa-magic"></i> Experience Pop-ups</span>
-          </div>
-        </div>
-        <div style="padding:2rem;background:rgba(13,7,0,.5);border:1px solid rgba(200,151,42,.1);margin-bottom:2rem;">
-          <p class="sc" style="font-style:italic;">Vendor spots are curated to ensure quality, variety, and strong fit with the ALIV guest experience. Applications are reviewed on a rolling basis.</p>
-        </div>
-        <div class="track-cta" id="vendor-section">
-          <button class="btn-gold" onclick="showVendorForm()"><i class="fas fa-pen"></i>&nbsp; Apply as a Vendor</button>
-          <a href="#access" class="btn-outline">Join Vendor Interest List</a>
-        </div>
-        <!-- Vendor Form (hidden by default) -->
-        <div id="vendor-form" style="display:none;margin-top:2rem;">
-          <div class="form-group">
-            <label class="form-label">Business Name</label>
-            <input type="text" id="vd-biz" class="form-input" placeholder="Your business name"/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Contact Name</label>
-            <input type="text" id="vd-name" class="form-input" placeholder="Your full name"/>
-          </div>
-          <div class="form-row">
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Email</label>
-              <input type="email" id="vd-email" class="form-input" placeholder="hello@yourbusiness.com"/>
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Phone</label>
-              <input type="tel" id="vd-phone" class="form-input" placeholder="+233..."/>
-            </div>
-          </div>
-          <div class="form-group" style="margin-top:1rem;">
-            <label class="form-label">Vendor Category</label>
-            <select id="vd-cat" class="form-select">
-              <option value="">Select a category</option>
-              <option>Food Vendor</option>
-              <option>Beverage Concept</option>
-              <option>Specialty Treats</option>
-              <option>Lifestyle Retail</option>
-              <option>Accessories</option>
-              <option>Experience Pop-up</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Describe Your Offering</label>
-            <textarea id="vd-desc" class="form-textarea" rows="3" placeholder="Tell us what you bring to ALIV..."></textarea>
-          </div>
-          <button class="btn-gold form-submit" onclick="submitVendor()"><i class="fas fa-paper-plane"></i>&nbsp; Submit Application</button>
-          <div id="vendor-msg" class="form-msg"></div>
+      <!-- VENDORS TEASER -->
+      <div class="track reveal rr" style="text-align:center;">
+        <div style="font-size:2.2rem;color:var(--gold);margin-bottom:1.5rem;"><i class="fas fa-store"></i></div>
+        <div class="track-label" style="justify-content:center;">For Vendors</div>
+        <p class="sc" style="margin:1.2rem 0 2rem;">Food, beverage, lifestyle, and specialty vendors &mdash; ALIV is curating a vendor environment that adds real energy and discovery to the experience.</p>
+        <div class="track-cta" style="flex-direction:column;align-items:center;">
+          <a href="mailto:vendors@alivfest.com" class="btn-gold"><i class="fas fa-pen"></i>&nbsp; Apply as a Vendor</a>
+          <a href="#access" class="btn-outline" style="margin-top:.8rem;">Join Vendor Interest List</a>
         </div>
       </div>
 
@@ -1613,7 +1540,7 @@ footer{
       <div>
         <img src="/static/logo-gold.png" alt="ALIV FEST" class="footer-logo"/>
         <p class="footer-brand">The Accra Carnival Experience</p>
-        <p class="footer-copy">A premium destination-format cultural platform in Accra, Ghana. December 17, 2026 &ndash; January 4, 2027.</p>
+        <p class="footer-copy">A premium destination-format cultural platform in Accra, Ghana. December 17, 2026 &ndash; January 3, 2027.</p>
         <div class="socials" style="margin-top:1.5rem;">
           <a href="#" class="soc" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="#" class="soc" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
@@ -1642,7 +1569,7 @@ footer{
         </ul>
         <div style="margin-top:1.5rem;">
           <div class="footer-col-title">Location</div>
-          <p style="font-size:.84rem;color:rgba(240,224,192,.4);line-height:1.7;font-weight:300;">Accra, Ghana<br/>Dec 17, 2026 &ndash; Jan 4, 2027</p>
+          <p style="font-size:.84rem;color:rgba(240,224,192,.4);line-height:1.7;font-weight:300;">Accra, Ghana<br/>Dec 17, 2026 &ndash; Jan 3, 2027</p>
         </div>
       </div>
       <div>
