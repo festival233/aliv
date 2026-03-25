@@ -74,6 +74,12 @@ body{
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
+/* ── Global cosmic backdrop ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:-2;
+  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
+  opacity:.18;
+}
 /* Subtle film grain */
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.025;
@@ -121,11 +127,11 @@ body::after{
   transition:all .5s cubic-bezier(.16,1,.3,1);
 }
 #nav.scrolled{
-  background:rgba(10,8,4,.94);
+  background:rgba(8,5,2,.92);
   backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
   padding:.75rem 0;
-  border-bottom:1px solid rgba(212,165,32,.12);
-  box-shadow:0 4px 60px rgba(0,0,0,.8);
+  border-bottom:1px solid rgba(212,165,32,.18);
+  box-shadow:0 4px 60px rgba(0,0,0,.9),0 1px 0 rgba(212,165,32,.06);
 }
 #nav .in{max-width:1300px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;}
 .nlogo{height:36px;width:auto;filter:drop-shadow(0 0 12px rgba(255,215,0,.6));transition:filter .3s;}
@@ -175,11 +181,11 @@ body::after{
   position:relative;overflow:hidden;
   background:#050200;
 }
-/* Real cosmic image behind everything — use the plain nebula (no text in image) */
+/* Real cosmic backdrop behind everything */
 .hbg-img{
   position:absolute;inset:0;
-  background:url('/static/nebula-dark-swirl.jpg') center center / cover no-repeat;
-  opacity:.65;
+  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
+  opacity:.9;
   animation:hbgscale 20s ease-in-out infinite alternate;
 }
 @keyframes hbgscale{0%{transform:scale(1);}100%{transform:scale(1.06);}}
@@ -187,16 +193,18 @@ body::after{
 .hbg-vignette{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 70% at 50% 50%,rgba(5,2,0,.15) 0%,rgba(5,2,0,.7) 100%),
-    linear-gradient(180deg,rgba(5,2,0,.6) 0%,transparent 30%,transparent 60%,rgba(5,2,0,.85) 100%);
+    radial-gradient(ellipse 70% 70% at 50% 50%,rgba(5,2,0,.1) 0%,rgba(5,2,0,.55) 100%),
+    linear-gradient(180deg,rgba(5,2,0,.7) 0%,transparent 25%,transparent 55%,rgba(5,2,0,.9) 100%);
 }
-/* Gold halo around center — amplifies the burst */
+/* Warm amber radial bloom from bottom-center matching the backdrop wave source */
 .hbg-glow{
   position:absolute;inset:0;
-  background:radial-gradient(ellipse 50% 50% at 50% 45%,rgba(255,215,0,.08) 0%,rgba(212,165,32,.04) 40%,transparent 70%);
-  animation:hglow 4s ease-in-out infinite alternate;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 80%,rgba(212,140,0,.18) 0%,rgba(212,100,0,.08) 35%,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 50% 45%,rgba(255,215,0,.06) 0%,transparent 60%);
+  animation:hglow 5s ease-in-out infinite alternate;
 }
-@keyframes hglow{0%{opacity:.6;}100%{opacity:1;transform:scale(1.04);}}
+@keyframes hglow{0%{opacity:.7;}100%{opacity:1;transform:scale(1.03);}}
 /* Floor fade */
 .hfloor{
   position:absolute;bottom:0;left:0;right:0;height:30%;
@@ -288,7 +296,7 @@ body::after{
    INFO STRIP
 ═══════════════════════════════════════ */
 .infostrip{
-  background:var(--choc);
+  background:rgba(20,10,4,.92);
   border-top:1px solid rgba(212,165,32,.15);
   border-bottom:1px solid rgba(212,165,32,.15);
   padding:1rem 2rem;
@@ -303,7 +311,7 @@ body::after{
 /* ═══════════════════════════════════════
    TICKER
 ═══════════════════════════════════════ */
-.ticker{background:rgba(212,165,32,.04);border-bottom:1px solid rgba(212,165,32,.08);padding:.8rem 0;overflow:hidden;}
+.ticker{background:rgba(10,8,4,.85);border-bottom:1px solid rgba(212,165,32,.1);padding:.8rem 0;overflow:hidden;}
 .ttrack{display:flex;white-space:nowrap;animation:tick 32s linear infinite;}
 .ttrack:hover{animation-play-state:paused;}
 .ti{display:inline-flex;align-items:center;gap:2rem;padding:0 2.5rem;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(212,165,32,.8);font-weight:600;}
@@ -315,7 +323,7 @@ body::after{
 ═══════════════════════════════════════ */
 #about{
   padding:10rem 0 11rem;position:relative;overflow:hidden;
-  background:var(--space);
+  background:rgba(10,10,15,.88);
 }
 /* Subtle cosmic glow on About — no image, just gradients */
 #about::before{
@@ -365,19 +373,19 @@ body::after{
 ═══════════════════════════════════════ */
 #zones{
   position:relative;overflow:hidden;
-  background:var(--space);
+  background:rgba(10,8,4,.85);
 }
-/* Full-bleed nebula burst for zones header */
+/* Backdrop overlay for zones — lets global cosmic bg show */
 .zones-bg{
   position:absolute;inset:0;
-  background:url('/static/nebula-burst-wide.jpg') center top / cover no-repeat;
-  opacity:.35;
+  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
+  opacity:.22;
 }
 .zones-bg-gradient{
   position:absolute;inset:0;
   background:
-    linear-gradient(180deg,var(--space) 0%,transparent 15%,transparent 75%,var(--space) 100%),
-    radial-gradient(ellipse 80% 60% at 50% 40%,rgba(10,10,15,.4) 0%,transparent 70%);
+    linear-gradient(180deg,rgba(10,10,15,.95) 0%,rgba(10,10,15,.6) 20%,rgba(10,10,15,.6) 80%,rgba(10,10,15,.95) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 40%,rgba(212,165,32,.06) 0%,transparent 70%);
 }
 .zones-intro{
   padding:9rem 2.5rem 6rem;
@@ -435,14 +443,14 @@ body::after{
 ═══════════════════════════════════════ */
 #events{
   position:relative;overflow:hidden;
-  background:var(--choc);
+  background:rgba(26,14,8,.9);
   padding:10rem 0;
 }
-/* Dark nebula swirl as bg */
+/* Cosmic backdrop tint for events */
 #events::before{
   content:'';position:absolute;inset:0;
-  background:url('/static/nebula-dark-swirl.jpg') center center / cover no-repeat;
-  opacity:.18;
+  background:url('/static/backdrop-cosmic.jpg') center bottom / cover no-repeat;
+  opacity:.14;
 }
 #events::after{
   content:'';position:absolute;inset:0;
@@ -474,8 +482,8 @@ body::after{
 }
 .qband-bg{
   position:absolute;inset:0;
-  background:url('/static/nebula-burst-portrait.jpg') center center / cover no-repeat;
-  opacity:.5;
+  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
+  opacity:.65;
 }
 .qband-overlay{
   position:absolute;inset:0;
@@ -491,7 +499,7 @@ body::after{
    SECTION: BECOME ALIV — PARTNER
 ═══════════════════════════════════════ */
 #partner{
-  background:var(--space);
+  background:rgba(10,10,15,.9);
   padding:10rem 0;position:relative;overflow:hidden;
 }
 #partner::before{
@@ -530,13 +538,13 @@ body::after{
    SECTION: BECOME A VENDOR
 ═══════════════════════════════════════ */
 #vendor{
-  background:var(--choc);
+  background:rgba(26,14,8,.88);
   padding:10rem 0;position:relative;overflow:hidden;
 }
 #vendor::before{
   content:'';position:absolute;inset:0;
-  background:url('/static/nebula-dark-swirl.jpg') center center / cover no-repeat;
-  opacity:.12;
+  background:url('/static/backdrop-cosmic.jpg') center right / cover no-repeat;
+  opacity:.16;
 }
 #vendor::after{
   content:'';position:absolute;inset:0;
@@ -586,13 +594,13 @@ body::after{
 }
 .vip-bg{
   position:absolute;inset:0;
-  background:url('/static/nebula-burst-wide2.jpg') center center / cover no-repeat;
-  opacity:.3;
+  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
+  opacity:.45;
 }
 .vip-bg-overlay{
   position:absolute;inset:0;
   background:
-    linear-gradient(180deg,var(--space) 0%,rgba(10,10,15,.8) 20%,rgba(10,10,15,.8) 80%,var(--space) 100%);
+    linear-gradient(180deg,rgba(10,10,15,.95) 0%,rgba(10,10,15,.7) 15%,rgba(10,10,15,.7) 85%,rgba(10,10,15,.95) 100%);
 }
 .vip-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 2.5rem;}
 .vip-hd{text-align:center;margin-bottom:5.5rem;}
@@ -628,13 +636,13 @@ body::after{
    SECTION: DRIP SHOP
 ═══════════════════════════════════════ */
 #shop{
-  background:var(--choc);padding:10rem 0;
+  background:rgba(10,10,15,.92);padding:10rem 0;
   position:relative;overflow:hidden;
 }
 #shop::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 55% at 50% 100%,rgba(212,165,32,.08) 0%,transparent 65%);
-  pointer-events:none;
+  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
+  opacity:.1;pointer-events:none;
 }
 .shop-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 2.5rem;}
 .shop-hd{text-align:center;margin-bottom:5rem;}
@@ -667,13 +675,13 @@ body::after{
 }
 .access-bg{
   position:absolute;inset:0;
-  background:url('/static/nebula-burst-wide.jpg') center center / cover no-repeat;
-  opacity:.28;
+  background:url('/static/backdrop-cosmic.jpg') center center / cover no-repeat;
+  opacity:.55;
 }
 .access-overlay{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 80% at 50% 50%,rgba(10,10,15,.6) 0%,rgba(10,10,15,.92) 100%);
+    radial-gradient(ellipse 80% 80% at 50% 50%,rgba(10,10,15,.4) 0%,rgba(10,10,15,.88) 100%);
 }
 .acin{position:relative;z-index:1;max-width:560px;margin:0 auto;text-align:center;padding:0 2rem;}
 .aclogo{width:280px;height:auto;display:block;margin:0 auto 3rem;filter:drop-shadow(0 0 40px rgba(255,215,0,.8)) drop-shadow(0 0 80px rgba(212,165,32,.35));}
@@ -697,14 +705,14 @@ body::after{
    FOOTER
 ═══════════════════════════════════════ */
 footer{
-  background:var(--space);
-  border-top:1px solid rgba(212,165,32,.1);
+  background:rgba(10,10,15,.96);
+  border-top:1px solid rgba(212,165,32,.15);
   padding:7rem 0 3rem;position:relative;overflow:hidden;
 }
 footer::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(212,165,32,.06) 0%,transparent 60%);
-  pointer-events:none;
+  background:url('/static/backdrop-cosmic.jpg') center bottom / cover no-repeat;
+  opacity:.08;pointer-events:none;
 }
 .ftgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3.5rem;position:relative;z-index:1;}
 .ftlogo{height:38px;width:auto;display:block;margin-bottom:1.5rem;filter:drop-shadow(0 0 14px rgba(255,215,0,.5));}
