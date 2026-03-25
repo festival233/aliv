@@ -219,24 +219,24 @@ body::after{
 
 .hin{
   position:relative;z-index:2;text-align:center;
-  padding:10rem 2rem 7rem;display:flex;flex-direction:column;align-items:center;
+  padding:8rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;
 }
-/* Hero wordmark — CSS-drawn gold 3D text, no image overlap */
+/* Hero wordmark — official 3D gold image */
 .hwm{
-  display:flex;flex-direction:column;align-items:center;
-  line-height:.88;margin-bottom:2.5rem;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.5rem;
   animation:fl 8s ease-in-out infinite;
 }
-.hwm-aliv,.hwm-fest{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(5rem,18vw,14rem);
-  letter-spacing:.06em;
-  background:var(--grad-gold);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 40px rgba(255,215,0,.6)) drop-shadow(0 4px 8px rgba(0,0,0,.95));
+.hwm img{
+  width:clamp(340px,72vw,820px);
+  height:auto;
   display:block;
+  /* Lift the natural glow already in the image with a matching drop-shadow */
+  filter:
+    drop-shadow(0 0 60px rgba(255,200,40,.55))
+    drop-shadow(0 0 120px rgba(212,140,0,.30));
 }
-@keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 
 /* Thin gold divider */
 .hdiv{
@@ -810,10 +810,9 @@ section,footer,.infostrip,.ticker,.qband{
   <div class="hfloor"></div>
 
   <div class="hin">
-    <!-- Hero wordmark — Bebas Neue gold, no duplicate PNG -->
+    <!-- Hero wordmark — official 3D gold starburst image -->
     <div class="hwm">
-      <span class="hwm-aliv">ALIV</span>
-      <span class="hwm-fest">FEST</span>
+      <img src="/static/hero-wordmark.png" alt="ALIV FEST"/>
     </div>
 
     <div class="hdiv"></div>
