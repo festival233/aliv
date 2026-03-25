@@ -149,7 +149,8 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .slbl{
   display:inline-flex;align-items:center;gap:.55rem;
   font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;
-  color:var(--gold);font-weight:600;margin-bottom:1.1rem;
+  color:var(--bright);font-weight:600;margin-bottom:1.1rem;
+  text-shadow:0 1px 6px rgba(0,0,0,.92),0 0 18px rgba(255,200,50,.4);
 }
 .slbl::before,.slbl::after{content:'✦';font-size:.45rem;}
 
@@ -158,14 +159,40 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(2.4rem,5vw,4.2rem);
   font-weight:600;line-height:1.06;letter-spacing:-.01em;
+  color:#FFF4E0;
+  /* deep backing plate + warm haze — works on both dark and bright sections */
+  text-shadow:
+    0 1px 0   rgba(0,0,0,.98),
+    0 2px 8px rgba(0,0,0,.94),
+    0 6px 28px rgba(0,0,0,.82),
+    0 12px 52px rgba(0,0,0,.52),
+    0 0  70px rgba(60,20,0,.25);
 }
+
+/* ── Smoke halo helper ── */
+/* Wrap any heading block with .sh-smoke to get an
+   invisible radial dimmer behind the text only */
+.sh-smoke{position:relative;}
+.sh-smoke::before{
+  content:'';
+  position:absolute;
+  inset:-2.2rem -5rem -1.8rem -5rem;
+  background:radial-gradient(ellipse 86% 100% at 50% 50%,
+    rgba(2,0,0,.78) 0%,
+    rgba(2,0,0,.50) 40%,
+    transparent 76%);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+}
+.sh-smoke > *{position:relative;z-index:1;}
 
 /* Gold rule */
 .gr{width:60px;height:1px;background:var(--grad-gold-h);border:none;margin:1.6rem 0;}
 .gr.c{margin:1.6rem auto;}
 
 /* Body copy */
-.sc{color:rgba(255,235,195,.78);line-height:1.95;font-weight:300;font-size:.95rem;}
+.sc{color:rgba(255,235,195,.88);line-height:1.95;font-weight:300;font-size:.95rem;text-shadow:0 1px 8px rgba(0,0,0,.75);}
 
 /* Buttons */
 .btn-gold{
@@ -452,7 +479,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 #why::before{
   content:'';position:absolute;inset:0;
-  background:rgba(16,7,0,.38);
+  background:rgba(8,3,0,.62);
 }
 #why .wrap{position:relative;z-index:1;}
 .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem;}
@@ -632,10 +659,19 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 #comealiv::before{
   content:'';position:absolute;inset:0;
-  background:rgba(14,6,0,.32);
+  background:rgba(8,3,0,.62);
 }
 #comealiv .wrap{position:relative;z-index:1;}
 .come-header{text-align:center;margin-bottom:5rem;}
+/* The big "Come ALIV" heading is the largest on the page —
+   give its smoke halo extra depth */
+.come-header .sh-smoke::before{
+  inset:-2.5rem -6rem -2rem -6rem;
+  background:radial-gradient(ellipse 90% 100% at 50% 50%,
+    rgba(2,0,0,.88) 0%,
+    rgba(2,0,0,.58) 40%,
+    transparent 78%);
+}
 .come-tagline{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.2rem,2.5vw,1.8rem);
@@ -690,6 +726,13 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 #vip .wrap{position:relative;z-index:1;}
 .vip-header{max-width:640px;margin:0 auto 5rem;text-align:center;}
+.vip-header.sh-smoke::before{
+  inset:-2.5rem -6rem -2rem -6rem;
+  background:radial-gradient(ellipse 90% 100% at 50% 50%,
+    rgba(2,0,0,.86) 0%,
+    rgba(2,0,0,.55) 42%,
+    transparent 77%);
+}
 .vip-hero-text{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.2rem,2.5vw,1.7rem);
@@ -774,7 +817,17 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 #bealiv::before{content:'';position:absolute;inset:0;background:rgba(14,6,0,.32);}
 #bealiv .wrap{position:relative;z-index:1;}
-.bealiv-header{max-width:640px;margin:0 auto 5.5rem;text-align:center;}
+/* Become ALIV heading — wider max-width so the long phrase
+   "Be Part of Something Bigger Than a Night Out" doesn't
+   break awkwardly, plus its own deep smoke halo override */
+.bealiv-header{max-width:780px;margin:0 auto 5.5rem;text-align:center;}
+.bealiv-header.sh-smoke::before{
+  inset:-2.5rem -8rem -2rem -8rem;
+  background:radial-gradient(ellipse 92% 100% at 50% 50%,
+    rgba(2,0,0,.85) 0%,
+    rgba(2,0,0,.55) 42%,
+    transparent 75%);
+}
 .bealiv-tracks{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
 .track{
   padding:3.5rem 3rem;
@@ -1100,7 +1153,7 @@ footer{
 <section id="about">
   <div class="wrap">
     <div class="about-grid">
-      <div class="about-label-col rl">
+      <div class="about-label-col sh-smoke rl">
         <div class="slbl">The Experience</div>
         <h2 class="sh">A World You<br/><span class="gold">Step Into</span></h2>
         <hr class="gr"/>
@@ -1162,11 +1215,11 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="why">
   <div class="wrap">
-    <div class="reveal" style="text-align:center;margin-bottom:1rem;">
+    <div class="sh-smoke reveal" style="text-align:center;margin-bottom:1rem;">
       <div class="slbl">At ALIV FEST</div>
+      <h2 class="sh" style="margin-bottom:1rem;">What Awaits<br/><span class="gold">You</span></h2>
+      <p class="sc" style="max-width:540px;margin:0 auto 4rem;">Eighteen days of something you&rsquo;ve never quite experienced before &mdash; right here in Accra.</p>
     </div>
-    <h2 class="sh reveal" style="text-align:center;">What Awaits<br/><span class="gold">You</span></h2>
-    <p class="sc reveal" style="text-align:center;max-width:540px;margin:0 auto 4rem;">Eighteen days of something you&rsquo;ve never quite experienced before &mdash; right here in Accra.</p>
     <div class="why-grid">
       <div class="why-card reveal d1">
         <div class="why-num">01</div>
@@ -1197,11 +1250,11 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="season">
   <div class="wrap">
-    <div style="text-align:center;margin-bottom:1rem;" class="reveal">
+    <div class="sh-smoke reveal" style="text-align:center;margin-bottom:1rem;">
       <div class="slbl">18 Days of It All</div>
+      <h2 class="sh" style="margin-bottom:.5rem;">Something Happening<br/><span class="gold">Every Single Night</span></h2>
+      <p class="sc" style="max-width:580px;margin:0 auto;">From carnival energy to late-night music, food culture to signature December moments &mdash; ALIV is always on.</p>
     </div>
-    <h2 class="sh reveal" style="text-align:center;margin-bottom:.5rem;">Something Happening<br/><span class="gold">Every Single Night</span></h2>
-    <p class="sc reveal" style="text-align:center;max-width:580px;margin:0 auto;">From carnival energy to late-night music, food culture to signature December moments &mdash; ALIV is always on.</p>
     <div class="season-grid" style="margin-top:4rem;">
       <div class="season-block reveal d1">
         <span class="season-icon"><i class="fas fa-headphones"></i></span>
@@ -1248,7 +1301,7 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="audience">
   <div class="wrap">
-    <div class="aud-intro reveal">
+    <div class="aud-intro sh-smoke reveal">
       <div class="slbl">This Is For You</div>
       <h2 class="sh">If December Is Your<br/><span class="gold">Season, This Is Your Place</span></h2>
       <hr class="gr c"/>
@@ -1294,7 +1347,7 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="enter">
   <div class="wrap">
-    <div class="enter-header reveal">
+    <div class="enter-header sh-smoke reveal">
       <div class="slbl">Enter ALIV</div>
       <h2 class="sh">Accra&rsquo;s Most Immersive<br/><span class="gold">December Experience</span></h2>
       <hr class="gr c"/>
@@ -1361,7 +1414,7 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="experience">
   <div class="wrap">
-    <div class="exp-header reveal">
+    <div class="exp-header sh-smoke reveal">
       <div class="slbl">Experience ALIV</div>
       <h2 class="sh">Five Zones.<br/><span class="gold">One World to Explore.</span></h2>
       <hr class="gr c"/>
@@ -1436,8 +1489,10 @@ footer{
 <section id="comealiv">
   <div class="wrap">
     <div class="come-header">
-      <div class="slbl reveal">Come ALIV</div>
-      <h2 class="sh reveal" style="font-size:clamp(2.8rem,6vw,5rem);">The Music Never<br/><span class="gold">Stops Here</span></h2>
+      <div class="sh-smoke" style="display:inline-block;">
+        <div class="slbl reveal">Come ALIV</div>
+        <h2 class="sh reveal" style="font-size:clamp(2.8rem,6vw,5rem);">The Music Never<br/><span class="gold">Stops Here</span></h2>
+      </div>
       <p class="come-tagline reveal">This is what you came for. The DJ is deep in the set, the crowd is locked in, and you&rsquo;re exactly where you&rsquo;re supposed to be. ALIV nights are built for the people who know the difference between a party and an experience.</p>
     </div>
     <div class="nights-grid">
@@ -1473,7 +1528,7 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="vip">
   <div class="wrap">
-    <div class="vip-header reveal">
+    <div class="vip-header sh-smoke reveal">
       <div class="slbl">VIP Society</div>
       <h2 class="sh" style="font-size:clamp(2.6rem,5.5vw,4.8rem);">The Elevated Way<br/><span class="gold">to Experience ALIV</span></h2>
       <hr class="gr c"/>
@@ -1516,7 +1571,7 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="shop">
   <div class="wrap">
-    <div class="shop-header reveal">
+    <div class="shop-header sh-smoke reveal">
       <div class="slbl">Drip Shop</div>
       <h2 class="sh">ALIV Merch<br/><span class="gold">Is Coming</span></h2>
       <hr class="gr c"/>
@@ -1571,7 +1626,7 @@ footer{
 ════════════════════════════════════════════════════════════ -->
 <section id="bealiv">
   <div class="wrap">
-    <div class="bealiv-header reveal">
+    <div class="bealiv-header sh-smoke reveal">
       <div class="slbl">Become ALIV</div>
       <h2 class="sh">Be Part of Something<br/><span class="gold">Bigger Than a Night Out</span></h2>
       <hr class="gr c"/>
@@ -1612,7 +1667,7 @@ footer{
   <div class="wrap">
     <div class="access-in">
       <img src="/static/logo-gold.png" alt="ALIV FEST" class="aclogo reveal"/>
-      <div class="reveal d1">
+      <div class="sh-smoke reveal d1">
         <div class="slbl">Early Access</div>
         <h2 class="sh">Be First in Line<br/><span class="gold">for What&rsquo;s Coming</span></h2>
       </div>
