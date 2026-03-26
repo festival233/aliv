@@ -5,6 +5,24 @@ const app = new Hono()
 app.use('/api/*', cors())
 
 /* ─────────────────────────────────────────
+   RESEND EMAIL HELPER
+───────────────────────────────────────── */
+const RESEND_KEY = 're_4o2ipVCL_GD2xuADf3DnGiRSBbHzg3vtf'
+const TO         = 'info@alivfest.com'
+const FROM       = 'ALIV FEST <onboarding@resend.dev>'
+
+async function sendEmail(subject: string, html: string): Promise<void> {
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${RESEND_KEY}`
+    },
+    body: JSON.stringify({ from: FROM, to: [TO], subject, html })
+  })
+}
+
+/* ─────────────────────────────────────────
    API ENDPOINTS
 ───────────────────────────────────────── */
 app.post('/api/signup', async (c) => {
@@ -13,6 +31,28 @@ app.post('/api/signup', async (c) => {
     return c.json({ ok: false, message: 'A valid email address is required.' }, 400)
   if (!b.firstName)
     return c.json({ ok: false, message: 'Your name is required.' }, 400)
+
+  const interests = Array.isArray(b.interests) && b.interests.length
+    ? b.interests.join(', ')
+    : 'Not specified'
+
+  await sendEmail(
+    `🎟️ New Early Access Sign-Up — ${b.firstName} ${b.lastName || ''}`.trim(),
+    `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#1a0800;color:#fff3c0;padding:32px;border-radius:12px;border:1px solid #C88C18">
+      <h2 style="color:#FFD050;margin-top:0">🎟️ New Early Access Sign-Up</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:8px 0;color:#C88C18;width:140px"><strong>Name</strong></td><td style="padding:8px 0">${b.firstName} ${b.lastName || ''}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Email</strong></td><td style="padding:8px 0"><a href="mailto:${b.email}" style="color:#FFD050">${b.email}</a></td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Phone</strong></td><td style="padding:8px 0">${b.phone || '—'}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>City / Country</strong></td><td style="padding:8px 0">${b.city || '—'}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Interests</strong></td><td style="padding:8px 0">${interests}</td></tr>
+      </table>
+      <hr style="border-color:#C88C1840;margin:24px 0"/>
+      <p style="font-size:12px;color:#C88C18;margin:0">ALIV FEST 2026 · Dec 17 – Jan 3 · Accra, Ghana</p>
+    </div>`
+  )
+
   return c.json({ ok: true, message: `Welcome, ${b.firstName}. You are on the ALIV FEST 2026 early-access list.` })
 })
 
@@ -22,6 +62,29 @@ app.post('/api/vendor', async (c) => {
     return c.json({ ok: false, message: 'A valid email address is required.' }, 400)
   if (!b.businessName || !b.contactName)
     return c.json({ ok: false, message: 'Business name and contact name are required.' }, 400)
+
+  await sendEmail(
+    `🛍️ New Vendor Application — ${b.businessName}`,
+    `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#1a0800;color:#fff3c0;padding:32px;border-radius:12px;border:1px solid #C88C18">
+      <h2 style="color:#FFD050;margin-top:0">🛍️ New Vendor Application</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:8px 0;color:#C88C18;width:160px"><strong>Contact Name</strong></td><td style="padding:8px 0">${b.contactName}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Business Name</strong></td><td style="padding:8px 0">${b.businessName}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Email</strong></td><td style="padding:8px 0"><a href="mailto:${b.email}" style="color:#FFD050">${b.email}</a></td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Phone</strong></td><td style="padding:8px 0">${b.phone || '—'}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Category</strong></td><td style="padding:8px 0">${b.vendorType || '—'}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Instagram</strong></td><td style="padding:8px 0">${b.instagram || '—'}</td></tr>
+      </table>
+      <div style="margin-top:16px">
+        <p style="color:#C88C18;margin-bottom:6px"><strong>Business Description</strong></p>
+        <p style="background:#2a1000;padding:14px;border-radius:8px;margin:0;line-height:1.6">${b.description || '—'}</p>
+      </div>
+      <hr style="border-color:#C88C1840;margin:24px 0"/>
+      <p style="font-size:12px;color:#C88C18;margin:0">ALIV FEST 2026 · Dec 17 – Jan 3 · Accra, Ghana</p>
+    </div>`
+  )
+
   return c.json({ ok: true, message: `Thank you, ${b.contactName}. Your vendor application has been received.` })
 })
 
@@ -31,6 +94,30 @@ app.post('/api/sponsor', async (c) => {
     return c.json({ ok: false, message: 'A valid email address is required.' }, 400)
   if (!b.company || !b.name)
     return c.json({ ok: false, message: 'Company and contact name are required.' }, 400)
+
+  await sendEmail(
+    `🤝 New Sponsor Request — ${b.company}`,
+    `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#1a0800;color:#fff3c0;padding:32px;border-radius:12px;border:1px solid #C88C18">
+      <h2 style="color:#FFD050;margin-top:0">🤝 New Sponsor Request</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:8px 0;color:#C88C18;width:160px"><strong>Contact Name</strong></td><td style="padding:8px 0">${b.name}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Company / Brand</strong></td><td style="padding:8px 0">${b.company}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Email</strong></td><td style="padding:8px 0"><a href="mailto:${b.email}" style="color:#FFD050">${b.email}</a></td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Phone</strong></td><td style="padding:8px 0">${b.phone || '—'}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Budget Range</strong></td><td style="padding:8px 0">${b.budget || '—'}</td></tr>
+        <tr><td style="padding:8px 0;color:#C88C18"><strong>Interest Area</strong></td><td style="padding:8px 0">${b.interest || '—'}</td></tr>
+      </table>
+      ${b.message ? `
+      <div style="margin-top:16px">
+        <p style="color:#C88C18;margin-bottom:6px"><strong>Message</strong></p>
+        <p style="background:#2a1000;padding:14px;border-radius:8px;margin:0;line-height:1.6">${b.message}</p>
+      </div>` : ''}
+      <hr style="border-color:#C88C1840;margin:24px 0"/>
+      <p style="font-size:12px;color:#C88C18;margin:0">ALIV FEST 2026 · Dec 17 – Jan 3 · Accra, Ghana</p>
+    </div>`
+  )
+
   return c.json({ ok: true, message: `Thank you, ${b.name}. We will be in touch with ${b.company} shortly.` })
 })
 
