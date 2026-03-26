@@ -441,7 +441,7 @@ ul { list-style: none; }
    HERO SECTION
    Goal: radiant, powerful, golden, expansive.
    The ALIV artwork forms a luminous glow BEHIND the logo.
-   Three visual layers: nebula BG → rainbow screen glow → hero art → content
+   Layers: nebula BG → CSS radial burst → rainbow screen glow → veil → content
 ═══════════════════════════════════════════════════════ */
 #hero {
   position: relative;
@@ -453,19 +453,25 @@ ul { list-style: none; }
   text-align: center;
 }
 
-/* HERO ART — the ALIV logo/burst used as an atmospheric
-   prism explosion behind the display text.
-   screen blend: dark areas become transparent,
-   coloured light areas become additive glow. */
+/* HERO BURST — pure CSS radial glow explosion at centre.
+   No image text leaking through as background. */
 .hero-art {
   position: absolute;
-  inset: -8%;
+  inset: 0;
   z-index: 0;
-  background: url('/static/aliv-hero.jpg') center 38% / cover no-repeat;
-  filter: brightness(.68) saturate(1.60) blur(1px);
-  mix-blend-mode: screen;
-  opacity: .85;
-  transform: scale(1.06);
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 46%,
+      rgba(255,210,60,.30)  0%,
+      rgba(220,150,20,.20) 28%,
+      rgba(180,100,10,.12) 50%,
+      transparent           72%
+    ),
+    radial-gradient(ellipse 35% 35% at 50% 44%,
+      rgba(255,240,120,.22) 0%,
+      rgba(255,200,50,.10)  40%,
+      transparent            65%
+    );
+  pointer-events: none;
 }
 
 /* RAINBOW GLOW — adds vivid prism light burst (screen blend) */
@@ -1297,9 +1303,9 @@ footer {
 <!-- ═══ HERO ════════════════════════════════════════════════ -->
 <section id="hero" class="above">
 
-  <!-- Art burst — screen blend: dark = transparent, colours = additive glow -->
+  <!-- CSS radial glow burst — no bg image text bleed-through -->
   <div class="hero-art"     aria-hidden="true"></div>
-  <!-- Rainbow lens-flare glow layer -->
+  <!-- Rainbow lens-flare glow layer (screen blend) -->
   <div class="hero-rainbow" aria-hidden="true"></div>
   <!-- Minimal top/bottom veil only -->
   <div class="hero-veil"    aria-hidden="true"></div>
