@@ -79,14 +79,14 @@ app.get('*', (c) => {
   --grad-gold: linear-gradient(135deg,#4A2000 0%,#9A6800 28%,#D4A020 50%,#9A6800 72%,#4A2000 100%);
   --grad-gold-h: linear-gradient(90deg,transparent,#9A6800 30%,#D4A020 50%,#9A6800 70%,transparent);
 
-  /* Glass — warm amber tint, readable on deep dark bg */
-  --glass:             rgba(180,100,10,.18);
-  --glass-hover:       rgba(200,120,15,.28);
-  --glass-card:        rgba(180,100,10,.18);
-  --glass-card-hover:  rgba(200,120,15,.28);
-  --glass-border:      rgba(200,130,20,.32);
-  --glass-border-h:    rgba(220,160,40,.60);
-  --glass-border-hover:rgba(220,160,40,.60);
+  /* Glass — warm amber tint, brighter on lighter bg */
+  --glass:             rgba(200,130,20,.22);
+  --glass-hover:       rgba(220,150,25,.34);
+  --glass-card:        rgba(200,130,20,.22);
+  --glass-card-hover:  rgba(220,150,25,.34);
+  --glass-border:      rgba(210,150,30,.40);
+  --glass-border-h:    rgba(230,175,50,.70);
+  --glass-border-hover:rgba(230,175,50,.70);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -108,13 +108,13 @@ body::before{
   /* Cinematic dark amber — nebula at 58% brightness, unified warm veil */
   background:
     linear-gradient(180deg,
-      rgba(5,2,0,.50) 0%,
-      rgba(4,2,0,.34) 20%,
-      rgba(4,2,0,.28) 50%,
-      rgba(4,2,0,.34) 80%,
-      rgba(5,2,0,.52) 100%),
+      rgba(5,2,0,.22) 0%,
+      rgba(4,2,0,.12) 20%,
+      rgba(4,2,0,.08) 50%,
+      rgba(4,2,0,.12) 80%,
+      rgba(5,2,0,.24) 100%),
     url('/static/nebula-burst-wide.jpg') center 30% / cover no-repeat;
-  filter:brightness(.58) saturate(1.12) contrast(1.05);
+  filter:brightness(.92) saturate(1.15) contrast(1.04);
 }
 
 /* Fine film grain — cinema texture */
@@ -278,7 +278,7 @@ section,nav,footer,.infostrip,.ticker-wrap{
 ════════════════════════════════════════════════════════════ */
 #mmenu{
   display:none;position:fixed;inset:0;z-index:999;
-  background:rgba(22,10,1,.96);backdrop-filter:blur(24px);
+  background:rgba(22,10,1,.88);backdrop-filter:blur(24px);
   flex-direction:column;align-items:center;justify-content:center;gap:2rem;
 }
 #mmenu.open{display:flex;}
@@ -299,26 +299,25 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .hbg{
   position:absolute;inset:0;z-index:0;
   background:url('/static/nebula-burst-wide.jpg') center 38% / cover no-repeat;
-  /* Slightly brighter than before */
-  filter:brightness(.82) saturate(1.2) contrast(1.05);
+  filter:brightness(1.05) saturate(1.25) contrast(1.04);
 }
 .hbg::after{
   content:'';position:absolute;inset:0;
-  /* Heavy central dark veil — kills the light-burst hotspot so text is readable */
+  /* Light central veil — just enough to anchor text without killing the glow */
   background:
     radial-gradient(ellipse 80% 60% at 50% 45%,
-      rgba(2,1,0,.72) 0%,
-      rgba(2,1,0,.55) 40%,
-      rgba(2,1,0,.20) 75%,
+      rgba(2,1,0,.42) 0%,
+      rgba(2,1,0,.25) 40%,
+      rgba(2,1,0,.06) 75%,
       transparent 100%),
     linear-gradient(180deg,
-      rgba(3,1,0,.60) 0%,rgba(3,1,0,.22) 15%,
+      rgba(3,1,0,.38) 0%,rgba(3,1,0,.10) 15%,
       transparent 35%,transparent 65%,
-      rgba(3,1,0,.35) 85%,rgba(3,1,0,.75) 100%);
+      rgba(3,1,0,.15) 85%,rgba(3,1,0,.50) 100%);
 }
 .hfloor{
   position:absolute;bottom:0;left:0;right:0;height:24%;z-index:1;
-  background:linear-gradient(transparent,rgba(3,1,0,.85));
+  background:linear-gradient(transparent,rgba(3,1,0,.55));
 }
 .hin{
   position:relative;z-index:2;text-align:center;
@@ -447,7 +446,7 @@ section,nav,footer,.infostrip,.ticker-wrap{
    INFO STRIP
 ════════════════════════════════════════════════════════════ */
 .infostrip{
-  background:rgba(8,3,0,.68);
+  background:rgba(8,3,0,.35);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-top:1px solid rgba(180,110,15,.42);
   border-bottom:1px solid rgba(180,110,15,.42);
@@ -873,7 +872,7 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
 .form-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:#7A3A00;font-weight:700;}
 .form-input,.form-select,.form-textarea{
-  background:rgba(20,8,0,.52);
+  background:rgba(20,8,0,.28);
   border:1px solid rgba(220,160,50,.35);
   color:var(--cream);padding:.85rem 1.1rem;
   font-family:'Montserrat',sans-serif;font-size:.88rem;font-weight:300;
@@ -925,7 +924,7 @@ section,nav,footer,.infostrip,.ticker-wrap{
 ════════════════════════════════════════════════════════════ */
 .ticker-wrap{
   overflow:hidden;padding:.7rem 0;
-  background:rgba(255,180,30,.14);
+  background:rgba(255,180,30,.18);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-top:1px solid rgba(220,160,50,.35);
   border-bottom:1px solid rgba(220,160,50,.35);
@@ -949,7 +948,7 @@ section,nav,footer,.infostrip,.ticker-wrap{
 ════════════════════════════════════════════════════════════ */
 footer{
   padding:5rem 0 3rem;
-  background:rgba(10,4,0,.55);
+  background:rgba(10,4,0,.30);
   border-top:1px solid rgba(220,160,50,.3);
   position:relative;z-index:1;
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -974,7 +973,7 @@ footer{
 .soc:hover{border-color:#8B4A00;color:#5A2800;background:rgba(200,151,42,.12);}
 .footer-email-form{display:flex;gap:0;margin-top:.8rem;}
 .footer-email-form input{
-  background:rgba(8,3,0,.55);border:1px solid rgba(220,160,50,.28);
+  background:rgba(8,3,0,.25);border:1px solid rgba(220,160,50,.28);
   border-right:none;color:var(--cream);padding:.7rem 1rem;
   font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:300;
   outline:none;flex:1;
@@ -1251,7 +1250,7 @@ footer{
         <p class="season-body">The loudest nights of the week. Full crowd, full energy &mdash; the kind of atmosphere you come back for again and again.</p>
       </div>
     </div>
-     <div style="margin-top:3.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:rgba(10,4,0,.6);backdrop-filter:blur(14px);border:1px solid rgba(220,160,50,.22);" class="reveal">
+     <div style="margin-top:3.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:rgba(10,4,0,.28);backdrop-filter:blur(14px);border:1px solid rgba(220,160,50,.22);" class="reveal">
       <div style="padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(220,160,50,.15);">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--bright);margin-bottom:.4rem;text-shadow:0 0 16px rgba(255,200,50,.4);">Culture Nights</div>
         <p style="font-size:.8rem;color:rgba(255,235,195,.62);font-weight:300;">Curated culture, creativity &amp; connection</p>
@@ -1377,7 +1376,7 @@ footer{
         <div class="val-title">Built to Last</div>
         <p class="val-body">ALIV is designed to grow. The kind of thing Accra will talk about for years, and return to every December.</p>
       </div>
-      <div class="val-card reveal d3" style="border-color:rgba(220,160,50,.32);background:rgba(10,4,0,.72);">
+      <div class="val-card reveal d3" style="border-color:rgba(220,160,50,.32);background:rgba(10,4,0,.32);">
         <div class="val-icon" style="font-size:1.4rem;"><i class="fas fa-quote-left" style="color:rgba(255,200,60,.55);"></i></div>
         <p class="mission-text" style="font-size:1rem;">ALIV was created to add a new layer to the magic of December in Accra &mdash; bringing the joy of carnival rides and games into the city&rsquo;s already vibrant season of music, culture, nightlife, food, and celebration.</p>
       </div>
