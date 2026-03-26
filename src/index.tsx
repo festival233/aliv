@@ -1593,8 +1593,8 @@ footer {
     <hr class="hero-rule" aria-hidden="true"/>
 
     <p class="hero-acca">The Accra Carnival Experience</p>
-    <p class="hero-tagline">18 Days Like Nowhere Else</p>
     <p class="hero-legacy">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
+    <p class="hero-tagline">18 Days Like Nowhere Else</p>
 
     <div class="hero-dates" aria-label="Festival dates">
       <em></em>
