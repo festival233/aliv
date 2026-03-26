@@ -326,23 +326,19 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .hero-wordmark{
   width:clamp(280px,62vw,760px);height:auto;
   margin-bottom:1.8rem;
+  /* Dark brown tint over the logo image */
   filter:
-    drop-shadow(0 0 22px rgba(220,170,30,.72))
-    drop-shadow(0 0 65px rgba(190,130,10,.48))
-    drop-shadow(0 0 150px rgba(150,85,5,.30));
+    sepia(1) saturate(0.6) brightness(0.35) contrast(1.2);
   animation:float 7s ease-in-out infinite;
 }
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .hero-sub{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.6rem,3.5vw,2.6rem);
-  font-weight:400;font-style:italic;
-  /* Bright warm cream — clearly visible against dark-veiled amber bg */
-  color:#F0D898;
+  font-weight:600;font-style:italic;
+  color:#3B1200;
   letter-spacing:.06em;
-  text-shadow:
-    0 2px 14px rgba(0,0,0,.95),
-    0 0  8px  rgba(0,0,0,.80);
+  text-shadow:none;
   margin-bottom:.6rem;
 }
 .hero-tagline{
@@ -561,21 +557,20 @@ section,nav,footer,.infostrip,.ticker-wrap{
   box-shadow:0 16px 48px rgba(120,50,0,.45);
 }
 .aud-icon{
-  font-size:1.5rem;color:var(--bright);
+  font-size:1.5rem;color:#3D1500;
   margin-bottom:1.4rem;display:block;
-  filter:drop-shadow(0 0 8px rgba(200,150,20,.35));
 }
 .aud-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.25rem;font-weight:600;
-  color:var(--cream);
+  font-size:1.25rem;font-weight:700;
+  color:#2C1000;
   margin-bottom:.75rem;
   letter-spacing:.01em;
 }
 .aud-body{
   font-size:.84rem;
-  color:rgba(245,225,185,.85);
-  line-height:1.8;font-weight:300;
+  color:#4A2008;
+  line-height:1.8;font-weight:400;
 }
 
 /* ════════════════════════════════════════════════════════════
