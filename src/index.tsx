@@ -161,21 +161,19 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .slbl{
   display:inline-flex;align-items:center;gap:.6rem;
   font-size:.52rem;letter-spacing:.55em;text-transform:uppercase;
-  /* Deep muted amber — visible but not glowing on dark bg */
-  color:#A87828;font-weight:600;margin-bottom:1rem;opacity:.90;
+  color:var(--glow);font-weight:600;margin-bottom:1rem;opacity:.88;
 }
-.slbl::before,.slbl::after{content:'—';font-size:.4rem;opacity:.45;}
+.slbl::before,.slbl::after{content:'—';font-size:.4rem;opacity:.5;}
 
-/* Section heading — deep warm ivory, strong contrast on dark bg */
+/* Section heading — warm ivory, reads clearly on dark cinematic bg */
 .sh{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(2.6rem,5.5vw,4.6rem);
   font-weight:600;line-height:1.04;letter-spacing:-.02em;
-  /* Rich deep ivory — not white, not gold, firmly readable */
-  color:#C8A060;
+  color:#EED8A8;
   text-shadow:
-    0 2px 12px rgba(0,0,0,.90),
-    0 0  44px rgba(140,90,8,.20);
+    0 2px 8px  rgba(0,0,0,.75),
+    0 0  40px  rgba(180,120,10,.22);
 }
 /* Gold spans inside headings */
 .sh .gold{font-weight:700;}
@@ -184,12 +182,11 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .gr{width:48px;height:1px;background:var(--grad-gold-h);border:none;margin:1.4rem 0;opacity:.7;}
 .gr.c{margin:1.4rem auto;}
 
-/* Body copy — muted warm ivory, high contrast on dark bg */
+/* Body copy — warm ivory, highly legible */
 .sc{
-  /* Reduced brightness: mid-tone amber-ivory, not white */
-  color:rgba(190,155,100,.92);
-  line-height:1.9;font-weight:400;font-size:.94rem;
-  text-shadow:0 1px 8px rgba(0,0,0,.80);
+  color:rgba(238,215,165,.90);
+  line-height:1.9;font-weight:300;font-size:.94rem;
+  text-shadow:0 1px 5px rgba(0,0,0,.6);
 }
 
 /* ── BUTTONS ─────────────────────────────── */
@@ -301,19 +298,19 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 .hbg{
   position:absolute;inset:0;z-index:0;
-  /* Hero background: rich amber-gold but NOT washed-out.
-     Dimmed to .68 so text sits on a dark amber canvas, not a glare. */
+  /* Hero is the ONE bright moment on the page.
+     body::before is at brightness(.58); hero adds luminance back.
+     Net result: hero feels intentionally brighter than all other sections. */
   background:url('/static/nebula-burst-wide.jpg') center 38% / cover no-repeat;
-  filter:brightness(.68) saturate(1.25) contrast(1.08);
+  filter:brightness(.88) saturate(1.3) contrast(1.06);
 }
 .hbg::after{
   content:'';position:absolute;inset:0;
-  /* Heavier veil across the centre where text lives */
   background:
     linear-gradient(180deg,
-      rgba(3,1,0,.65) 0%,rgba(3,1,0,.32) 14%,
-      rgba(2,1,0,.38) 35%,rgba(2,1,0,.42) 65%,
-      rgba(3,1,0,.55) 84%,rgba(3,1,0,.80) 100%);
+      rgba(3,1,0,.55) 0%,rgba(3,1,0,.18) 12%,
+      transparent 26%,transparent 68%,
+      rgba(3,1,0,.25) 84%,rgba(3,1,0,.65) 100%);
 }
 .hfloor{
   position:absolute;bottom:0;left:0;right:0;height:24%;z-index:1;
@@ -336,28 +333,21 @@ section,nav,footer,.infostrip,.ticker-wrap{
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .hero-sub{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.4rem,3vw,2.2rem);
+  font-size:clamp(1.6rem,3.5vw,2.6rem);
   font-weight:400;font-style:italic;
-  /* Deep warm gold — readable, not washed out */
-  color:#B8904A;
-  letter-spacing:.06em;
-  text-shadow:
-    0 2px 16px rgba(0,0,0,.95),
-    0 0  40px rgba(100,55,5,.25);
-  margin-bottom:.5rem;
+  color:#EED8A8;letter-spacing:.06em;
+  text-shadow:0 2px 10px rgba(0,0,0,.72),0 0 38px rgba(170,105,10,.38);
+  margin-bottom:.8rem;
 }
 .hero-tagline{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.1rem,2.2vw,1.75rem);
+  font-size:clamp(1.4rem,3vw,2.2rem);
   font-style:italic;font-weight:400;
   letter-spacing:.03em;text-transform:none;
-  /* Muted bronze — subordinate to subtitle, above slogan */
-  color:#8C6428;
-  text-shadow:
-    0 2px 16px rgba(0,0,0,.95),
-    0 0  36px rgba(90,50,5,.22);
+  color:#E0C880;
+  text-shadow:0 2px 10px rgba(0,0,0,.75),0 0 38px rgba(160,100,8,.35);
   max-width:780px;line-height:1.5;
-  margin-bottom:1.8rem;
+  margin-bottom:1.2rem;
 }
 
 /* ═══════════════════════════════════════════
@@ -368,26 +358,26 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-size:clamp(1.45rem,3.2vw,2.5rem);
   font-style:italic;font-weight:500;
   letter-spacing:.05em;
-  /* Deeper amber shimmer — dark bronze to mid-gold, no bright yellow */
+  /* Rich amber-gold shimmer — luminous on dark cinematic bg */
   background:linear-gradient(90deg,
-    #6A3E08 0%,
-    #A87020 20%,
-    #C48A2A 38%,
-    #8A5C14 52%,
-    #C48A2A 66%,
-    #A87020 82%,
-    #6A3E08 100%);
+    #B87818 0%,
+    #DFAA3C 18%,
+    #F5D468 32%,
+    #D09428 50%,
+    #F5D468 68%,
+    #DFAA3C 82%,
+    #B87818 100%);
   background-size:250% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  animation:slogan-shimmer 5s linear infinite, slogan-pulse 3.5s ease-in-out infinite;
-  max-width:860px;line-height:1.5;
-  font-size:clamp(1.1rem,2.2vw,1.75rem);
+  animation:slogan-shimmer 4s linear infinite, slogan-pulse 3s ease-in-out infinite;
+  max-width:860px;line-height:1.45;
   margin-bottom:2rem;
   position:relative;
   padding:.3rem 0;
-  filter:drop-shadow(0 1px 4px rgba(140,80,8,.40)) drop-shadow(0 0 16px rgba(110,65,5,.20));
+  /* warm glow visible on dark bg */
+  filter:drop-shadow(0 1px 5px rgba(218,168,50,.52)) drop-shadow(0 0 24px rgba(180,120,10,.30));
 }
 /* Shimmer sweep */
 @keyframes slogan-shimmer{
@@ -396,8 +386,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 /* Gentle breath / pulse */
 @keyframes slogan-pulse{
-  0%,100%{filter:drop-shadow(0 1px 4px rgba(150,90,10,.38)) drop-shadow(0 0 14px rgba(110,65,5,.18));}
-  50%    {filter:drop-shadow(0 1px 5px rgba(185,120,20,.52)) drop-shadow(0 0 26px rgba(150,90,8,.30));}
+  0%,100%{filter:drop-shadow(0 1px 5px rgba(210,160,40,.45)) drop-shadow(0 0 20px rgba(170,110,8,.22));}
+  50%    {filter:drop-shadow(0 1px 6px rgba(235,185,60,.68)) drop-shadow(0 0 38px rgba(210,140,15,.42));}
 }
 
 /* Sparkle particles flanking the slogan */
@@ -405,8 +395,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .hero-legacy::after{
   content:'';
   position:absolute;top:50%;
-  width:180px;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(130,75,10,.40),transparent);
+  width:220px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(160,85,10,.5),transparent);
   transform:translateY(-50%);
   animation:spark-line 3s ease-in-out infinite;
 }
