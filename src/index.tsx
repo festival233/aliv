@@ -545,20 +545,20 @@ section,nav,footer,.infostrip,.ticker-wrap{
   padding:7rem 0;
 }
 .aud-intro{max-width:640px;margin:0 auto 4.5rem;text-align:center;}
-.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(160,90,10,.2);}
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(120,60,10,.35);}
 .aud-card{
-  background:var(--glass-card);
+  background:rgba(90,42,8,.72);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   padding:3rem 2rem;text-align:center;
-  border:1px solid var(--glass-border);
+  border:1px solid rgba(160,90,20,.40);
   transition:all .45s cubic-bezier(.16,1,.3,1);
   position:relative;
 }
 .aud-card:hover{
-  background:var(--glass-card-hover);
-  border-color:var(--glass-border-hover);
+  background:rgba(110,52,10,.82);
+  border-color:rgba(200,130,40,.65);
   transform:translateY(-4px);
-  box-shadow:0 16px 48px rgba(180,90,0,.28);
+  box-shadow:0 16px 48px rgba(120,50,0,.45);
 }
 .aud-icon{
   font-size:1.5rem;color:var(--bright);
