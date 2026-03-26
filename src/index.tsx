@@ -1317,7 +1317,7 @@ footer {
     <!-- Logo / header artwork — floating, glowing -->
     <div class="hero-logo-wrap">
       <img
-        src="/static/aliv-hero.jpg"
+        src="/static/aliv-fest-logo.png"
         alt="ALIV FEST 2026"
         class="hero-logo"
         loading="eager"
