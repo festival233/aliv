@@ -4,1678 +4,1697 @@ import { cors } from 'hono/cors'
 const app = new Hono()
 app.use('/api/*', cors())
 
-/* ── API Routes ─────────────────────────────────────────────── */
 app.post('/api/signup', async (c) => {
   const b = await c.req.json().catch(() => ({})) as any
   const { firstName, lastName, email, phone, city, interests } = b
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return c.json({ ok: false, message: 'Valid email required.' }, 400)
-  if (!firstName || !lastName)
-    return c.json({ ok: false, message: 'Full name required.' }, 400)
-  return c.json({ ok: true, message: `Welcome, ${firstName}! You're on the ALIV FEST 2026 early-access list.` })
+    return c.json({ ok: false, message: 'A valid email is required.' }, 400)
+  if (!firstName)
+    return c.json({ ok: false, message: 'Your name is required.' }, 400)
+  return c.json({ ok: true, message: `Welcome, ${firstName}. You're on the ALIV FEST 2026 early-access list.` })
 })
 
 app.post('/api/vendor', async (c) => {
   const b = await c.req.json().catch(() => ({})) as any
   const { businessName, contactName, email } = b
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return c.json({ ok: false, message: 'Valid email required.' }, 400)
+    return c.json({ ok: false, message: 'A valid email is required.' }, 400)
   if (!businessName || !contactName)
-    return c.json({ ok: false, message: 'Business name and contact name required.' }, 400)
-  return c.json({ ok: true, message: `Thank you, ${contactName}. Your vendor application for ${businessName} has been received.` })
+    return c.json({ ok: false, message: 'Business and contact name required.' }, 400)
+  return c.json({ ok: true, message: `Thank you, ${contactName}. Your application for ${businessName} has been received.` })
 })
 
 app.post('/api/sponsor', async (c) => {
   const b = await c.req.json().catch(() => ({})) as any
   const { company, name, email } = b
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return c.json({ ok: false, message: 'Valid email required.' }, 400)
+    return c.json({ ok: false, message: 'A valid email is required.' }, 400)
   if (!company || !name)
-    return c.json({ ok: false, message: 'Company and name required.' }, 400)
+    return c.json({ ok: false, message: 'Company and contact name required.' }, 400)
   return c.json({ ok: true, message: `Thank you, ${name}. We'll be in touch with ${company} shortly.` })
 })
 
-/* ── HTML Page ──────────────────────────────────────────────── */
 app.get('*', (c) => {
   return c.html(`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>ALIV FEST 2026 — 18 Days Like Nowhere Else</title>
-<meta name="description" content="ALIV FEST 2026 — December 17 to January 3, Accra Ghana. 18 days of music, carnival, culture, food and nightlife."/>
+<title>ALIV FEST 2026 — 18 Days Like Nowhere Else · Accra, Ghana</title>
+<meta name="description" content="ALIV FEST 2026 — December 17 to January 3, Accra Ghana. 18 nights of music, carnival, culture, food and nightlife."/>
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-
 <style>
-/* ═══════════════════════════════════════════════════════════
-   DESIGN TOKENS
-═══════════════════════════════════════════════════════════ */
-:root{
-  --bg:        #0A0A0F;
-  --section:   #1A0E08;
-  --card:      #3D2314;
-  --accent:    #6B3A20;
-  --secondary: #8B5A30;
-  --border:    #B08840;
-  --headline:  #D4A520;
-  --logo:      #FFD700;
-  --body-text: #F5E6C8;
-  --dim:       rgba(245,230,200,.65);
+/* ═══════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  /* Palette — pulled directly from the cosmic image */
+  --ink:      #050200;
+  --deep:     #0B0400;
+  --ember:    #1C0900;
+  --bronze:   #2E1200;
+  --copper:   #4A1E00;
+  --amber:    #7A3A00;
+  --gold:     #B87A14;
+  --bright:   #D4A020;
+  --glow:     #F0C040;
+  --cream:    #F2DEB0;
+  --mist:     #C4A070;
+  --fog:      rgba(242,222,176,.70);
 
-  --grad-gold: linear-gradient(135deg,#B8860B,#D4A520,#FFD700,#D4A520,#B8860B);
-  --grad-gold-h: linear-gradient(90deg,#B8860B,#FFD700,#B8860B);
-  --grad-dark:  linear-gradient(180deg,rgba(10,10,15,0) 0%,rgba(10,10,15,.7) 100%);
+  /* Gradient shortcuts */
+  --g-gold:   linear-gradient(135deg,#7A3A00,#B87A14,#F0C040,#B87A14,#7A3A00);
+  --g-gold-h: linear-gradient(90deg,transparent,#D4A020,transparent);
+  --g-dark:   linear-gradient(180deg,rgba(5,2,0,0) 0%,rgba(5,2,0,.85) 100%);
 
-  --glass: rgba(61,35,20,.55);
-  --glass-hover: rgba(107,58,32,.65);
-  --glass-border: rgba(176,136,64,.30);
-  --glass-border-hover: rgba(212,165,32,.55);
+  /* Glass surfaces */
+  --glass:       rgba(74,30,0,.40);
+  --glass-h:     rgba(100,45,0,.55);
+  --glass-b:     rgba(176,122,20,.25);
+  --glass-bh:    rgba(212,160,32,.55);
 
-  --ff-head: 'Bebas Neue', 'Oswald', sans-serif;
-  --ff-body: 'Inter', 'Montserrat', sans-serif;
-  --ff-serif: 'Cormorant Garamond', Georgia, serif;
+  --ff-display: 'Bebas Neue', sans-serif;
+  --ff-serif:   'Cormorant Garamond', Georgia, serif;
+  --ff-body:    'Montserrat', sans-serif;
 
-  --nav-h: 70px;
-  --r: .75rem;
-  --r-lg: 1.25rem;
   --ease: cubic-bezier(.25,.46,.45,.94);
+  --r:    .75rem;
+  --rl:   1.25rem;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   RESET & BASE
-═══════════════════════════════════════════════════════════ */
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{
-  font-family:var(--ff-body);
-  background:var(--bg);
-  color:var(--body-text);
-  line-height:1.7;
-  overflow-x:hidden;
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family: var(--ff-body);
+  background: var(--ink);
+  color: var(--cream);
+  line-height: 1.75;
+  overflow-x: hidden;
 }
-img{display:block;max-width:100%}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;border:none;background:none;font:inherit}
+img { display:block; max-width:100%; }
+a { text-decoration:none; color:inherit; }
+button { cursor:pointer; border:none; background:none; font:inherit; }
 
-/* ═══════════════════════════════════════════════════════════
-   COSMIC BACKGROUND — single continuous layer
-═══════════════════════════════════════════════════════════ */
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  z-index:0;
+/* ═══════════════════════════════════════════════
+   SITE-WIDE COSMIC CANVAS
+   One fixed background — the whole site scrolls over it
+═══════════════════════════════════════════════ */
+.site-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   background:
+    /* thin dark veil for readability */
     linear-gradient(180deg,
-      rgba(10,10,15,.50) 0%,
-      rgba(20,10,5,.35) 30%,
-      rgba(15,8,3,.40) 60%,
-      rgba(10,10,15,.55) 100%
+      rgba(5,2,0,.22) 0%,
+      rgba(8,3,0,.18) 40%,
+      rgba(5,2,0,.28) 100%
     ),
-    url('/static/nebula-burst-wide.jpg') center 30% / cover no-repeat;
-  filter: brightness(.78) saturate(1.10) contrast(1.03);
-  will-change:transform;
+    url('/static/cosmic-bg.jpg') center center / cover no-repeat;
+  filter: brightness(.72) saturate(1.15) contrast(1.04);
+  will-change: transform;
 }
-body::after{
+/* grain texture */
+.site-canvas::after {
   content:'';
-  position:fixed;
+  position:absolute;
   inset:0;
-  z-index:0;
+  opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px;
   pointer-events:none;
-  opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px;
 }
 
-/* Sections sit above fixed bg */
-section,nav,footer,.infostrip,.ticker-wrap{
-  position:relative;
-  z-index:1;
-  background:transparent;
+/* Everything above the canvas */
+#root, section, nav, footer, .ticker-outer, .strip {
+  position: relative;
+  z-index: 1;
+  background: transparent;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   TYPOGRAPHY UTILITIES
-═══════════════════════════════════════════════════════════ */
-.bebas{font-family:var(--ff-head);letter-spacing:.04em}
-.serif{font-family:var(--ff-serif)}
-.gold-text{
-  background:var(--grad-gold);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.section-label{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--ff-body);font-size:.65rem;font-weight:600;
-  letter-spacing:.5em;text-transform:uppercase;
-  color:var(--border);opacity:.9;
-  margin-bottom:1.2rem;
-}
-.section-label::before,.section-label::after{
-  content:'';width:28px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--border),transparent);
-}
-.section-title{
-  font-family:var(--ff-head);
-  font-size:clamp(2.4rem,5vw,4.4rem);
-  line-height:1.0;
-  color:var(--headline);
-  text-shadow:0 2px 20px rgba(0,0,0,.6);
-  margin-bottom:1rem;
-}
-.section-sub{
-  font-family:var(--ff-serif);
-  font-size:clamp(1rem,1.8vw,1.3rem);
-  color:var(--dim);
-  font-style:italic;
-  max-width:640px;
-  line-height:1.7;
-}
-.gold-rule{
-  width:60px;height:2px;
-  background:var(--grad-gold-h);
-  border:none;margin:.8rem 0 2rem;
-}
-.gold-rule.center{margin-left:auto;margin-right:auto}
+/* ═══════════════════════════════════════════════
+   LAYOUT HELPERS
+═══════════════════════════════════════════════ */
+.w { max-width:1240px; margin:0 auto; padding:0 2rem; }
+.sp  { padding: 7rem 0; }
+.sp-lg { padding: 9rem 0; }
+.tc  { text-align:center; }
+.flex-c { display:flex; align-items:center; justify-content:center; }
 
-/* ═══════════════════════════════════════════════════════════
-   LAYOUT
-═══════════════════════════════════════════════════════════ */
-.wrap{max-width:1280px;margin:0 auto;padding:0 2rem}
-.sec-pad{padding:6rem 0}
-.sec-pad-lg{padding:8rem 0}
-.text-center{text-align:center}
-.flex-center{display:flex;align-items:center;justify-content:center}
-.flex-col{flex-direction:column}
+/* ═══════════════════════════════════════════════
+   TYPE UTILITIES
+═══════════════════════════════════════════════ */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .7rem;
+  font-family: var(--ff-body);
+  font-size: .6rem; font-weight: 600;
+  letter-spacing: .55em; text-transform: uppercase;
+  color: var(--bright); opacity: .9;
+  margin-bottom: 1.2rem;
+}
+.eyebrow::before, .eyebrow::after {
+  content:''; flex:1; min-width:24px; height:1px;
+  background: linear-gradient(90deg,transparent,var(--gold),transparent);
+}
 
-/* ═══════════════════════════════════════════════════════════
+.h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(2.6rem,5.5vw,5rem);
+  line-height: 1.0;
+  color: var(--cream);
+  text-shadow: 0 2px 24px rgba(0,0,0,.55);
+  letter-spacing: .04em;
+}
+.h2 {
+  font-family: var(--ff-serif);
+  font-size: clamp(2rem,4vw,3.6rem);
+  font-weight: 500; font-style: italic;
+  color: var(--cream);
+  text-shadow: 0 2px 20px rgba(0,0,0,.50);
+  line-height: 1.15;
+}
+.h3 {
+  font-family: var(--ff-display);
+  font-size: clamp(1.1rem,2vw,1.5rem);
+  letter-spacing: .07em;
+  color: var(--glow);
+}
+.body-copy {
+  font-size: .9rem; font-weight: 300;
+  color: var(--fog); line-height: 1.85;
+}
+.gold-rule {
+  width: 56px; height: 1.5px; border: none;
+  background: var(--g-gold-h);
+  margin: .9rem 0 2rem;
+  opacity: .75;
+}
+.gold-rule.c { margin-left:auto; margin-right:auto; }
+
+/* Metallic gold text */
+.mg {
+  background: var(--g-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200%;
+}
+
+/* ═══════════════════════════════════════════════
    BUTTONS
-═══════════════════════════════════════════════════════════ */
-.btn-gold{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.85rem 2.4rem;
-  background:var(--grad-gold);
-  color:#0A0A0F;
-  font-family:var(--ff-head);
-  font-size:1rem;letter-spacing:.08em;
-  border-radius:40px;
-  box-shadow:0 0 20px rgba(212,165,32,.35),0 4px 15px rgba(0,0,0,.4);
-  transition:all .3s var(--ease);
-  border:none;cursor:pointer;
+═══════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items:center; gap:.5rem;
+  font-family: var(--ff-display);
+  letter-spacing: .1em; font-size: .95rem;
+  padding: .8rem 2.2rem;
+  border-radius: 40px;
+  transition: all .3s var(--ease);
+  cursor: pointer;
 }
-.btn-gold:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 35px rgba(255,215,0,.50),0 8px 25px rgba(0,0,0,.5);
+.btn-primary {
+  background: var(--g-gold);
+  color: var(--ink);
+  box-shadow: 0 0 22px rgba(212,160,32,.30), 0 4px 18px rgba(0,0,0,.45);
 }
-.btn-outline{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.8rem 2.2rem;
-  background:transparent;
-  color:var(--headline);
-  font-family:var(--ff-head);
-  font-size:1rem;letter-spacing:.08em;
-  border:1.5px solid var(--border);
-  border-radius:40px;
-  transition:all .3s var(--ease);
-  cursor:pointer;
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(240,192,64,.45), 0 8px 28px rgba(0,0,0,.5);
 }
-.btn-outline:hover{
-  border-color:var(--logo);
-  color:var(--logo);
-  background:rgba(212,165,32,.08);
+.btn-ghost {
+  background: transparent;
+  color: var(--bright);
+  border: 1.5px solid var(--gold);
 }
+.btn-ghost:hover {
+  border-color: var(--glow);
+  color: var(--glow);
+  background: rgba(212,160,32,.07);
+  transform: translateY(-1px);
+}
+.btn-sm { padding:.6rem 1.6rem; font-size:.82rem; }
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    NAVIGATION
-═══════════════════════════════════════════════════════════ */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  height:var(--nav-h);
-  background:rgba(10,10,15,.20);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(176,136,64,.15);
-  transition:all .4s var(--ease);
+═══════════════════════════════════════════════ */
+#nav {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  padding: .9rem 0;
+  background: rgba(5,2,0,.12);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(176,122,20,.12);
+  transition: all .4s var(--ease);
 }
-#nav.scrolled{
-  background:rgba(10,8,4,.88);
-  border-bottom-color:rgba(176,136,64,.35);
-  box-shadow:0 4px 40px rgba(0,0,0,.6);
+#nav.up {
+  background: rgba(11,4,0,.90);
+  border-bottom-color: rgba(176,122,20,.30);
+  box-shadow: 0 4px 48px rgba(0,0,0,.55);
+  padding: .6rem 0;
 }
-.nav-in{
-  max-width:1280px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  height:100%;padding:0 2rem;
+.nav-wrap {
+  max-width:1240px; margin:0 auto; padding:0 2rem;
+  display:flex; align-items:center; justify-content:space-between;
 }
-.nav-logo{height:36px;filter:drop-shadow(0 0 12px rgba(255,215,0,.5))}
-.nav-logo:hover{filter:drop-shadow(0 0 20px rgba(255,215,0,.8))}
-.nav-links{display:flex;align-items:center;gap:2.5rem}
-.nav-link{
-  font-family:var(--ff-head);font-size:.9rem;letter-spacing:.1em;
-  color:rgba(212,165,32,.85);
-  position:relative;transition:color .25s;
+.nav-logo {
+  height: 30px;
+  filter: drop-shadow(0 0 10px rgba(240,192,64,.55));
+  transition: filter .25s;
 }
-.nav-link::after{
-  content:'';position:absolute;bottom:-4px;left:0;right:0;
-  height:1px;background:var(--logo);
-  transform:scaleX(0);transform-origin:center;
+.nav-logo:hover { filter: drop-shadow(0 0 18px rgba(240,192,64,.85)); }
+
+.nav-links {
+  display:flex; align-items:center; gap:2rem;
+}
+.nl {
+  font-family: var(--ff-display);
+  font-size: .78rem; letter-spacing: .12em;
+  color: rgba(212,160,32,.80);
+  position: relative;
+  transition: color .25s;
+}
+.nl::after {
+  content:''; position:absolute; bottom:-3px; left:0; right:0;
+  height:1px; background:var(--glow);
+  transform:scaleX(0); transform-origin:center;
   transition:transform .3s var(--ease);
 }
-.nav-link:hover{color:var(--logo)}
-.nav-link:hover::after{transform:scaleX(1)}
-.nav-cta{font-size:.85rem;padding:.6rem 1.5rem}
+.nl:hover { color:var(--glow); }
+.nl:hover::after { transform:scaleX(1); }
 
-/* Mobile nav */
-.hamburger{
-  display:none;flex-direction:column;gap:5px;cursor:pointer;
-  padding:.4rem;
+.nav-cta { margin-left:.5rem; }
+
+/* Hamburger */
+.hbg-btn {
+  display:none; flex-direction:column; gap:5px;
+  padding:.4rem; cursor:pointer;
 }
-.hamburger span{
-  display:block;width:24px;height:2px;
-  background:var(--headline);
+.hbg-btn span {
+  display:block; width:22px; height:1.5px;
+  background:var(--bright);
   transition:all .3s var(--ease);
-  border-radius:2px;
 }
-#mmenu{
+
+/* Mobile overlay */
+#mob {
   display:none;
-  position:fixed;inset:0;z-index:999;
-  background:rgba(10,8,4,.97);
-  backdrop-filter:blur(24px);
-  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  position:fixed; inset:0; z-index:999;
+  background:rgba(5,2,0,.97);
+  backdrop-filter:blur(28px);
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:2.2rem;
 }
-#mmenu.open{display:flex}
-.mob-link{
-  font-family:var(--ff-head);font-size:2.2rem;letter-spacing:.1em;
-  color:var(--headline);transition:color .2s;
-}
-.mob-link:hover{color:var(--logo)}
-.mob-close{
-  position:absolute;top:1.5rem;right:1.5rem;
-  font-size:1.6rem;color:var(--dim);cursor:pointer;
+#mob.on { display:flex; }
+.mob-x {
+  position:absolute; top:1.8rem; right:1.8rem;
+  font-size:1.4rem; color:var(--mist); cursor:pointer;
   transition:color .2s;
 }
-.mob-close:hover{color:var(--logo)}
+.mob-x:hover { color:var(--glow); }
+.mob-l {
+  font-family:var(--ff-display);
+  font-size:2rem; letter-spacing:.12em;
+  color:var(--cream); transition:color .2s;
+}
+.mob-l:hover { color:var(--glow); }
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    HERO
-═══════════════════════════════════════════════════════════ */
-#hero{
+═══════════════════════════════════════════════ */
+#hero {
   position:relative;
-  min-height:100svh;
-  display:flex;flex-direction:column;
+  min-height: 100svh;
+  display:flex; flex-direction:column;
   overflow:hidden;
 }
-/* Hero uses the same fixed bg — just needs a brighter spot */
-.hero-bg{
-  position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 75% 65% at 50% 42%,
-      rgba(212,165,32,.10) 0%,
-      rgba(10,8,4,.50) 55%,
-      rgba(10,8,4,.80) 100%
-    );
-}
-/* floor fade */
-.hero-floor{
-  position:absolute;bottom:0;left:0;right:0;z-index:1;
-  height:35%;
-  background:linear-gradient(to top,rgba(10,10,15,.9),transparent);
-}
-.hero-content{
-  position:relative;z-index:2;
-  flex:1;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;
-  padding:calc(var(--nav-h) + 4rem) 2rem 4rem;
-  gap:.6rem;
-}
-.hero-logo{
-  width:clamp(240px,55vw,680px);
-  filter:
-    drop-shadow(0 0 20px rgba(255,215,0,.75))
-    drop-shadow(0 0 60px rgba(212,165,32,.50))
-    drop-shadow(0 0 120px rgba(180,120,10,.30));
-  animation:float 7s ease-in-out infinite;
-  margin-bottom:.6rem;
-}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-.hero-sub{
-  font-family:var(--ff-serif);
-  font-size:clamp(1.1rem,2.5vw,1.8rem);
-  font-weight:400;font-style:italic;
-  color:var(--body-text);
-  text-shadow:0 2px 12px rgba(0,0,0,.9),0 0 30px rgba(0,0,0,.6);
+/* The hero gets the logo graphic as bg — sitting BEHIND the hero image */
+.hero-radial {
+  position:absolute; inset:0; z-index:0;
+  /* slight central glow matching the prism burst in the logo */
+  background: radial-gradient(ellipse 60% 55% at 50% 44%,
+    rgba(200,130,20,.14) 0%,
+    rgba(140,80,10,.08) 35%,
+    rgba(5,2,0,0) 65%
+  );
+}
+
+/* The ALIV FEST logo/header image as a contained hero graphic */
+.hero-graphic-wrap {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  gap: 0;
+}
+
+/* The logo image itself */
+.hero-graphic {
+  width: clamp(320px, 72vw, 860px);
+  filter:
+    drop-shadow(0 0 28px rgba(240,192,64,.60))
+    drop-shadow(0 0 80px rgba(200,130,20,.38))
+    drop-shadow(0 0 160px rgba(140,80,10,.22));
+  animation: float 8s ease-in-out infinite;
+  margin-bottom: -.4rem;
+}
+@keyframes float {
+  0%,100% { transform:translateY(0px); }
+  50%      { transform:translateY(-10px); }
+}
+
+.hero-content {
+  position:relative; z-index:2;
+  flex:1;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center;
+  padding: 7rem 2rem 5rem;
+  gap:.5rem;
+}
+
+.hero-subtitle {
+  font-family: var(--ff-serif);
+  font-size: clamp(1rem,2.2vw,1.6rem);
+  font-style: italic; font-weight:300;
+  color: var(--cream);
+  letter-spacing: .06em;
+  text-shadow: 0 2px 16px rgba(0,0,0,.80);
+  margin-top:.2rem;
+}
+.hero-tagline {
+  font-family: var(--ff-display);
+  font-size: clamp(1.2rem,2.8vw,2.2rem);
+  letter-spacing: .1em;
+  color: var(--bright);
+  text-shadow: 0 2px 20px rgba(0,0,0,.75);
+  margin-top:.4rem;
+}
+.hero-legacy {
+  font-family: var(--ff-serif);
+  font-size: clamp(.9rem,1.8vw,1.3rem);
+  font-style:italic; font-weight:300;
+  color: var(--mist);
   letter-spacing:.04em;
-  margin-bottom:.2rem;
+  max-width: 620px;
+  text-shadow: 0 1px 12px rgba(0,0,0,.70);
+  margin-top:.2rem;
+  line-height:1.6;
 }
-.hero-tagline{
-  font-family:var(--ff-head);
-  font-size:clamp(1.4rem,3.5vw,2.8rem);
-  color:var(--headline);
-  text-shadow:0 2px 20px rgba(0,0,0,.9),0 0 40px rgba(212,165,32,.25);
-  letter-spacing:.06em;
-  margin-bottom:.8rem;
+.hero-dates {
+  display:flex; align-items:center; gap:1rem;
+  font-family:var(--ff-body); font-size:.68rem; font-weight:500;
+  letter-spacing:.38em; text-transform:uppercase;
+  color:var(--gold); margin-top:1.2rem;
 }
-.hero-dates{
-  font-family:var(--ff-body);font-size:.8rem;font-weight:500;
-  letter-spacing:.35em;text-transform:uppercase;
-  color:var(--border);
-  display:flex;align-items:center;gap:1rem;
-  margin-bottom:1.8rem;
-}
-.hero-dates span{width:30px;height:1px;background:var(--border);opacity:.6}
+.hero-dates em { width:28px; height:1px; background:var(--gold); opacity:.55; display:block; }
 
 /* Countdown */
-.countdown{
-  display:flex;gap:1.5rem;margin-bottom:2.2rem;
+.cdown {
+  display:flex; gap:1.2rem;
+  margin-top:1.4rem;
 }
-.cd-box{
-  display:flex;flex-direction:column;align-items:center;
-  background:var(--glass);
-  border:1px solid var(--glass-border);
+.cd {
+  display:flex; flex-direction:column; align-items:center;
+  background: var(--glass);
+  border: 1px solid var(--glass-b);
   backdrop-filter:blur(12px);
-  border-radius:var(--r);
-  padding:.9rem 1.4rem;
-  min-width:72px;
+  border-radius: var(--r);
+  padding: .8rem 1.2rem; min-width:66px;
 }
-.cd-num{
-  font-family:var(--ff-head);
-  font-size:clamp(1.8rem,4vw,2.8rem);
-  color:var(--logo);
-  line-height:1;
-  text-shadow:0 0 20px rgba(255,215,0,.45);
+.cdn {
+  font-family:var(--ff-display);
+  font-size:clamp(1.6rem,3.5vw,2.6rem);
+  color:var(--glow); line-height:1;
+  text-shadow:0 0 18px rgba(240,192,64,.40);
 }
-.cd-label{
-  font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;
-  color:var(--border);margin-top:.25rem;
+.cdl {
+  font-size:.48rem; letter-spacing:.35em;
+  text-transform:uppercase; color:var(--gold);
+  margin-top:.2rem;
 }
-.hero-cta{
-  display:flex;flex-wrap:wrap;gap:1rem;
-  align-items:center;justify-content:center;
-}
+.hero-cta { display:flex; flex-wrap:wrap; gap:1rem; margin-top:2rem; justify-content:center; }
 
+/* Floor fade */
+.hero-floor {
+  position:absolute; bottom:0; left:0; right:0; z-index:1;
+  height:30%;
+  background:linear-gradient(to top,rgba(5,2,0,.85),transparent);
+  pointer-events:none;
+}
 /* Scroll cue */
-.scroll-cue{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+.scue {
+  position:absolute; bottom:2.2rem; left:50%;
+  transform:translateX(-50%);
   z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:.4rem;
-  font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;
-  color:var(--border);opacity:.7;
-  animation:bob 2s ease-in-out infinite;
+  display:flex; flex-direction:column; align-items:center; gap:.4rem;
+  font-size:.5rem; letter-spacing:.35em; text-transform:uppercase;
+  color:var(--gold); opacity:.65;
+  animation:bob 2.2s ease-in-out infinite;
 }
-.scroll-cue i{font-size:.9rem}
-@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
+@keyframes bob {
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(5px)}
+}
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    TICKER
-═══════════════════════════════════════════════════════════ */
-.ticker-wrap{
+═══════════════════════════════════════════════ */
+.ticker-outer {
   overflow:hidden;
-  padding:.7rem 0;
-  background:rgba(26,14,8,.75);
-  border-top:1px solid rgba(176,136,64,.25);
-  border-bottom:1px solid rgba(176,136,64,.25);
+  padding:.65rem 0;
+  background:rgba(11,4,0,.55);
+  border-top:1px solid rgba(176,122,20,.22);
+  border-bottom:1px solid rgba(176,122,20,.22);
+  backdrop-filter:blur(10px);
 }
-.ticker-track{
+.ticker-track {
   display:flex;
-  animation:tick 30s linear infinite;
+  animation:tick 32s linear infinite;
   white-space:nowrap;
 }
-.ticker-track:hover{animation-play-state:paused}
-.ticker-item{
-  display:inline-flex;align-items:center;gap:1.2rem;
+.ticker-track:hover { animation-play-state:paused; }
+.ti {
+  display:inline-flex; align-items:center; gap:1.2rem;
   padding:0 2rem;
-  font-family:var(--ff-head);font-size:.85rem;letter-spacing:.12em;
-  color:rgba(212,165,32,.85);
+  font-family:var(--ff-display); font-size:.82rem; letter-spacing:.12em;
+  color:rgba(212,160,32,.80);
 }
-.ticker-item i{color:var(--logo);font-size:.6rem}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ti i { color:var(--glow); font-size:.55rem; }
+@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* ═══════════════════════════════════════════════════════════
-   INFO STRIP
-═══════════════════════════════════════════════════════════ */
-.infostrip{
-  background:rgba(26,14,8,.60);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(176,136,64,.20);
+/* ═══════════════════════════════════════════════
+   STRIP (date bar)
+═══════════════════════════════════════════════ */
+.strip {
+  background:rgba(11,4,0,.42);
+  border-bottom:1px solid rgba(176,122,20,.18);
+  backdrop-filter:blur(10px);
 }
-.istrip-in{
-  display:flex;flex-wrap:wrap;align-items:center;
-  justify-content:center;gap:2rem;
-  padding:1.2rem 2rem;
-  max-width:1280px;margin:0 auto;
+.strip-in {
+  max-width:1240px; margin:0 auto; padding:1rem 2rem;
+  display:flex; flex-wrap:wrap; align-items:center;
+  justify-content:center; gap:1.8rem;
 }
-.istrip-item{
-  display:flex;align-items:center;gap:.6rem;
-  font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;
-  font-weight:600;color:var(--border);
+.si {
+  display:flex; align-items:center; gap:.55rem;
+  font-size:.68rem; font-weight:500;
+  letter-spacing:.28em; text-transform:uppercase;
+  color:var(--gold);
 }
-.istrip-item i{color:var(--headline);font-size:.85rem}
-.idot{width:3px;height:3px;border-radius:50%;background:rgba(176,136,64,.4)}
+.si i { color:var(--bright); font-size:.8rem; }
+.sdot { width:3px; height:3px; border-radius:50%; background:rgba(176,122,20,.45); }
 
-/* ═══════════════════════════════════════════════════════════
-   EXPERIENCE STATS
-═══════════════════════════════════════════════════════════ */
-#experience{background:linear-gradient(180deg,rgba(26,14,8,.40) 0%,rgba(10,10,15,.20) 100%)}
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:2px;
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
-  overflow:hidden;
-  margin-top:3rem;
+/* ═══════════════════════════════════════════════
+   SECTION DIVIDER (elegant line break)
+═══════════════════════════════════════════════ */
+.sec-div {
+  width:100%; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(176,122,20,.25),transparent);
+  border:none; margin:0;
 }
-.stat-box{
-  padding:2.5rem 2rem;
-  background:var(--glass);
-  backdrop-filter:blur(12px);
+
+/* ═══════════════════════════════════════════════
+   ENTER ALIV — about / mission
+═══════════════════════════════════════════════ */
+#enter { background:transparent; }
+.enter-intro {
+  max-width:760px; margin:0 auto;
   text-align:center;
-  transition:background .3s;
 }
-.stat-box:hover{background:var(--glass-hover)}
-.stat-num{
-  font-family:var(--ff-head);
-  font-size:clamp(2.8rem,6vw,5rem);
-  color:var(--logo);
-  line-height:1;
-  text-shadow:0 0 30px rgba(255,215,0,.35);
-  display:block;
+.enter-intro .h2 {
+  margin-bottom:1.4rem;
 }
-.stat-label{
-  font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;
-  color:var(--border);margin-top:.4rem;font-weight:500;
+.enter-body {
+  font-family:var(--ff-serif);
+  font-size:clamp(1rem,1.7vw,1.25rem);
+  font-style:italic; font-weight:300;
+  color:rgba(242,222,176,.85);
+  line-height:1.9;
+  max-width:680px;
+  margin:0 auto;
+  text-shadow:0 1px 10px rgba(0,0,0,.40);
 }
-
-/* ═══════════════════════════════════════════════════════════
-   WHAT AWAITS — 4-card grid
-═══════════════════════════════════════════════════════════ */
-#awaits{background:rgba(26,14,8,.25)}
-.awaits-grid{
+.values-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:1.5rem;
-  margin-top:3rem;
+  margin-top:4rem;
 }
-.await-card{
-  background:var(--card);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
-  padding:2.8rem 2.2rem;
-  backdrop-filter:blur(12px);
-  transition:all .35s var(--ease);
-  position:relative;overflow:hidden;
-}
-.await-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(212,165,32,.08) 0%,transparent 60%);
-  opacity:0;transition:opacity .35s;
-}
-.await-card:hover{transform:translateY(-5px);border-color:var(--glass-border-hover)}
-.await-card:hover::before{opacity:1}
-.await-icon{
-  font-size:2rem;color:var(--headline);
-  margin-bottom:1.2rem;
-  filter:drop-shadow(0 0 8px rgba(212,165,32,.35));
-}
-.await-title{
-  font-family:var(--ff-head);font-size:1.45rem;letter-spacing:.06em;
-  color:var(--logo);margin-bottom:.8rem;
-}
-.await-body{font-size:.88rem;color:var(--dim);line-height:1.75}
-
-/* ═══════════════════════════════════════════════════════════
-   SOMETHING EVERY NIGHT — 3-col feature grid
-═══════════════════════════════════════════════════════════ */
-#nights{background:linear-gradient(180deg,rgba(10,10,15,.25) 0%,rgba(26,14,8,.35) 100%)}
-.nights-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:1.5rem;
-  margin-top:3rem;
-}
-.night-card{
-  background:var(--card);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
+.val-card {
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:var(--rl);
   padding:2.5rem 2rem;
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
   transition:all .35s var(--ease);
-  position:relative;
 }
-.night-card::after{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--grad-gold-h);
-  border-radius:var(--r-lg) var(--r-lg) 0 0;
-  opacity:.7;
+.val-card:hover {
+  background:var(--glass-h);
+  border-color:var(--glass-bh);
+  transform:translateY(-4px);
+  box-shadow:0 14px 44px rgba(120,58,0,.25);
 }
-.night-card:hover{transform:translateY(-4px);border-color:var(--glass-border-hover)}
-.night-icon{font-size:1.8rem;color:var(--headline);margin-bottom:1rem}
-.night-title{
-  font-family:var(--ff-head);font-size:1.5rem;letter-spacing:.06em;
-  color:var(--logo);margin-bottom:.6rem;
+.val-icon {
+  font-size:1.5rem; color:var(--bright);
+  filter:drop-shadow(0 0 6px rgba(212,160,32,.40));
+  margin-bottom:1rem; display:block;
 }
-.night-body{font-size:.87rem;color:var(--dim);line-height:1.75;margin-bottom:1.2rem}
-.night-tags{display:flex;flex-wrap:wrap;gap:.5rem}
-.night-tag{
-  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
-  padding:.3rem .8rem;
-  border:1px solid rgba(176,136,64,.40);
-  border-radius:20px;color:var(--border);
+.val-title {
+  font-family:var(--ff-display);
+  font-size:1.2rem; letter-spacing:.07em;
+  color:var(--glow); margin-bottom:.6rem;
+}
+.val-body { font-size:.85rem; color:var(--fog); line-height:1.8; }
+
+/* ═══════════════════════════════════════════════
+   EXPERIENCE ALIV — 5 zones
+═══════════════════════════════════════════════ */
+#experience { background:transparent; }
+.zone-stack {
+  display:flex; flex-direction:column; gap:1px;
+  border:1px solid var(--glass-b);
+  border-radius:var(--rl);
+  overflow:hidden;
+  margin-top:3.5rem;
+}
+.zone-row {
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  align-items:center; gap:2rem;
+  padding:2rem 2.5rem;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  transition:all .3s var(--ease);
+  cursor:default;
+}
+.zone-row:hover {
+  background:var(--glass-h);
+  padding-left:3rem;
+}
+.zn {
+  font-family:var(--ff-display);
+  font-size:3rem; letter-spacing:.04em;
+  color:rgba(176,122,20,.25);
+  line-height:1;
+  transition:color .3s;
+}
+.zone-row:hover .zn { color:rgba(240,192,64,.40); }
+.z-name {
+  font-family:var(--ff-display);
+  font-size:clamp(1.1rem,2vw,1.6rem);
+  letter-spacing:.07em; color:var(--cream);
+  margin-bottom:.35rem;
+}
+.z-desc { font-size:.83rem; color:var(--fog); line-height:1.7; }
+.z-tag {
+  font-size:.58rem; letter-spacing:.25em; text-transform:uppercase;
+  padding:.3rem .9rem;
+  border:1px solid rgba(176,122,20,.35);
+  border-radius:20px; color:var(--gold);
+  white-space:nowrap;
   transition:all .2s;
 }
-.night-tag:hover{border-color:var(--logo);color:var(--logo);background:rgba(255,215,0,.07)}
+.zone-row:hover .z-tag { border-color:var(--glow); color:var(--glow); }
 
-/* ═══════════════════════════════════════════════════════════
-   HOWEVER YOU DO DECEMBER — audience cards
-═══════════════════════════════════════════════════════════ */
-#audience{background:rgba(26,14,8,.30)}
-.aud-grid{
+/* ═══════════════════════════════════════════════
+   COME ALIV — nightlife / music
+═══════════════════════════════════════════════ */
+#comealiv { background:transparent; }
+.nights-grid {
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:1.5rem;
-  margin-top:3rem;
+  margin-top:3.5rem;
 }
-.aud-card{
-  background:rgba(61,35,20,.70);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
-  padding:2.5rem 2rem;
+.night-card {
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:var(--rl);
+  padding:2.8rem 2.2rem;
   backdrop-filter:blur(14px);
   transition:all .35s var(--ease);
+  position:relative; overflow:hidden;
 }
-.aud-card:hover{
-  background:rgba(107,58,32,.75);
-  border-color:var(--glass-border-hover);
-  transform:translateY(-4px);
-  box-shadow:0 12px 40px rgba(180,90,0,.25);
+.night-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--g-gold-h); opacity:.65;
 }
-.aud-icon{
-  font-size:1.6rem;color:var(--headline);
-  margin-bottom:1rem;display:block;
-  filter:drop-shadow(0 0 6px rgba(212,165,32,.40));
+.night-card:hover {
+  transform:translateY(-5px);
+  border-color:var(--glass-bh);
+  box-shadow:0 16px 50px rgba(120,60,0,.28);
 }
-.aud-title{
-  font-family:var(--ff-head);font-size:1.3rem;letter-spacing:.05em;
-  color:var(--logo);margin-bottom:.7rem;
-  font-weight:400;
+.nc-icon { font-size:1.8rem; color:var(--bright); margin-bottom:1.2rem; display:block; }
+.nc-title {
+  font-family:var(--ff-display);
+  font-size:1.4rem; letter-spacing:.06em;
+  color:var(--glow); margin-bottom:.7rem;
 }
-.aud-body{font-size:.85rem;color:var(--dim);line-height:1.8}
+.nc-body { font-size:.86rem; color:var(--fog); line-height:1.8; margin-bottom:1.2rem; }
+.tag-row { display:flex; flex-wrap:wrap; gap:.5rem; }
+.tag {
+  font-size:.58rem; letter-spacing:.18em; text-transform:uppercase;
+  padding:.28rem .8rem;
+  border:1px solid rgba(176,122,20,.35);
+  border-radius:20px; color:var(--gold);
+}
 
-/* ═══════════════════════════════════════════════════════════
-   THE 5 ZONES
-═══════════════════════════════════════════════════════════ */
-#zones{background:linear-gradient(180deg,rgba(26,14,8,.35) 0%,rgba(10,10,15,.30) 100%)}
-.zones-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1.5rem;
-  margin-top:3rem;
-}
-.zone-card{
-  background:var(--card);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
-  padding:2.8rem 2rem 2.4rem;
-  backdrop-filter:blur(14px);
-  transition:all .35s var(--ease);
-  position:relative;overflow:hidden;
+/* Pull quote */
+.come-quote {
+  max-width:720px; margin:4rem auto 0;
   text-align:center;
+  font-family:var(--ff-serif);
+  font-size:clamp(1.2rem,2.4vw,1.8rem);
+  font-style:italic; font-weight:300;
+  color:rgba(242,222,176,.88);
+  line-height:1.65;
+  text-shadow:0 1px 12px rgba(0,0,0,.45);
 }
-.zone-card:hover{
-  transform:translateY(-6px);
-  border-color:var(--glass-border-hover);
-  box-shadow:0 16px 50px rgba(180,100,0,.28);
-}
-.zone-card:hover .zone-num{opacity:.5}
-.zone-num{
-  font-family:var(--ff-head);
-  font-size:4rem;
-  color:rgba(176,136,64,.18);
-  position:absolute;top:.8rem;right:1.2rem;
-  line-height:1;
-  transition:opacity .35s;
-}
-.zone-icon{font-size:2rem;color:var(--headline);margin-bottom:1rem;display:block}
-.zone-name{
-  font-family:var(--ff-head);font-size:1.25rem;letter-spacing:.06em;
-  color:var(--logo);margin-bottom:.5rem;
-}
-.zone-desc{font-size:.83rem;color:var(--dim);line-height:1.75}
+.come-quote::before { content:'\u201C'; font-size:3rem; color:var(--gold); line-height:0; vertical-align:-.5rem; margin-right:.15rem; }
+.come-quote::after  { content:'\u201D'; font-size:3rem; color:var(--gold); line-height:0; vertical-align:-.5rem; margin-left:.15rem; }
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    VIP SOCIETY
-═══════════════════════════════════════════════════════════ */
-#vip{background:rgba(26,14,8,.40)}
-.vip-inner{
-  display:grid;grid-template-columns:1fr 1fr;gap:5rem;
-  align-items:center;margin-top:3rem;
+═══════════════════════════════════════════════ */
+#vip { background:transparent; }
+.vip-layout {
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:5rem; align-items:start;
+  margin-top:3.5rem;
 }
-.vip-perks{
-  display:flex;flex-direction:column;gap:1rem;
-}
-.vip-perk{
-  display:flex;gap:1rem;align-items:flex-start;
+.vip-perks { display:flex; flex-direction:column; gap:1.2rem; }
+.vp {
+  display:flex; gap:1.2rem; align-items:flex-start;
   padding:1.4rem 1.6rem;
   background:var(--glass);
-  border:1px solid var(--glass-border);
+  border:1px solid var(--glass-b);
   border-radius:var(--r);
   backdrop-filter:blur(12px);
-  transition:all .3s;
+  transition:all .3s var(--ease);
 }
-.vip-perk:hover{border-color:var(--glass-border-hover);background:var(--glass-hover)}
-.vip-perk i{color:var(--headline);font-size:1.1rem;margin-top:.15rem;flex-shrink:0}
-.vip-perk-text h4{
-  font-family:var(--ff-head);font-size:1rem;letter-spacing:.06em;
-  color:var(--logo);margin-bottom:.25rem;
+.vp:hover { background:var(--glass-h); border-color:var(--glass-bh); }
+.vp i { color:var(--bright); font-size:1rem; margin-top:.2rem; flex-shrink:0; }
+.vp h4 {
+  font-family:var(--ff-display);
+  font-size:.95rem; letter-spacing:.07em;
+  color:var(--glow); margin-bottom:.2rem;
 }
-.vip-perk-text p{font-size:.83rem;color:var(--dim);line-height:1.6}
-.vip-cta-box{
-  text-align:center;
-  padding:3rem 2.5rem;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--r-lg);
-  backdrop-filter:blur(14px);
-}
-.vip-price{
-  font-family:var(--ff-head);
-  font-size:3rem;color:var(--logo);
-  text-shadow:0 0 30px rgba(255,215,0,.35);
-}
-.vip-note{
-  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--border);margin:.5rem 0 2rem;
-}
-.vip-slots{
-  margin-top:1.5rem;
-  font-size:.75rem;color:var(--dim);
-  display:flex;align-items:center;justify-content:center;gap:.5rem;
-}
-.vip-dot{width:8px;height:8px;border-radius:50%;background:#E8A020;animation:pulse-dot 1.5s ease-in-out infinite}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.vp p { font-size:.82rem; color:var(--fog); line-height:1.65; }
 
-/* ═══════════════════════════════════════════════════════════
-   MERCH — COMING SOON
-═══════════════════════════════════════════════════════════ */
-#merch{background:linear-gradient(180deg,rgba(10,10,15,.30) 0%,rgba(26,14,8,.35) 100%)}
-.merch-grid{
+.vip-box {
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:var(--rl);
+  padding:3rem 2.5rem;
+  backdrop-filter:blur(16px);
+  text-align:center;
+  position:sticky; top:100px;
+}
+.vip-box h3 {
+  font-family:var(--ff-display);
+  font-size:2rem; letter-spacing:.08em;
+  background:var(--g-gold);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:.5rem;
+}
+.vip-sub { font-size:.7rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:2rem; }
+.vip-box .btn { width:100%; justify-content:center; margin-top:1rem; }
+.avail {
+  margin-top:1.4rem;
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  font-size:.72rem; color:var(--fog);
+}
+.avail-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:#E8A020;
+  animation:pdot 1.6s ease-in-out infinite;
+}
+@keyframes pdot { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* ═══════════════════════════════════════════════
+   DRIP SHOP — merch teaser
+═══════════════════════════════════════════════ */
+#drip { background:transparent; }
+.drip-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1.5rem;margin-top:3rem;
+  gap:1.5rem;
+  margin-top:3.5rem;
 }
-.merch-card{
-  background:var(--card);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
+.drip-card {
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:var(--rl);
   overflow:hidden;
   transition:all .35s var(--ease);
 }
-.merch-card:hover{transform:translateY(-4px);border-color:var(--glass-border-hover)}
-.merch-img{
-  height:200px;
-  background:linear-gradient(135deg,#3D2314 0%,#6B3A20 50%,#3D2314 100%);
-  display:flex;align-items:center;justify-content:center;
-  font-size:3rem;color:var(--border);
+.drip-card:hover {
+  transform:translateY(-4px);
+  border-color:var(--glass-bh);
+}
+.drip-img {
+  height:190px;
+  background:linear-gradient(135deg,var(--bronze) 0%,var(--copper) 50%,var(--bronze) 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-size:2.8rem; color:var(--gold);
   position:relative;
 }
-.merch-badge{
-  position:absolute;top:1rem;right:1rem;
-  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
-  padding:.3rem .8rem;
-  background:rgba(212,165,32,.15);
-  border:1px solid rgba(212,165,32,.40);
-  border-radius:20px;color:var(--headline);
+.drip-badge {
+  position:absolute; top:.8rem; right:.8rem;
+  font-size:.55rem; letter-spacing:.2em; text-transform:uppercase;
+  padding:.28rem .8rem;
+  background:rgba(212,160,32,.12);
+  border:1px solid rgba(212,160,32,.38);
+  border-radius:20px; color:var(--bright);
 }
-.merch-info{padding:1.5rem}
-.merch-name{
-  font-family:var(--ff-head);font-size:1.1rem;letter-spacing:.06em;
-  color:var(--logo);margin-bottom:.4rem;
+.drip-info { padding:1.5rem; }
+.drip-name {
+  font-family:var(--ff-display);
+  font-size:1.1rem; letter-spacing:.06em;
+  color:var(--glow); margin-bottom:.35rem;
 }
-.merch-sub{font-size:.8rem;color:var(--dim)}
+.drip-sub { font-size:.78rem; color:var(--fog); }
+.drip-cta { text-align:center; margin-top:2.5rem; }
 
-/* ═══════════════════════════════════════════════════════════
-   PARTNERSHIPS
-═══════════════════════════════════════════════════════════ */
-#partnerships{background:rgba(26,14,8,.35)}
-.partner-tabs{
-  display:flex;gap:1rem;margin-bottom:3rem;
-  border-bottom:1px solid var(--glass-border);
-  padding-bottom:0;
+/* ═══════════════════════════════════════════════
+   BECOME ALIV — sponsors / vendors
+═══════════════════════════════════════════════ */
+#become { background:transparent; }
+.become-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+  margin-top:3.5rem;
 }
-.ptab{
-  font-family:var(--ff-head);font-size:1rem;letter-spacing:.08em;
-  color:var(--border);padding:.8rem 1.2rem;
-  border-bottom:2px solid transparent;
-  transition:all .25s;cursor:pointer;margin-bottom:-1px;
-}
-.ptab.active,.ptab:hover{color:var(--logo);border-bottom-color:var(--logo)}
-.partner-panel{display:none}
-.partner-panel.active{display:block}
-.partner-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:1.5rem;margin-bottom:2.5rem;
-}
-.partner-card{
+.track {
   background:var(--glass);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r);
-  padding:2rem;
-  backdrop-filter:blur(12px);
-  transition:all .3s;text-align:center;
+  border:1px solid var(--glass-b);
+  border-radius:var(--rl);
+  padding:2.8rem 2.5rem;
+  backdrop-filter:blur(14px);
+  transition:all .35s var(--ease);
 }
-.partner-card:hover{border-color:var(--glass-border-hover);transform:translateY(-3px)}
-.partner-card i{font-size:2rem;color:var(--headline);margin-bottom:1rem;display:block}
-.partner-card h4{
-  font-family:var(--ff-head);font-size:1.1rem;letter-spacing:.06em;
-  color:var(--logo);margin-bottom:.5rem;
+.track:hover { border-color:var(--glass-bh); background:var(--glass-h); }
+.track-label {
+  font-size:.6rem; letter-spacing:.4em; text-transform:uppercase;
+  color:var(--bright); margin-bottom:1rem;
 }
-.partner-card p{font-size:.82rem;color:var(--dim);line-height:1.65}
-.partner-form-hint{
-  text-align:center;
-  padding:2rem;
-  background:var(--glass);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
-  backdrop-filter:blur(12px);
+.track-title {
+  font-family:var(--ff-display);
+  font-size:1.6rem; letter-spacing:.06em;
+  color:var(--glow); margin-bottom:1rem;
 }
-.partner-form-hint p{font-size:.9rem;color:var(--dim);margin-bottom:1.2rem}
+.track-body { font-size:.86rem; color:var(--fog); line-height:1.8; margin-bottom:1.8rem; }
+.track-list { display:flex; flex-direction:column; gap:.5rem; margin-bottom:1.8rem; }
+.tl-item {
+  display:flex; align-items:center; gap:.7rem;
+  font-size:.83rem; color:rgba(242,222,176,.80);
+}
+.tl-item::before {
+  content:''; width:5px; height:5px; border-radius:50%;
+  background:var(--gold); flex-shrink:0;
+}
 
-/* ═══════════════════════════════════════════════════════════
-   EARLY ACCESS SIGNUP
-═══════════════════════════════════════════════════════════ */
-#access{background:linear-gradient(180deg,rgba(26,14,8,.40) 0%,rgba(10,10,15,.35) 100%)}
-.access-inner{
-  max-width:680px;margin:3rem auto 0;
-  background:rgba(61,35,20,.50);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-lg);
+/* ═══════════════════════════════════════════════
+   EARLY ACCESS
+═══════════════════════════════════════════════ */
+#access { background:transparent; }
+.form-wrap {
+  max-width:640px; margin:3rem auto 0;
+  background:rgba(46,18,0,.55);
+  border:1px solid var(--glass-b);
+  border-radius:var(--rl);
   padding:3rem;
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(18px);
 }
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
-label{
-  font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
-  font-weight:600;color:var(--border);
+.frow { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.fg { display:flex; flex-direction:column; gap:.38rem; margin-bottom:.9rem; }
+label {
+  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase;
+  font-weight:600; color:var(--gold);
 }
-input,select,textarea{
-  background:rgba(10,10,15,.50);
-  border:1px solid rgba(176,136,64,.30);
+input, select, textarea {
+  background:rgba(5,2,0,.50);
+  border:1px solid rgba(176,122,20,.28);
   border-radius:.5rem;
-  color:var(--body-text);
-  font-family:var(--ff-body);font-size:.9rem;
-  padding:.75rem 1rem;
-  transition:border-color .25s;
-  outline:none;width:100%;
+  color:var(--cream);
+  font-family:var(--ff-body); font-size:.88rem;
+  padding:.72rem 1rem;
+  transition:border-color .25s; outline:none; width:100%;
 }
-input:focus,select:focus,textarea:focus{border-color:rgba(212,165,32,.60)}
-input::placeholder{color:rgba(245,230,200,.35)}
-select{
-  appearance:none;cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B08840' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+input:focus, select:focus, textarea:focus {
+  border-color:rgba(212,160,32,.60);
+}
+input::placeholder { color:rgba(242,222,176,.28); }
+select {
+  appearance:none; cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B07A14' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;
   background-position:right 1rem center;
 }
-select option{background:#1A0E08;color:var(--body-text)}
-.interests-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;
+select option { background:#1C0900; color:var(--cream); }
+.int-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem;
+  margin-top:.5rem;
 }
-.check-item{
-  display:flex;align-items:center;gap:.5rem;
-  font-size:.8rem;color:var(--dim);cursor:pointer;
+.ci {
+  display:flex; align-items:center; gap:.45rem;
+  font-size:.78rem; color:var(--fog); cursor:pointer;
 }
-.check-item input[type=checkbox]{
-  width:14px;height:14px;accent-color:var(--headline);
-  flex-shrink:0;background:none;border:none;padding:0;
+.ci input[type=checkbox] {
+  width:13px; height:13px;
+  accent-color:var(--bright);
+  flex-shrink:0; background:none; border:none; padding:0;
 }
-.form-msg{
-  display:none;padding:1rem;border-radius:.5rem;
-  font-size:.85rem;margin-top:.5rem;text-align:center;
+.fmsg {
+  display:none; padding:.9rem 1rem; border-radius:.5rem;
+  font-size:.83rem; margin-top:.5rem; text-align:center;
 }
-.form-msg.success{background:rgba(212,165,32,.12);border:1px solid rgba(212,165,32,.30);color:var(--headline)}
-.form-msg.error{background:rgba(180,40,40,.10);border:1px solid rgba(180,40,40,.25);color:#E88;}
-.form-submit{width:100%;padding:1rem;font-size:1.05rem;margin-top:1rem}
+.fmsg.ok  { background:rgba(212,160,32,.10); border:1px solid rgba(212,160,32,.28); color:var(--bright); }
+.fmsg.err { background:rgba(180,40,40,.08);  border:1px solid rgba(180,40,40,.22);  color:#dd9999; }
+.fsub {
+  width:100%; padding:.95rem; font-size:1rem;
+  margin-top:.8rem; justify-content:center;
+}
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    FOOTER
-═══════════════════════════════════════════════════════════ */
-footer{
-  background:rgba(10,8,4,.85);
-  border-top:1px solid rgba(176,136,64,.25);
-  backdrop-filter:blur(16px);
+═══════════════════════════════════════════════ */
+footer {
+  background:rgba(5,2,0,.78);
+  border-top:1px solid rgba(176,122,20,.22);
+  backdrop-filter:blur(18px);
 }
-.footer-in{
+.ft-in {
+  max-width:1240px; margin:0 auto; padding:0 2rem;
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 1.5fr;
-  gap:3rem;padding:4rem 2rem 2rem;
-  max-width:1280px;margin:0 auto;
+  grid-template-columns:2fr 1fr 1fr 1.6fr;
+  gap:3rem;
+  padding-top:4rem; padding-bottom:2rem;
 }
-.footer-logo-img{height:32px;margin-bottom:1rem;filter:drop-shadow(0 0 8px rgba(255,215,0,.4))}
-.footer-tagline{font-size:.83rem;color:var(--dim);line-height:1.7;max-width:260px;margin-bottom:1.4rem}
-.socials{display:flex;gap:1rem}
-.soc{
-  width:36px;height:36px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  border:1px solid rgba(176,136,64,.35);
-  color:var(--border);font-size:.9rem;
+.ft-logo { height:28px; margin-bottom:1rem; filter:drop-shadow(0 0 7px rgba(240,192,64,.40)); }
+.ft-tag { font-size:.82rem; color:var(--fog); line-height:1.7; max-width:240px; margin-bottom:1.4rem; }
+.socials { display:flex; gap:.9rem; }
+.soc {
+  width:34px; height:34px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(176,122,20,.32);
+  color:var(--gold); font-size:.85rem;
   transition:all .25s;
 }
-.soc:hover{border-color:var(--logo);color:var(--logo);background:rgba(255,215,0,.08)}
-.footer-heading{
-  font-family:var(--ff-head);font-size:1rem;letter-spacing:.1em;
-  color:var(--headline);margin-bottom:1.2rem;
+.soc:hover { border-color:var(--glow); color:var(--glow); background:rgba(240,192,64,.07); }
+.fh {
+  font-family:var(--ff-display);
+  font-size:.9rem; letter-spacing:.1em;
+  color:var(--bright); margin-bottom:1.2rem;
 }
-.footer-links{display:flex;flex-direction:column;gap:.65rem}
-.footer-link{font-size:.83rem;color:rgba(245,230,200,.65);transition:color .2s}
-.footer-link:hover{color:var(--headline)}
-.footer-email-form{
-  display:flex;gap:.5rem;margin-top:.8rem;
-}
-.footer-email-form input{
-  flex:1;padding:.65rem 1rem;font-size:.82rem;
-  background:rgba(10,8,4,.60);
-  border:1px solid rgba(176,136,64,.30);
+.fl { display:flex; flex-direction:column; gap:.6rem; }
+.fl a { font-size:.82rem; color:rgba(242,222,176,.60); transition:color .2s; }
+.fl a:hover { color:var(--bright); }
+.ft-email { display:flex; gap:.5rem; margin-top:.7rem; }
+.ft-email input {
+  flex:1; padding:.6rem 1rem; font-size:.8rem;
+  background:rgba(5,2,0,.55);
+  border:1px solid rgba(176,122,20,.28);
   border-radius:30px;
 }
-.footer-email-form button{
-  padding:.65rem 1.2rem;border-radius:30px;
-  font-size:.78rem;
-  background:var(--grad-gold);
-  color:#0A0A0F;font-family:var(--ff-head);
-  letter-spacing:.08em;cursor:pointer;
+.ft-email button {
+  padding:.6rem 1.2rem; border-radius:30px;
+  font-family:var(--ff-display); font-size:.78rem; letter-spacing:.08em;
+  background:var(--g-gold); color:var(--ink); cursor:pointer;
   transition:all .25s;
 }
-.footer-email-form button:hover{box-shadow:0 0 20px rgba(255,215,0,.30)}
-.footer-bottom{
-  display:flex;align-items:center;justify-content:space-between;
-  border-top:1px solid rgba(176,136,64,.18);
-  padding:1.2rem 2rem;max-width:1280px;margin:0 auto;
-  font-size:.72rem;color:rgba(245,230,200,.40);
+.ft-email button:hover { box-shadow:0 0 18px rgba(240,192,64,.28); }
+.ft-bot {
+  max-width:1240px; margin:0 auto; padding:1.2rem 2rem;
+  border-top:1px solid rgba(176,122,20,.15);
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:.68rem; color:rgba(242,222,176,.35);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   REVEAL ANIMATIONS
-═══════════════════════════════════════════════════════════ */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
-.rl{opacity:0;transform:translateX(-30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rl.visible{opacity:1;transform:none}
-.rr{opacity:0;transform:translateX(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rr.visible{opacity:1;transform:none}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+/* ═══════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════ */
+.rv  { opacity:0; transform:translateY(28px);  transition:opacity .75s var(--ease),transform .75s var(--ease); }
+.rvl { opacity:0; transform:translateX(-28px); transition:opacity .75s var(--ease),transform .75s var(--ease); }
+.rvr { opacity:0; transform:translateX(28px);  transition:opacity .75s var(--ease),transform .75s var(--ease); }
+.rv.in,.rvl.in,.rvr.in { opacity:1; transform:none; }
+.d1{transition-delay:.10s}.d2{transition-delay:.20s}.d3{transition-delay:.30s}
+.d4{transition-delay:.40s}.d5{transition-delay:.50s}.d6{transition-delay:.60s}
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    RESPONSIVE
-═══════════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 @media(max-width:1024px){
-  .footer-in{grid-template-columns:1fr 1fr;gap:2.5rem}
-  .vip-inner{grid-template-columns:1fr;gap:3rem}
+  .ft-in { grid-template-columns:1fr 1fr; gap:2.5rem; }
+  .vip-layout { grid-template-columns:1fr; gap:3rem; }
+  .vip-box { position:static; }
+  .become-grid { grid-template-columns:1fr; }
 }
 @media(max-width:768px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .aud-grid{grid-template-columns:1fr 1fr}
-  .form-row{grid-template-columns:1fr}
-  .interests-grid{grid-template-columns:1fr 1fr}
-  .footer-in{grid-template-columns:1fr;gap:2rem}
-  .footer-bottom{flex-direction:column;gap:.5rem;text-align:center}
-  .countdown{gap:1rem}
-  .cd-box{min-width:60px;padding:.7rem 1rem}
-  .partner-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .nav-links { display:none; }
+  .hbg-btn { display:flex; }
+  .zone-row { grid-template-columns:50px 1fr; gap:1rem; }
+  .z-tag { display:none; }
+  .int-grid { grid-template-columns:1fr 1fr; }
+  .ft-in { grid-template-columns:1fr; gap:2rem; }
+  .ft-bot { flex-direction:column; gap:.5rem; text-align:center; }
+  .frow { grid-template-columns:1fr; }
+  .cdown { gap:.8rem; }
+  .cd { min-width:56px; padding:.65rem .9rem; }
 }
 @media(max-width:540px){
-  .aud-grid{grid-template-columns:1fr}
-  .interests-grid{grid-template-columns:1fr}
-  .access-inner{padding:2rem 1.5rem}
-  .nights-grid,.awaits-grid,.zones-grid{grid-template-columns:1fr}
-  .countdown{gap:.6rem}
-  .cd-box{min-width:52px;padding:.6rem .8rem}
+  .nights-grid,.values-grid,.drip-grid { grid-template-columns:1fr; }
+  .int-grid { grid-template-columns:1fr; }
+  .form-wrap { padding:2rem 1.5rem; }
+  .hero-graphic { width:90vw; }
+  .become-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ NAVIGATION ══════════════════════════════════════════ -->
-<nav id="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-in">
-    <a href="#hero" aria-label="ALIV FEST Home">
+<!-- ─── FIXED COSMIC CANVAS ──────────────────────── -->
+<div class="site-canvas" aria-hidden="true"></div>
+
+<!-- ─── NAV ──────────────────────────────────────── -->
+<nav id="nav" role="navigation" aria-label="Main">
+  <div class="nav-wrap">
+    <a href="#hero" aria-label="ALIV FEST home">
       <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="nav-logo"/>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="#nights"   class="nav-link">LINEUP</a>
-      <a href="#access"   class="nav-link">TICKETS</a>
-      <a href="#zones"    class="nav-link">EXPERIENCE</a>
-      <a href="#vip"      class="nav-link">VIP</a>
-      <a href="#partnerships" class="nav-link">PARTNERS</a>
-      <a href="#access" class="btn-gold nav-cta">GET TICKETS</a>
+      <a href="#enter"      class="nl">ENTER ALIV</a>
+      <a href="#experience" class="nl">EXPERIENCE ALIV</a>
+      <a href="#comealiv"   class="nl">COME ALIV</a>
+      <a href="#vip"        class="nl">VIP SOCIETY</a>
+      <a href="#drip"       class="nl">DRIP SHOP</a>
+      <a href="#become"     class="nl">BECOME ALIV</a>
+      <a href="#access"     class="btn btn-primary btn-sm nav-cta">EARLY ACCESS</a>
     </div>
-    <button class="hamburger" id="hbtn" aria-label="Open menu" aria-expanded="false">
+    <button class="hbg-btn" id="hBtn" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
 <!-- Mobile menu -->
-<div id="mmenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-  <button class="mob-close" id="mclose" aria-label="Close menu"><i class="fas fa-times"></i></button>
-  <a href="#nights"       class="mob-link" onclick="closeMenu()">LINEUP</a>
-  <a href="#access"       class="mob-link" onclick="closeMenu()">TICKETS</a>
-  <a href="#zones"        class="mob-link" onclick="closeMenu()">EXPERIENCE</a>
-  <a href="#vip"          class="mob-link" onclick="closeMenu()">VIP</a>
-  <a href="#partnerships" class="mob-link" onclick="closeMenu()">PARTNERS</a>
-  <a href="#access"       class="btn-gold" onclick="closeMenu()" style="margin-top:1rem">GET TICKETS</a>
+<div id="mob" role="dialog" aria-modal="true" aria-label="Navigation">
+  <button class="mob-x" id="mX" aria-label="Close menu"><i class="fas fa-times"></i></button>
+  <a href="#enter"      class="mob-l" onclick="cM()">ENTER ALIV</a>
+  <a href="#experience" class="mob-l" onclick="cM()">EXPERIENCE ALIV</a>
+  <a href="#comealiv"   class="mob-l" onclick="cM()">COME ALIV</a>
+  <a href="#vip"        class="mob-l" onclick="cM()">VIP SOCIETY</a>
+  <a href="#drip"       class="mob-l" onclick="cM()">DRIP SHOP</a>
+  <a href="#become"     class="mob-l" onclick="cM()">BECOME ALIV</a>
+  <a href="#access"     class="btn btn-primary" onclick="cM()" style="margin-top:.8rem">EARLY ACCESS</a>
 </div>
 
-<!-- ═══ HERO ════════════════════════════════════════════════ -->
+<!-- ─── HERO ─────────────────────────────────────── -->
 <section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-floor"></div>
+  <div class="hero-radial" aria-hidden="true"></div>
+  <div class="hero-floor"  aria-hidden="true"></div>
 
   <div class="hero-content">
-    <img src="/static/aliv-fest-logo.png" alt="ALIV FEST 2026" class="hero-logo"/>
-
-    <p class="hero-sub">The Accra Carnival Experience</p>
-
-    <p class="hero-tagline">18 Days Like Nowhere Else</p>
-
-    <div class="hero-dates">
-      <span></span>
-      December 17, 2026 &nbsp;—&nbsp; January 3, 2027 &nbsp;·&nbsp; Accra, Ghana
-      <span></span>
+    <!-- The attached ALIV FEST logo/header image is the hero graphic -->
+    <div class="hero-graphic-wrap">
+      <img
+        src="/static/aliv-hero.jpg"
+        alt="ALIV FEST"
+        class="hero-graphic"
+      />
     </div>
 
-    <!-- Countdown -->
-    <div class="countdown" id="countdown">
-      <div class="cd-box"><span class="cd-num" id="cdD">000</span><span class="cd-label">Days</span></div>
-      <div class="cd-box"><span class="cd-num" id="cdH">00</span><span class="cd-label">Hours</span></div>
-      <div class="cd-box"><span class="cd-num" id="cdM">00</span><span class="cd-label">Mins</span></div>
-      <div class="cd-box"><span class="cd-num" id="cdS">00</span><span class="cd-label">Secs</span></div>
+    <p class="hero-subtitle">The Accra Carnival Experience</p>
+    <p class="hero-tagline">18 Days Like Nowhere Else</p>
+    <p class="hero-legacy">Where December Comes Alive — and Experiences Become Legacy</p>
+
+    <div class="hero-dates">
+      <em></em>
+      December 17, 2026 &nbsp;·&nbsp; January 3, 2027 &nbsp;·&nbsp; Accra, Ghana
+      <em></em>
+    </div>
+
+    <div class="cdown" id="cdown">
+      <div class="cd"><span class="cdn" id="cdD">000</span><span class="cdl">Days</span></div>
+      <div class="cd"><span class="cdn" id="cdH">00</span><span class="cdl">Hours</span></div>
+      <div class="cd"><span class="cdn" id="cdM">00</span><span class="cdl">Mins</span></div>
+      <div class="cd"><span class="cdn" id="cdS">00</span><span class="cdl">Secs</span></div>
     </div>
 
     <div class="hero-cta">
-      <a href="#access" class="btn-gold"><i class="fas fa-ticket-alt"></i> Get Early Access</a>
-      <a href="#experience" class="btn-outline"><i class="fas fa-compass"></i> Explore ALIV</a>
+      <a href="#access"   class="btn btn-primary"><i class="fas fa-ticket-alt"></i>&nbsp;Get Early Access</a>
+      <a href="#experience" class="btn btn-ghost"><i class="fas fa-compass"></i>&nbsp;Explore ALIV</a>
     </div>
   </div>
 
-  <div class="scroll-cue" aria-hidden="true">
+  <div class="scue" aria-hidden="true">
     <i class="fas fa-chevron-down"></i>
     <span>Scroll</span>
   </div>
 </section>
 
-<!-- ═══ TICKER ══════════════════════════════════════════════ -->
-<div class="ticker-wrap" aria-hidden="true">
-  <div class="ticker-track" id="tickerTrack">
-    <!-- duplicated for seamless loop -->
-    <span class="ticker-item"><i class="fas fa-star"></i> ALIV FEST 2026</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Accra, Ghana</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Dec 17 – Jan 3</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> 18 Days Like Nowhere Else</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Afrobeats &amp; Amapiano</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Carnival Rides</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Food Village</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> VIP Society</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> 5 Zones</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Peak Nights: Thu – Sun</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> ALIV FEST 2026</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Accra, Ghana</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Dec 17 – Jan 3</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> 18 Days Like Nowhere Else</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Afrobeats &amp; Amapiano</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Carnival Rides</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Food Village</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> VIP Society</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> 5 Zones</span>
-    <span class="ticker-item"><i class="fas fa-star"></i> Peak Nights: Thu – Sun</span>
+<!-- ─── TICKER ────────────────────────────────────── -->
+<div class="ticker-outer" aria-hidden="true">
+  <div class="ticker-track" id="tTrack">
+    <span class="ti"><i class="fas fa-circle"></i> ALIV FEST 2026</span>
+    <span class="ti"><i class="fas fa-circle"></i> Accra, Ghana</span>
+    <span class="ti"><i class="fas fa-circle"></i> Dec 17 – Jan 3</span>
+    <span class="ti"><i class="fas fa-circle"></i> 18 Days Like Nowhere Else</span>
+    <span class="ti"><i class="fas fa-circle"></i> Afrobeats &amp; Amapiano</span>
+    <span class="ti"><i class="fas fa-circle"></i> Carnival Rides &amp; Games</span>
+    <span class="ti"><i class="fas fa-circle"></i> Food Village</span>
+    <span class="ti"><i class="fas fa-circle"></i> VIP Society</span>
+    <span class="ti"><i class="fas fa-circle"></i> 5 Distinct Zones</span>
+    <span class="ti"><i class="fas fa-circle"></i> Peak Nights: Thu – Sun</span>
+    <span class="ti"><i class="fas fa-circle"></i> ALIV FEST 2026</span>
+    <span class="ti"><i class="fas fa-circle"></i> Accra, Ghana</span>
+    <span class="ti"><i class="fas fa-circle"></i> Dec 17 – Jan 3</span>
+    <span class="ti"><i class="fas fa-circle"></i> 18 Days Like Nowhere Else</span>
+    <span class="ti"><i class="fas fa-circle"></i> Afrobeats &amp; Amapiano</span>
+    <span class="ti"><i class="fas fa-circle"></i> Carnival Rides &amp; Games</span>
+    <span class="ti"><i class="fas fa-circle"></i> Food Village</span>
+    <span class="ti"><i class="fas fa-circle"></i> VIP Society</span>
+    <span class="ti"><i class="fas fa-circle"></i> 5 Distinct Zones</span>
+    <span class="ti"><i class="fas fa-circle"></i> Peak Nights: Thu – Sun</span>
   </div>
 </div>
 
-<!-- ═══ INFO STRIP ══════════════════════════════════════════ -->
-<div class="infostrip">
-  <div class="istrip-in">
-    <div class="istrip-item"><i class="far fa-calendar"></i> Dec 17 – Jan 3</div>
-    <div class="idot"></div>
-    <div class="istrip-item"><i class="fas fa-moon"></i> 18 Nights</div>
-    <div class="idot"></div>
-    <div class="istrip-item"><i class="fas fa-map-marker-alt"></i> Accra, Ghana</div>
-    <div class="idot"></div>
-    <div class="istrip-item"><i class="fas fa-layer-group"></i> 5 Zones</div>
-    <div class="idot"></div>
-    <div class="istrip-item"><i class="fas fa-music"></i> One Main Stage</div>
-    <div class="idot"></div>
-    <div class="istrip-item"><i class="fas fa-fire"></i> Peak: Thu – Sun</div>
+<!-- ─── DATE STRIP ────────────────────────────────── -->
+<div class="strip">
+  <div class="strip-in">
+    <div class="si"><i class="far fa-calendar-alt"></i> Dec 17 – Jan 3, 2027</div>
+    <span class="sdot"></span>
+    <div class="si"><i class="fas fa-moon"></i> 18 Nights</div>
+    <span class="sdot"></span>
+    <div class="si"><i class="fas fa-map-marker-alt"></i> Accra, Ghana</div>
+    <span class="sdot"></span>
+    <div class="si"><i class="fas fa-th-large"></i> 5 Zones</div>
+    <span class="sdot"></span>
+    <div class="si"><i class="fas fa-music"></i> One Main Stage</div>
+    <span class="sdot"></span>
+    <div class="si"><i class="fas fa-fire"></i> Peak: Thu – Sun</div>
   </div>
 </div>
 
-<!-- ═══ THE EXPERIENCE ══════════════════════════════════════ -->
-<section id="experience" class="sec-pad">
-  <div class="wrap text-center">
-    <p class="section-label reveal">The Experience</p>
-    <h2 class="section-title reveal">A World You Step Into</h2>
-    <hr class="gold-rule center reveal"/>
-    <p class="section-sub reveal" style="margin:0 auto">
-      ALIV FEST is not a concert. Not a festival. Not a carnival alone.
-      It is eighteen nights of everything that makes December in Accra
-      feel unlike anywhere else — brought together in one immersive destination.
-    </p>
-    <div class="stats-grid reveal" style="margin-top:3.5rem">
-      <div class="stat-box">
-        <span class="stat-num">18</span>
-        <span class="stat-label">Nights of Culture</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num">5</span>
-        <span class="stat-label">Distinct Zones</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num">1</span>
-        <span class="stat-label">Main Stage</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num">∞</span>
-        <span class="stat-label">Reasons to Stay</span>
-      </div>
-    </div>
-  </div>
-</section>
+<hr class="sec-div"/>
 
-<!-- ═══ WHAT AWAITS YOU ══════════════════════════════════════ -->
-<section id="awaits" class="sec-pad">
-  <div class="wrap">
-    <div class="text-center">
-      <p class="section-label reveal">What Awaits You</p>
-      <h2 class="section-title reveal">More Than a Night Out</h2>
-      <hr class="gold-rule center reveal"/>
-    </div>
-    <div class="awaits-grid">
-      <div class="await-card reveal d1">
-        <div class="await-icon"><i class="fas fa-music"></i></div>
-        <h3 class="await-title">Live Music &amp; Performances</h3>
-        <p class="await-body">World-class Afrobeats, Amapiano, and Afro-fusion artists performing across the main stage and intimate zones every night.</p>
-      </div>
-      <div class="await-card reveal d2">
-        <div class="await-icon"><i class="fas fa-ferris-wheel"></i></div>
-        <h3 class="await-title">Carnival Rides &amp; Games</h3>
-        <p class="await-body">A full carnival experience with rides, midway games, and attractions that keep families and friends entertained from sundown to sunrise.</p>
-      </div>
-      <div class="await-card reveal d3">
-        <div class="await-icon"><i class="fas fa-utensils"></i></div>
-        <h3 class="await-title">Food Village</h3>
-        <p class="await-body">Curated vendors serving the best of Ghanaian cuisine alongside international flavours — eat well, drink well, stay longer.</p>
-      </div>
-      <div class="await-card reveal d4">
-        <div class="await-icon"><i class="fas fa-star"></i></div>
-        <h3 class="await-title">Immersive Activations</h3>
-        <p class="await-body">Interactive art installations, brand experiences, photo moments, and cultural showcases designed to be lived and shared.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SOMETHING EVERY NIGHT ════════════════════════════════ -->
-<section id="nights" class="sec-pad">
-  <div class="wrap">
-    <div class="text-center">
-      <p class="section-label reveal">The Programme</p>
-      <h2 class="section-title reveal">Something Happening Every Night</h2>
-      <hr class="gold-rule center reveal"/>
-      <p class="section-sub reveal" style="margin:0 auto 3rem">
-        Every evening brings a different energy — from intimate cultural nights to peak-season headline shows.
+<!-- ─── ENTER ALIV ─────────────────────────────────── -->
+<section id="enter" class="sp-lg">
+  <div class="w">
+    <div class="enter-intro rv">
+      <p class="eyebrow">Enter ALIV</p>
+      <h2 class="h2">A World You Step Into</h2>
+      <hr class="gold-rule c"/>
+      <p class="enter-body">
+        ALIV FEST is not a concert. Not a night out. Not a theme park.<br/>
+        It is eighteen nights of everything that makes December in Accra feel unlike anywhere on earth — music, carnival, culture, food, and people — brought together in one immersive destination that exists only once a year.
       </p>
     </div>
-    <div class="nights-grid">
-      <div class="night-card reveal d1">
-        <div class="night-icon"><i class="fas fa-headphones-alt"></i></div>
-        <h3 class="night-title">Music &amp; Nightlife</h3>
-        <p class="night-body">Headline DJs and live acts keep the main stage alive from Thursday to Sunday. Afrobeats, Amapiano, drill, and Afropop — every genre that defines the moment.</p>
-        <div class="night-tags">
-          <span class="night-tag">Main Stage</span>
-          <span class="night-tag">DJ Sets</span>
-          <span class="night-tag">Live Acts</span>
-          <span class="night-tag">Thu – Sun</span>
-        </div>
+
+    <div class="values-grid" style="margin-top:4rem">
+      <div class="val-card rv d1">
+        <i class="fas fa-globe-africa val-icon"></i>
+        <h3 class="val-title">Born in Accra</h3>
+        <p class="val-body">Built in Ghana, for Ghana — and for everyone who loves what December in Accra truly is. Not a copy of anywhere else. Something entirely its own.</p>
       </div>
-      <div class="night-card reveal d2">
-        <div class="night-icon"><i class="fas fa-ticket-alt"></i></div>
-        <h3 class="night-title">Carnival &amp; Rides</h3>
-        <p class="night-body">The rides, the midway, the carnival lights — open every night of the fest. Whether you're with family, friends, or someone new, there is always something to do.</p>
-        <div class="night-tags">
-          <span class="night-tag">Rides</span>
-          <span class="night-tag">Games</span>
-          <span class="night-tag">All Ages</span>
-          <span class="night-tag">Every Night</span>
-        </div>
+      <div class="val-card rv d2">
+        <i class="fas fa-layer-group val-icon"></i>
+        <h3 class="val-title">Five Worlds, One Gate</h3>
+        <p class="val-body">Five distinct zones, each with its own energy. The main stage. The carnival. The village. The lounge. The unexpected. All connected under one sky.</p>
       </div>
-      <div class="night-card reveal d3">
-        <div class="night-icon"><i class="fas fa-fire"></i></div>
-        <h3 class="night-title">Peak Nights</h3>
-        <p class="night-body">Thursdays through Sundays, ALIV turns up. Bigger names, higher energy, more people. These are the nights that define the season — and the ones people talk about long after.</p>
-        <div class="night-tags">
-          <span class="night-tag">Thu</span>
-          <span class="night-tag">Fri</span>
-          <span class="night-tag">Sat</span>
-          <span class="night-tag">Sun</span>
-          <span class="night-tag">Full Programme</span>
-        </div>
+      <div class="val-card rv d3">
+        <i class="fas fa-crown val-icon"></i>
+        <h3 class="val-title">Premium at Every Level</h3>
+        <p class="val-body">From general access to VIP Society — every experience inside ALIV is designed to be memorable, intentional, and worth every moment of the December you choose to spend here.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ HOWEVER YOU DO DECEMBER ══════════════════════════════ -->
-<section id="audience" class="sec-pad">
-  <div class="wrap">
-    <div class="text-center">
-      <p class="section-label reveal">Who's Coming</p>
-      <h2 class="section-title reveal">However You Do December</h2>
-      <hr class="gold-rule center reveal"/>
-      <p class="section-sub reveal" style="margin:0 auto 3rem">
-        Whoever you are, whatever brings you out — there's a place for you inside ALIV.
-      </p>
+<hr class="sec-div"/>
+
+<!-- ─── EXPERIENCE ALIV — 5 zones ─────────────────── -->
+<section id="experience" class="sp">
+  <div class="w">
+    <div class="tc rv">
+      <p class="eyebrow">Experience ALIV</p>
+      <h2 class="h2">The 5 Zones</h2>
+      <hr class="gold-rule c"/>
+      <p class="body-copy" style="max-width:580px;margin:0 auto">Five distinct areas. One connected world. Explore at your own pace — come back every night and it still feels new.</p>
     </div>
-    <div class="aud-grid">
-      <div class="aud-card reveal d1">
-        <i class="fas fa-plane-arrival aud-icon"></i>
-        <h3 class="aud-title">Coming Home for December</h3>
-        <p class="aud-body">You made the trip, so the plans need to be worth it. ALIV gives you a fresh way to step into the magic of December in Accra.</p>
+
+    <div class="zone-stack rv" style="margin-top:3.5rem">
+      <div class="zone-row">
+        <span class="zn">01</span>
+        <div>
+          <p class="z-name">Entrance &amp; Welcome</p>
+          <p class="z-desc">Your first impression of ALIV. Dramatic lighting, curated brand activations, and the energy that tells you tonight will be different.</p>
+        </div>
+        <span class="z-tag">Arrival Zone</span>
       </div>
-      <div class="aud-card reveal d2">
-        <i class="fas fa-map-marker-alt aud-icon"></i>
-        <h3 class="aud-title">Accra Locals</h3>
-        <p class="aud-body">You know the season, the city, and the energy that makes December what it is. ALIV adds something new to it — all in one place.</p>
+      <div class="zone-row">
+        <span class="zn">02</span>
+        <div>
+          <p class="z-name">Main Stage + VIP</p>
+          <p class="z-desc">The heart of ALIV FEST. World-class performers, elevated viewing for VIP guests, and the nights people remember longest. This is where legacies are made.</p>
+        </div>
+        <span class="z-tag">Main Stage</span>
       </div>
-      <div class="aud-card reveal d3">
-        <i class="fas fa-camera aud-icon"></i>
-        <h3 class="aud-title">Creators &amp; Connectors</h3>
-        <p class="aud-body">You go where the energy is. ALIV brings together people, culture, and unforgettable moments in a setting made to be experienced and shared.</p>
+      <div class="zone-row">
+        <span class="zn">03</span>
+        <div>
+          <p class="z-name">Carnival Rides &amp; Games</p>
+          <p class="z-desc">Lights, motion, and pure enjoyment. Rides and midway games that run every night the fest is open — built for every age and every kind of fun.</p>
+        </div>
+        <span class="z-tag">Carnival Zone</span>
       </div>
-      <div class="aud-card reveal d1">
-        <i class="fas fa-headphones aud-icon"></i>
-        <h3 class="aud-title">Nightlife People</h3>
-        <p class="aud-body">You know when a night has the right feel. ALIV brings the music, movement, atmosphere, and enjoyment that keep you out longer.</p>
+      <div class="zone-row">
+        <span class="zn">04</span>
+        <div>
+          <p class="z-name">Food Village</p>
+          <p class="z-desc">Ghanaian classics, global flavours, street food, and sit-down moments. A curated village of vendors across every taste, every budget, every craving.</p>
+        </div>
+        <span class="z-tag">Food Village</span>
       </div>
-      <div class="aud-card reveal d2">
-        <i class="fas fa-glass-cheers aud-icon"></i>
-        <h3 class="aud-title">Here to Celebrate</h3>
-        <p class="aud-body">Birthdays, linkups, milestones, or just being outside with your people — ALIV is the kind of place that makes any plan feel bigger.</p>
-      </div>
-      <div class="aud-card reveal d3">
-        <i class="fas fa-smile-beam aud-icon"></i>
-        <h3 class="aud-title">Here for the Enjoyment</h3>
-        <p class="aud-body">You came for the rides, the games, the food, the music, and the energy. ALIV gives you more than one reason to stay and more than one reason to come back.</p>
+      <div class="zone-row">
+        <span class="zn">05</span>
+        <div>
+          <p class="z-name">Immersive Activations</p>
+          <p class="z-desc">Art installations, cultural showcases, interactive experiences, and brand moments designed to surprise. The zone built to be lived — and to be shared.</p>
+        </div>
+        <span class="z-tag">Immersive Zone</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ THE 5 ZONES ══════════════════════════════════════════ -->
-<section id="zones" class="sec-pad">
-  <div class="wrap">
-    <div class="text-center">
-      <p class="section-label reveal">Navigate ALIV</p>
-      <h2 class="section-title reveal">The 5 Zones</h2>
-      <hr class="gold-rule center reveal"/>
-      <p class="section-sub reveal" style="margin:0 auto 3rem">
-        Five distinct areas, one connected world. Explore at your own pace.
-      </p>
+<hr class="sec-div"/>
+
+<!-- ─── COME ALIV — nightlife ─────────────────────── -->
+<section id="comealiv" class="sp">
+  <div class="w">
+    <div class="tc rv">
+      <p class="eyebrow">Come ALIV</p>
+      <h2 class="h2">Something Happening Every Night</h2>
+      <hr class="gold-rule c"/>
+      <p class="body-copy" style="max-width:580px;margin:0 auto">Every evening brings a different energy — from intimate cultural nights to peak-season headline shows. Eighteen nights. Eighteen reasons to be there.</p>
     </div>
-    <div class="zones-grid">
-      <div class="zone-card reveal d1">
-        <span class="zone-num">01</span>
-        <i class="fas fa-door-open zone-icon"></i>
-        <h3 class="zone-name">Entrance &amp; Welcome</h3>
-        <p class="zone-desc">Your first impression of ALIV — dramatic lighting, brand activations, and the energy that tells you something special is ahead.</p>
+
+    <div class="nights-grid" style="margin-top:3.5rem">
+      <div class="night-card rv d1">
+        <i class="fas fa-headphones-alt nc-icon"></i>
+        <h3 class="nc-title">Music &amp; Nightlife</h3>
+        <p class="nc-body">Headline DJs and live acts take the main stage from Thursday to Sunday. Afrobeats, Amapiano, drill, and Afropop — every genre that defines the moment.</p>
+        <div class="tag-row">
+          <span class="tag">Main Stage</span>
+          <span class="tag">DJ Sets</span>
+          <span class="tag">Live Acts</span>
+        </div>
       </div>
-      <div class="zone-card reveal d2">
-        <span class="zone-num">02</span>
-        <i class="fas fa-music zone-icon"></i>
-        <h3 class="zone-name">Main Stage + VIP</h3>
-        <p class="zone-desc">The heart of ALIV. World-class performances, elevated viewing for VIP guests, and the nights people remember longest.</p>
+      <div class="night-card rv d2">
+        <i class="fas fa-ferris-wheel nc-icon"></i>
+        <h3 class="nc-title">Carnival &amp; Rides</h3>
+        <p class="nc-body">The rides, the midway, the carnival lights — open every night of the fest. Whether you're with family, friends, or someone new, there is always something to do.</p>
+        <div class="tag-row">
+          <span class="tag">Rides</span>
+          <span class="tag">Games</span>
+          <span class="tag">All Ages</span>
+        </div>
       </div>
-      <div class="zone-card reveal d3">
-        <span class="zone-num">03</span>
-        <i class="fas fa-ferris-wheel zone-icon"></i>
-        <h3 class="zone-name">Carnival Rides &amp; Games</h3>
-        <p class="zone-desc">Lights, motion, and excitement. Rides, midway games, and carnival attractions that run every night the fest is open.</p>
+      <div class="night-card rv d3">
+        <i class="fas fa-fire nc-icon"></i>
+        <h3 class="nc-title">Peak Nights</h3>
+        <p class="nc-body">Thursdays through Sundays, ALIV turns up. Bigger names, higher energy, more people. These are the nights the season is built around.</p>
+        <div class="tag-row">
+          <span class="tag">Thu – Sun</span>
+          <span class="tag">Full Programme</span>
+        </div>
       </div>
-      <div class="zone-card reveal d4">
-        <span class="zone-num">04</span>
-        <i class="fas fa-utensils zone-icon"></i>
-        <h3 class="zone-name">Food Village</h3>
-        <p class="zone-desc">Ghanaian classics, global flavours, street food, and sit-down vibes. Curated vendors across every taste and budget.</p>
+    </div>
+
+    <blockquote class="come-quote rv">
+      The nights inside ALIV are not like any other December night in Accra. They are the December you will talk about for years.
+    </blockquote>
+  </div>
+</section>
+
+<hr class="sec-div"/>
+
+<!-- ─── HOWEVER YOU DO DECEMBER ──────────────────── -->
+<section id="audience" class="sp">
+  <div class="w">
+    <div class="tc rv">
+      <p class="eyebrow">Who's Coming</p>
+      <h2 class="h2">However You Do December</h2>
+      <hr class="gold-rule c"/>
+      <p class="body-copy" style="max-width:580px;margin:0 auto">Whoever you are, whatever brings you out — there is a place for you inside ALIV.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3.5rem">
+      <div class="val-card rv d1">
+        <i class="fas fa-plane-arrival val-icon"></i>
+        <h3 class="val-title">Coming Home for December</h3>
+        <p class="val-body">You made the trip, so the plans need to be worth it. ALIV gives you a fresh way to step into the magic of December in Accra.</p>
       </div>
-      <div class="zone-card reveal d5">
-        <span class="zone-num">05</span>
-        <i class="fas fa-magic zone-icon"></i>
-        <h3 class="zone-name">Immersive Activations</h3>
-        <p class="zone-desc">Art, culture, brand partnerships, and interactive installations. The zone designed to surprise — and to be shared.</p>
+      <div class="val-card rv d2">
+        <i class="fas fa-map-marker-alt val-icon"></i>
+        <h3 class="val-title">Accra Locals</h3>
+        <p class="val-body">You know the season, the city, and the energy that makes December what it is. ALIV adds something new to it — all in one place.</p>
+      </div>
+      <div class="val-card rv d3">
+        <i class="fas fa-camera val-icon"></i>
+        <h3 class="val-title">Creators &amp; Connectors</h3>
+        <p class="val-body">You go where the energy is. ALIV brings together people, culture, and unforgettable moments in a setting made to be experienced and shared.</p>
+      </div>
+      <div class="val-card rv d1">
+        <i class="fas fa-headphones val-icon"></i>
+        <h3 class="val-title">Nightlife People</h3>
+        <p class="val-body">You know when a night has the right feel. ALIV brings the music, movement, atmosphere, and enjoyment that keep you out longer.</p>
+      </div>
+      <div class="val-card rv d2">
+        <i class="fas fa-glass-cheers val-icon"></i>
+        <h3 class="val-title">Here to Celebrate</h3>
+        <p class="val-body">Birthdays, linkups, milestones, or just being outside with your people — ALIV is the kind of place that makes any plan feel bigger.</p>
+      </div>
+      <div class="val-card rv d3">
+        <i class="fas fa-smile-beam val-icon"></i>
+        <h3 class="val-title">Here for the Enjoyment</h3>
+        <p class="val-body">You came for the rides, the games, the food, the music, and the energy. ALIV gives you more than one reason to stay and more than one reason to come back.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ VIP SOCIETY ══════════════════════════════════════════ -->
-<section id="vip" class="sec-pad">
-  <div class="wrap">
-    <div class="text-center">
-      <p class="section-label reveal">Elevated Access</p>
-      <h2 class="section-title reveal">VIP Society</h2>
-      <hr class="gold-rule center reveal"/>
+<hr class="sec-div"/>
+
+<!-- ─── VIP SOCIETY ───────────────────────────────── -->
+<section id="vip" class="sp-lg">
+  <div class="w">
+    <div class="tc rv">
+      <p class="eyebrow">VIP Society</p>
+      <h2 class="h2">Elevated Access</h2>
+      <hr class="gold-rule c"/>
     </div>
-    <div class="vip-inner">
-      <div class="vip-perks reveal rl">
-        <div class="vip-perk">
+
+    <div class="vip-layout">
+      <div class="vip-perks rvl">
+        <div class="vp">
           <i class="fas fa-crown"></i>
-          <div class="vip-perk-text">
+          <div>
             <h4>Premium Viewing Area</h4>
-            <p>Exclusive elevated viewing of the main stage — front and centre, without the crowd.</p>
+            <p>Exclusive elevated viewing of the main stage — front and centre, without the crowd. See everything. Miss nothing.</p>
           </div>
         </div>
-        <div class="vip-perk">
+        <div class="vp">
           <i class="fas fa-concierge-bell"></i>
-          <div class="vip-perk-text">
+          <div>
             <h4>Dedicated Bar &amp; Lounge</h4>
-            <p>Private bar access, curated drinks menu, and a lounge that matches the energy of the night.</p>
+            <p>Private bar access, curated drinks, and a VIP lounge that matches the energy of the night at every level.</p>
           </div>
         </div>
-        <div class="vip-perk">
+        <div class="vp">
           <i class="fas fa-door-closed"></i>
-          <div class="vip-perk-text">
-            <h4>Priority Entry</h4>
-            <p>Skip the queue on every night. Your time is too valuable to spend it waiting.</p>
+          <div>
+            <h4>Priority Entry — Every Night</h4>
+            <p>Skip the queue on every night of the fest. Your time is too valuable to spend it waiting outside.</p>
           </div>
         </div>
-        <div class="vip-perk">
+        <div class="vp">
           <i class="fas fa-camera"></i>
-          <div class="vip-perk-text">
-            <h4>Exclusive Photo Spaces</h4>
-            <p>VIP-only photo moments and brand activations designed to stand out on your feed.</p>
+          <div>
+            <h4>Exclusive Photo Moments</h4>
+            <p>VIP-only activations and photo spaces designed to stand apart — and to stand out on your feed.</p>
           </div>
         </div>
-        <div class="vip-perk">
+        <div class="vp">
           <i class="fas fa-gift"></i>
-          <div class="vip-perk-text">
+          <div>
             <h4>VIP Welcome Package</h4>
-            <p>Curated ALIV welcome gifts including merch, access band, and more on arrival.</p>
+            <p>Curated ALIV welcome gifts — merch, access band, and curated extras — waiting for you on arrival.</p>
+          </div>
+        </div>
+        <div class="vp">
+          <i class="fas fa-users"></i>
+          <div>
+            <h4>Group &amp; Corporate Packages</h4>
+            <p>Celebrating a milestone? Hosting a team? Contact us for tailored group packages across all 18 nights.</p>
           </div>
         </div>
       </div>
-      <div class="vip-cta-box reveal rr">
-        <p class="section-label" style="justify-content:center">Limited Availability</p>
-        <div class="vip-price gold-text">VIP SOCIETY</div>
-        <p class="vip-note" style="margin-top:.5rem">Premium Access · All 18 Nights</p>
-        <a href="#access" class="btn-gold" style="width:100%;justify-content:center;margin-top:1rem">
-          <i class="fas fa-ticket-alt"></i> Secure Your Access
+
+      <div class="vip-box rvr">
+        <p class="eyebrow" style="justify-content:center">Limited Availability</p>
+        <h3>VIP SOCIETY</h3>
+        <p class="vip-sub">Premium Access · All 18 Nights</p>
+        <a href="#access" class="btn btn-primary">
+          <i class="fas fa-ticket-alt"></i>&nbsp;Secure Your Access
         </a>
-        <div class="vip-slots">
-          <span class="vip-dot"></span>
+        <a href="#access" class="btn btn-ghost" style="margin-top:.8rem;width:100%;justify-content:center">
+          Single-Night VIP Pass
+        </a>
+        <div class="avail">
+          <span class="avail-dot"></span>
           Limited inventory — early access list open now
         </div>
-        <p style="font-size:.78rem;color:var(--dim);margin-top:1.5rem;line-height:1.6">
-          Single-night VIP passes also available. Contact us for group bookings and corporate packages.
+        <p style="font-size:.76rem;color:var(--fog);margin-top:1.5rem;line-height:1.65">
+          Cabana and table packages also available. Email us for group bookings and bespoke corporate experiences.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ MERCH ════════════════════════════════════════════════ -->
-<section id="merch" class="sec-pad">
-  <div class="wrap">
-    <div class="text-center">
-      <p class="section-label reveal">Official Collection</p>
-      <h2 class="section-title reveal">ALIV FEST Merch</h2>
-      <hr class="gold-rule center reveal"/>
-      <p class="section-sub reveal" style="margin:0 auto 1.5rem">
-        The official ALIV FEST collection is coming. Sign up to be first in line when the drop goes live.
+<hr class="sec-div"/>
+
+<!-- ─── DRIP SHOP ────────────────────────────────── -->
+<section id="drip" class="sp">
+  <div class="w">
+    <div class="tc rv">
+      <p class="eyebrow">Drip Shop</p>
+      <h2 class="h2">The Official Collection</h2>
+      <hr class="gold-rule c"/>
+      <p class="body-copy" style="max-width:560px;margin:0 auto">
+        The ALIV FEST 2026 collection is on its way. Premium pieces built to wear before, during, and long after the fest. Sign up for early access and be first when the drop goes live.
       </p>
     </div>
-    <div class="merch-grid">
-      <div class="merch-card reveal d1">
-        <div class="merch-img">
+
+    <div class="drip-grid">
+      <div class="drip-card rv d1">
+        <div class="drip-img">
           <i class="fas fa-tshirt"></i>
-          <span class="merch-badge">Drop TBA</span>
+          <span class="drip-badge">Drop TBA</span>
         </div>
-        <div class="merch-info">
-          <h3 class="merch-name">ALIV Classic Tee</h3>
-          <p class="merch-sub">Official 2026 logo tee — heavyweight cotton, limited run.</p>
+        <div class="drip-info">
+          <h3 class="drip-name">ALIV Classic Tee</h3>
+          <p class="drip-sub">Official 2026 logo tee — heavyweight cotton, limited run.</p>
         </div>
       </div>
-      <div class="merch-card reveal d2">
-        <div class="merch-img">
+      <div class="drip-card rv d2">
+        <div class="drip-img">
           <i class="fas fa-hat-wizard"></i>
-          <span class="merch-badge">Drop TBA</span>
+          <span class="drip-badge">Drop TBA</span>
         </div>
-        <div class="merch-info">
-          <h3 class="merch-name">ALIV Cap</h3>
-          <p class="merch-sub">Embroidered gold logo on premium structured cap.</p>
+        <div class="drip-info">
+          <h3 class="drip-name">ALIV Cap</h3>
+          <p class="drip-sub">Embroidered gold logo on premium structured cap.</p>
         </div>
       </div>
-      <div class="merch-card reveal d3">
-        <div class="merch-img">
+      <div class="drip-card rv d3">
+        <div class="drip-img">
           <i class="fas fa-shopping-bag"></i>
-          <span class="merch-badge">Drop TBA</span>
+          <span class="drip-badge">Drop TBA</span>
         </div>
-        <div class="merch-info">
-          <h3 class="merch-name">ALIV Tote</h3>
-          <p class="merch-sub">Heavy canvas tote with full-colour ALIV artwork.</p>
+        <div class="drip-info">
+          <h3 class="drip-name">ALIV Tote</h3>
+          <p class="drip-sub">Heavy canvas tote — full-colour artwork, limited edition.</p>
         </div>
       </div>
-      <div class="merch-card reveal d4">
-        <div class="merch-img">
+      <div class="drip-card rv d4">
+        <div class="drip-img">
           <i class="fas fa-compact-disc"></i>
-          <span class="merch-badge">Drop TBA</span>
+          <span class="drip-badge">Drop TBA</span>
         </div>
-        <div class="merch-info">
-          <h3 class="merch-name">Collector's Bundle</h3>
-          <p class="merch-sub">Limited collector's pack for the first 500 early-access signups.</p>
+        <div class="drip-info">
+          <h3 class="drip-name">Collector's Bundle</h3>
+          <p class="drip-sub">Limited bundle for the first 500 early-access signups.</p>
         </div>
       </div>
     </div>
-    <div class="text-center" style="margin-top:2.5rem">
-      <a href="#access" class="btn-outline"><i class="fas fa-bell"></i> Notify Me at Drop</a>
+
+    <div class="drip-cta rv">
+      <a href="#access" class="btn btn-ghost"><i class="fas fa-bell"></i>&nbsp;Notify Me at Drop</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ PARTNERSHIPS ════════════════════════════════════════ -->
-<section id="partnerships" class="sec-pad">
-  <div class="wrap">
-    <div class="text-center">
-      <p class="section-label reveal">Work With Us</p>
-      <h2 class="section-title reveal">Partnerships</h2>
-      <hr class="gold-rule center reveal"/>
-      <p class="section-sub reveal" style="margin:0 auto 3rem">
-        Put your brand inside one of Accra's most talked-about experiences — a premium audience across 18 nights.
+<hr class="sec-div"/>
+
+<!-- ─── BECOME ALIV — sponsors / vendors ─────────── -->
+<section id="become" class="sp-lg">
+  <div class="w">
+    <div class="tc rv">
+      <p class="eyebrow">Become ALIV</p>
+      <h2 class="h2">Work With Us</h2>
+      <hr class="gold-rule c"/>
+      <p class="body-copy" style="max-width:580px;margin:0 auto">
+        Put your brand or business inside one of Accra's most anticipated experiences. A premium audience across 18 consecutive nights.
       </p>
     </div>
-    <div class="partner-tabs reveal" role="tablist">
-      <button class="ptab active" role="tab" aria-selected="true" onclick="showTab('sponsors',this)">Sponsors &amp; Brands</button>
-      <button class="ptab" role="tab" aria-selected="false" onclick="showTab('vendors',this)">Vendors &amp; Operators</button>
-    </div>
-    <div id="panelSponsors" class="partner-panel active">
-      <div class="partner-grid">
-        <div class="partner-card reveal d1">
-          <i class="fas fa-handshake"></i>
-          <h4>Title Sponsorship</h4>
-          <p>Maximum brand exposure across all marketing, signage, and activations for the full 18 nights.</p>
+
+    <div class="become-grid">
+      <!-- Sponsors -->
+      <div class="track rvl">
+        <p class="track-label">For Brands</p>
+        <h3 class="track-title">Sponsorships</h3>
+        <p class="track-body">
+          Partner with ALIV FEST and reach a high-intent, culturally engaged audience across 18 nights. From title sponsorship to zone activations — we build packages that work for your brand.
+        </p>
+        <div class="track-list">
+          <div class="tl-item">Title &amp; Presenting Sponsorship</div>
+          <div class="tl-item">Zone Naming Rights</div>
+          <div class="tl-item">Brand Activations &amp; Sampling</div>
+          <div class="tl-item">VIP Hospitality Tables</div>
+          <div class="tl-item">Digital &amp; On-Site Media</div>
         </div>
-        <div class="partner-card reveal d2">
-          <i class="fas fa-layer-group"></i>
-          <h4>Zone Naming Rights</h4>
-          <p>Sponsor a specific zone — Food Village, Carnival, Immersive — and own that space for the season.</p>
-        </div>
-        <div class="partner-card reveal d3">
-          <i class="fas fa-bullhorn"></i>
-          <h4>Brand Activations</h4>
-          <p>Interactive consumer touchpoints, sampling stations, and bespoke activations built around your brand.</p>
-        </div>
-        <div class="partner-card reveal d4">
-          <i class="fas fa-star"></i>
-          <h4>VIP &amp; Hospitality</h4>
-          <p>Corporate tickets, branded VIP tables, and curated hospitality packages for clients and teams.</p>
-        </div>
+        <a href="#access" class="btn btn-primary btn-sm"><i class="fas fa-handshake"></i>&nbsp;Request Sponsor Pack</a>
       </div>
-      <div class="partner-form-hint reveal">
-        <p>Interested in sponsoring ALIV FEST 2026? Our partnerships team is ready to discuss packages.</p>
-        <a href="#access" class="btn-gold"><i class="fas fa-envelope"></i> Get Sponsor Pack</a>
-      </div>
-    </div>
-    <div id="panelVendors" class="partner-panel">
-      <div class="partner-grid">
-        <div class="partner-card reveal d1">
-          <i class="fas fa-utensils"></i>
-          <h4>Food &amp; Beverage</h4>
-          <p>Join the ALIV Food Village with your restaurant, food truck, or catering operation. Curated selection.</p>
+
+      <!-- Vendors -->
+      <div class="track rvr">
+        <p class="track-label">For Businesses</p>
+        <h3 class="track-title">Vendor Applications</h3>
+        <p class="track-body">
+          Apply to operate inside ALIV FEST 2026. Food &amp; beverage, retail, pop-ups, creative services — we curate the right mix to serve our audience well.
+        </p>
+        <div class="track-list">
+          <div class="tl-item">Food Village Operators</div>
+          <div class="tl-item">Beverage &amp; Bar Operators</div>
+          <div class="tl-item">Retail &amp; Fashion Pop-Ups</div>
+          <div class="tl-item">Creative &amp; Lifestyle Services</div>
+          <div class="tl-item">Photography &amp; Content Studios</div>
         </div>
-        <div class="partner-card reveal d2">
-          <i class="fas fa-shopping-cart"></i>
-          <h4>Retail &amp; Pop-Ups</h4>
-          <p>Sell fashion, crafts, accessories, and lifestyle products to a premium, high-intent audience.</p>
-        </div>
-        <div class="partner-card reveal d3">
-          <i class="fas fa-camera-retro"></i>
-          <h4>Creative Services</h4>
-          <p>Photography, film, events, and creative services — partner with us to serve the ALIV audience.</p>
-        </div>
-        <div class="partner-card reveal d4">
-          <i class="fas fa-concierge-bell"></i>
-          <h4>Hospitality</h4>
-          <p>Hotels, transport, and travel partners — ALIV FEST brings thousands of visitors to Accra. Be ready for them.</p>
-        </div>
-      </div>
-      <div class="partner-form-hint reveal">
-        <p>Ready to apply as a vendor? Submit your details and we'll share the next steps.</p>
-        <a href="#access" class="btn-gold"><i class="fas fa-file-alt"></i> Apply as Vendor</a>
+        <a href="#access" class="btn btn-primary btn-sm"><i class="fas fa-file-alt"></i>&nbsp;Apply as Vendor</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ EARLY ACCESS SIGNUP ══════════════════════════════════ -->
-<section id="access" class="sec-pad-lg">
-  <div class="wrap text-center">
-    <p class="section-label reveal">Be First</p>
-    <h2 class="section-title reveal">Get Early Access</h2>
-    <hr class="gold-rule center reveal"/>
-    <p class="section-sub reveal" style="margin:0 auto 2rem">
-      Join the list — early access to tickets, VIP packages, merch drops, and exclusive announcements.
+<hr class="sec-div"/>
+
+<!-- ─── EARLY ACCESS ──────────────────────────────── -->
+<section id="access" class="sp-lg">
+  <div class="w tc">
+    <p class="eyebrow rv">Early Access</p>
+    <h2 class="h2 rv">Be First</h2>
+    <hr class="gold-rule c rv"/>
+    <p class="body-copy rv" style="max-width:540px;margin:0 auto">
+      Join the list — early access to tickets, VIP packages, merch drops, lineup announcements, and exclusive updates.
     </p>
 
-    <div class="access-inner reveal">
-      <form id="signupForm" onsubmit="submitForm(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" placeholder="Your first name" required/>
+    <div class="form-wrap rv">
+      <form id="sForm" onsubmit="doSignup(event)">
+        <div class="frow">
+          <div class="fg">
+            <label for="fn">First Name</label>
+            <input type="text" id="fn" name="firstName" placeholder="Your first name" required/>
           </div>
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" placeholder="Your last name" required/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required/>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+233 or international"/>
-          </div>
-          <div class="form-group">
-            <label for="city">City / Country</label>
-            <input type="text" id="city" name="city" placeholder="Accra, London, NYC…"/>
+          <div class="fg">
+            <label for="ln">Last Name</label>
+            <input type="text" id="ln" name="lastName" placeholder="Your last name" required/>
           </div>
         </div>
-        <div class="form-group">
-          <label>I'm Most Interested In</label>
-          <div class="interests-grid" style="margin-top:.5rem">
-            <label class="check-item"><input type="checkbox" name="interests" value="General Tickets"/> General Tickets</label>
-            <label class="check-item"><input type="checkbox" name="interests" value="VIP Society"/> VIP Society</label>
-            <label class="check-item"><input type="checkbox" name="interests" value="Nightlife Nights"/> Nightlife Nights</label>
-            <label class="check-item"><input type="checkbox" name="interests" value="Carnival & Rides"/> Carnival &amp; Rides</label>
-            <label class="check-item"><input type="checkbox" name="interests" value="Food Village"/> Food Village</label>
-            <label class="check-item"><input type="checkbox" name="interests" value="Merch Drop"/> Merch Drop</label>
+        <div class="fg">
+          <label for="em">Email Address</label>
+          <input type="email" id="em" name="email" placeholder="your@email.com" required/>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label for="ph">Phone</label>
+            <input type="tel" id="ph" name="phone" placeholder="+233 or international"/>
+          </div>
+          <div class="fg">
+            <label for="ct">City / Country</label>
+            <input type="text" id="ct" name="city" placeholder="Accra, London, New York…"/>
           </div>
         </div>
-        <div id="formMsg" class="form-msg" role="alert"></div>
-        <button type="submit" class="btn-gold form-submit">
-          <i class="fas fa-ticket-alt"></i> Secure My Spot
+        <div class="fg">
+          <label>I'm Interested In</label>
+          <div class="int-grid">
+            <label class="ci"><input type="checkbox" name="interests" value="General Tickets"/> General Tickets</label>
+            <label class="ci"><input type="checkbox" name="interests" value="VIP Society"/> VIP Society</label>
+            <label class="ci"><input type="checkbox" name="interests" value="Nightlife Nights"/> Nightlife Nights</label>
+            <label class="ci"><input type="checkbox" name="interests" value="Carnival & Rides"/> Carnival &amp; Rides</label>
+            <label class="ci"><input type="checkbox" name="interests" value="Food Village"/> Food Village</label>
+            <label class="ci"><input type="checkbox" name="interests" value="Merch Drop"/> Merch Drop</label>
+          </div>
+        </div>
+        <div id="fMsg" class="fmsg" role="alert"></div>
+        <button type="submit" class="btn btn-primary fsub">
+          <i class="fas fa-ticket-alt"></i>&nbsp;Secure My Spot
         </button>
       </form>
     </div>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══════════════════════════════════════════════ -->
+<!-- ─── FOOTER ────────────────────────────────────── -->
 <footer>
-  <div class="footer-in">
+  <div class="ft-in">
     <div>
-      <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="footer-logo-img"/>
-      <p class="footer-tagline">18 Days Like Nowhere Else. December 17, 2026 – January 3, 2027 · Accra, Ghana.</p>
+      <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="ft-logo"/>
+      <p class="ft-tag">18 Days Like Nowhere Else.<br/>December 17, 2026 – January 3, 2027 · Accra, Ghana.</p>
       <div class="socials">
         <a href="#" class="soc" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="soc" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="soc" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
         <a href="#" class="soc" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         <a href="#" class="soc" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
         <a href="#" class="soc" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
     <div>
-      <p class="footer-heading">Explore</p>
-      <div class="footer-links">
-        <a href="#experience" class="footer-link">The Experience</a>
-        <a href="#nights"     class="footer-link">The Programme</a>
-        <a href="#zones"      class="footer-link">The 5 Zones</a>
-        <a href="#vip"        class="footer-link">VIP Society</a>
-        <a href="#merch"      class="footer-link">Merch</a>
+      <p class="fh">Navigate</p>
+      <div class="fl">
+        <a href="#enter">Enter ALIV</a>
+        <a href="#experience">Experience ALIV</a>
+        <a href="#comealiv">Come ALIV</a>
+        <a href="#audience">Who's Coming</a>
+        <a href="#vip">VIP Society</a>
       </div>
     </div>
     <div>
-      <p class="footer-heading">Connect</p>
-      <div class="footer-links">
-        <a href="#audience"     class="footer-link">Who's Coming</a>
-        <a href="#partnerships" class="footer-link">Partnerships</a>
-        <a href="#partnerships" class="footer-link">Vendor Apply</a>
-        <a href="#access"       class="footer-link">Early Access</a>
-        <a href="mailto:info@alivfest.com" class="footer-link">Contact Us</a>
+      <p class="fh">Connect</p>
+      <div class="fl">
+        <a href="#drip">Drip Shop</a>
+        <a href="#become">Become ALIV</a>
+        <a href="#access">Early Access</a>
+        <a href="mailto:info@alivfest.com">info@alivfest.com</a>
       </div>
     </div>
     <div>
-      <p class="footer-heading">Stay Updated</p>
-      <p style="font-size:.8rem;color:var(--dim);margin-bottom:.8rem;line-height:1.6">
-        Get announcements, lineup reveals, and early access drops straight to your inbox.
-      </p>
-      <div class="footer-email-form">
-        <input type="email" placeholder="your@email.com" id="footerEmail" aria-label="Email for updates"/>
-        <button onclick="footerSignup()">JOIN</button>
+      <p class="fh">Stay Updated</p>
+      <p style="font-size:.8rem;color:var(--fog);margin-bottom:.8rem;line-height:1.65">Get lineup reveals, early access drops, and ALIV announcements first.</p>
+      <div class="ft-email">
+        <input type="email" id="ftEmail" placeholder="your@email.com" aria-label="Email for updates"/>
+        <button onclick="ftSignup()">JOIN</button>
       </div>
-      <p style="font-size:.72rem;color:var(--border);margin-top:.6rem">info@alivfest.com</p>
+      <p style="font-size:.7rem;color:var(--gold);margin-top:.6rem">info@alivfest.com</p>
     </div>
   </div>
-  <div class="footer-bottom">
+  <div class="ft-bot">
     <span>© 2026 ALIV FEST. All rights reserved.</span>
-    <span>Accra, Ghana &nbsp;·&nbsp; December 17, 2026 – January 3, 2027</span>
+    <span>Accra, Ghana &nbsp;·&nbsp; Dec 17, 2026 – Jan 3, 2027</span>
   </div>
 </footer>
 
-<!-- ═══ JAVASCRIPT ═══════════════════════════════════════════ -->
+<!-- ─── JS ────────────────────────────────────────── -->
 <script>
-/* ── Nav scroll ── */
+/* Nav scroll */
 const nav = document.getElementById('nav');
-window.addEventListener('scroll',()=>{
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-},{passive:true});
+window.addEventListener('scroll', () => nav.classList.toggle('up', scrollY > 55), {passive:true});
 
-/* ── Mobile menu ── */
-const hbtn   = document.getElementById('hbtn');
-const mmenu  = document.getElementById('mmenu');
-const mclose = document.getElementById('mclose');
-hbtn.addEventListener('click',()=>{ mmenu.classList.add('open'); hbtn.setAttribute('aria-expanded','true'); });
-mclose.addEventListener('click',closeMenu);
-function closeMenu(){ mmenu.classList.remove('open'); hbtn.setAttribute('aria-expanded','false'); }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+/* Mobile menu */
+const hBtn = document.getElementById('hBtn');
+const mob  = document.getElementById('mob');
+const mX   = document.getElementById('mX');
+hBtn.addEventListener('click', () => { mob.classList.add('on'); hBtn.setAttribute('aria-expanded','true'); });
+mX.addEventListener('click', cM);
+function cM() { mob.classList.remove('on'); hBtn.setAttribute('aria-expanded','false'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') cM(); });
 
-/* ── Countdown ── */
+/* Countdown */
 const target = new Date('2026-12-17T00:00:00');
-function pad(n,len=2){ return String(n).padStart(len,'0'); }
-function tick(){
-  const now  = new Date();
-  const diff = target - now;
-  if(diff <= 0){ document.getElementById('countdown').innerHTML='<p style="color:var(--logo);font-family:var(--ff-head);font-size:1.5rem;letter-spacing:.1em">ALIV FEST IS HERE!</p>'; return; }
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000)  / 60000);
-  const s = Math.floor((diff % 60000)    / 1000);
-  document.getElementById('cdD').textContent = pad(d,3);
-  document.getElementById('cdH').textContent = pad(h);
-  document.getElementById('cdM').textContent = pad(m);
-  document.getElementById('cdS').textContent = pad(s);
-}
-tick(); setInterval(tick,1000);
+const els = { D:'cdD', H:'cdH', M:'cdM', S:'cdS' };
+function pad(n,l=2){ return String(n).padStart(l,'0'); }
+(function tick(){
+  const d = target - Date.now();
+  if(d <= 0){
+    document.getElementById('cdown').innerHTML =
+      '<p style="font-family:var(--ff-display);font-size:1.4rem;letter-spacing:.1em;color:var(--glow)">ALIV FEST IS HERE</p>';
+    return;
+  }
+  const days = Math.floor(d/864e5);
+  const hrs  = Math.floor((d%864e5)/36e5);
+  const mins = Math.floor((d%36e5)/6e4);
+  const secs = Math.floor((d%6e4)/1e3);
+  document.getElementById('cdD').textContent = pad(days,3);
+  document.getElementById('cdH').textContent = pad(hrs);
+  document.getElementById('cdM').textContent = pad(mins);
+  document.getElementById('cdS').textContent = pad(secs);
+  setTimeout(tick, 1000);
+})();
 
-/* ── Reveal on scroll ── */
-const revEls = document.querySelectorAll('.reveal,.rl,.rr');
-const revObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revObs.unobserve(e.target); }});
-},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-revEls.forEach(el=>revObs.observe(el));
+/* Scroll reveal */
+const rvEls = document.querySelectorAll('.rv,.rvl,.rvr');
+const rvObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); rvObs.unobserve(e.target); }});
+}, { threshold:.10, rootMargin:'0px 0px -36px 0px' });
+rvEls.forEach(el => rvObs.observe(el));
 
-/* ── Partner tabs ── */
-function showTab(name, btn){
-  document.querySelectorAll('.partner-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.ptab').forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-  document.getElementById('panel'+name.charAt(0).toUpperCase()+name.slice(1)+'s').classList.add('active');
-  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-}
-
-/* ── Signup form ── */
-async function submitForm(e){
+/* Signup form */
+async function doSignup(e) {
   e.preventDefault();
-  const form = document.getElementById('signupForm');
-  const msg  = document.getElementById('formMsg');
+  const form = document.getElementById('sForm');
+  const msg  = document.getElementById('fMsg');
   const btn  = form.querySelector('button[type=submit]');
-  const chks = [...form.querySelectorAll('input[name=interests]:checked')].map(c=>c.value);
-  btn.textContent = 'Sending…'; btn.disabled = true;
-  msg.className = 'form-msg'; msg.style.display = 'none';
-  try{
-    const res = await fetch('/api/signup',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        firstName: form.firstName.value,
-        lastName:  form.lastName.value,
-        email:     form.email.value,
-        phone:     form.phone.value,
-        city:      form.city.value,
-        interests: chks
+  const interests = [...form.querySelectorAll('input[name=interests]:checked')].map(c=>c.value);
+  btn.innerHTML = 'Sending…'; btn.disabled = true;
+  msg.className = 'fmsg'; msg.style.display = 'none';
+  try {
+    const r = await fetch('/api/signup', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        firstName: form.fn.value, lastName: form.ln.value,
+        email: form.em.value, phone: form.ph.value,
+        city: form.ct.value, interests
       })
     });
-    const d = await res.json();
+    const d = await r.json();
     msg.textContent = d.message;
-    msg.classList.add(d.ok ? 'success' : 'error');
+    msg.classList.add(d.ok ? 'ok' : 'err');
     msg.style.display = 'block';
     if(d.ok) form.reset();
-  } catch{
+  } catch {
     msg.textContent = 'Something went wrong. Please try again.';
-    msg.classList.add('error'); msg.style.display = 'block';
-  } finally{
-    btn.innerHTML = '<i class="fas fa-ticket-alt"></i> Secure My Spot';
+    msg.classList.add('err'); msg.style.display = 'block';
+  } finally {
+    btn.innerHTML = '<i class="fas fa-ticket-alt"></i>&nbsp;Secure My Spot';
     btn.disabled = false;
   }
 }
 
-/* ── Footer signup ── */
-async function footerSignup(){
-  const inp = document.getElementById('footerEmail');
-  const email = inp.value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ inp.style.borderColor='rgba(200,80,80,.7)'; return; }
-  inp.style.borderColor='rgba(212,165,32,.60)';
-  try{
-    await fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({firstName:'Friend',lastName:'',email,phone:'',city:'',interests:[]})});
-    inp.value='';
-    inp.placeholder='You\'re on the list!';
-  } catch{ inp.placeholder='Try again later'; }
+/* Footer signup */
+async function ftSignup() {
+  const inp = document.getElementById('ftEmail');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim())){
+    inp.style.borderColor='rgba(200,80,80,.65)'; return;
+  }
+  inp.style.borderColor='rgba(212,160,32,.60)';
+  try {
+    await fetch('/api/signup', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({firstName:'Friend',lastName:'',email:inp.value.trim(),phone:'',city:'',interests:[]})
+    });
+    inp.value=''; inp.placeholder="You're on the list!";
+  } catch { inp.placeholder='Try again later'; }
 }
 
-/* ── Smooth parallax on hero bg ── */
-window.addEventListener('scroll',()=>{
-  const y = window.scrollY;
-  const heroBg = document.querySelector('.hero-bg');
-  if(heroBg && y < window.innerHeight){
-    heroBg.style.transform = \`translateY(\${y * 0.25}px)\`;
+/* Subtle parallax on hero */
+window.addEventListener('scroll', () => {
+  if(scrollY < innerHeight) {
+    const canvas = document.querySelector('.site-canvas');
+    if(canvas) canvas.style.transform = \`translateY(\${scrollY * 0.15}px)\`;
   }
-},{passive:true});
+}, {passive:true});
 </script>
 </body>
 </html>`)
