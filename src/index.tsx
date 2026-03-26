@@ -298,19 +298,22 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 .hbg{
   position:absolute;inset:0;z-index:0;
-  /* Hero is the ONE bright moment on the page.
-     body::before is at brightness(.58); hero adds luminance back.
-     Net result: hero feels intentionally brighter than all other sections. */
   background:url('/static/nebula-burst-wide.jpg') center 38% / cover no-repeat;
-  filter:brightness(.88) saturate(1.3) contrast(1.06);
+  filter:brightness(.72) saturate(1.2) contrast(1.05);
 }
 .hbg::after{
   content:'';position:absolute;inset:0;
+  /* Heavy central dark veil — kills the light-burst hotspot so text is readable */
   background:
+    radial-gradient(ellipse 80% 60% at 50% 45%,
+      rgba(2,1,0,.72) 0%,
+      rgba(2,1,0,.55) 40%,
+      rgba(2,1,0,.20) 75%,
+      transparent 100%),
     linear-gradient(180deg,
-      rgba(3,1,0,.55) 0%,rgba(3,1,0,.18) 12%,
-      transparent 26%,transparent 68%,
-      rgba(3,1,0,.25) 84%,rgba(3,1,0,.65) 100%);
+      rgba(3,1,0,.60) 0%,rgba(3,1,0,.22) 15%,
+      transparent 35%,transparent 65%,
+      rgba(3,1,0,.35) 85%,rgba(3,1,0,.75) 100%);
 }
 .hfloor{
   position:absolute;bottom:0;left:0;right:0;height:24%;z-index:1;
@@ -335,9 +338,12 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.6rem,3.5vw,2.6rem);
   font-weight:400;font-style:italic;
-  color:#7A3A10;
+  /* Bright warm cream — clearly visible against dark-veiled amber bg */
+  color:#F0D898;
   letter-spacing:.06em;
-  text-shadow:0 2px 12px rgba(0,0,0,.85),0 0 30px rgba(80,30,5,.30);
+  text-shadow:
+    0 2px 14px rgba(0,0,0,.95),
+    0 0  8px  rgba(0,0,0,.80);
   margin-bottom:.6rem;
 }
 .hero-tagline{
@@ -345,8 +351,11 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-size:clamp(1.3rem,2.8vw,2rem);
   font-style:italic;font-weight:400;
   letter-spacing:.03em;text-transform:none;
-  color:#6B3010;
-  text-shadow:0 2px 12px rgba(0,0,0,.85),0 0 28px rgba(70,25,5,.28);
+  /* Softer warm gold — a step below the subtitle */
+  color:#D4A855;
+  text-shadow:
+    0 2px 14px rgba(0,0,0,.95),
+    0 0  8px  rgba(0,0,0,.80);
   max-width:780px;line-height:1.5;
   margin-bottom:1.8rem;
 }
@@ -359,15 +368,15 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-size:clamp(1.45rem,3.2vw,2.5rem);
   font-style:italic;font-weight:500;
   letter-spacing:.05em;
-  /* Deep brown shimmer — dark espresso to warm brown */
+  /* Warm gold shimmer — bright enough to read on dark-veiled bg */
   background:linear-gradient(90deg,
-    #3D1500 0%,
-    #7A3210 20%,
-    #9A4818 38%,
-    #5C2208 52%,
-    #9A4818 66%,
-    #7A3210 82%,
-    #3D1500 100%);
+    #C88820 0%,
+    #EEC050 18%,
+    #F8DA78 32%,
+    #D4A030 50%,
+    #F8DA78 68%,
+    #EEC050 82%,
+    #C88820 100%);
   background-size:250% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -377,7 +386,7 @@ section,nav,footer,.infostrip,.ticker-wrap{
   margin-bottom:1.2rem;
   position:relative;
   padding:.3rem 0;
-  filter:drop-shadow(0 1px 5px rgba(120,50,10,.50)) drop-shadow(0 0 20px rgba(80,25,5,.28));
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.90)) drop-shadow(0 0 28px rgba(0,0,0,.70));
 }
 /* Shimmer sweep */
 @keyframes slogan-shimmer{
@@ -386,8 +395,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 /* Gentle breath / pulse */
 @keyframes slogan-pulse{
-  0%,100%{filter:drop-shadow(0 1px 5px rgba(120,50,10,.42)) drop-shadow(0 0 18px rgba(80,25,5,.22));}
-  50%    {filter:drop-shadow(0 1px 6px rgba(160,70,15,.60)) drop-shadow(0 0 32px rgba(110,40,8,.38));}
+  0%,100%{filter:drop-shadow(0 2px 10px rgba(0,0,0,.88)) drop-shadow(0 0 22px rgba(0,0,0,.65));}
+  50%    {filter:drop-shadow(0 2px 12px rgba(0,0,0,.95)) drop-shadow(0 0 32px rgba(0,0,0,.75));}
 }
 
 /* Sparkle particles flanking the slogan */
