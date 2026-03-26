@@ -703,8 +703,12 @@ ul { list-style: none; }
   font-style: italic;
   font-weight: 300;
   letter-spacing: .06em;
-  color: var(--ivory);
-  text-shadow: 0 2px 18px rgba(0,0,0,.85), 0 0 30px rgba(0,0,0,.50);
+  color: #5C2A00;
+  text-shadow:
+    0 0 12px rgba(200,100,10,.90),
+    0 0 28px rgba(180,80,0,.70),
+    0 0 55px rgba(160,60,0,.45),
+    0 2px 8px rgba(0,0,0,.60);
   margin-bottom: .5rem;
 }
 .hero-tagline {
@@ -723,22 +727,23 @@ ul { list-style: none; }
   letter-spacing: .03em;
   max-width: 860px;
   background: linear-gradient(100deg,
-    #fff3c0  0%,
-    #FFE066 18%,
-    #FFD050 36%,
-    #fff8d6 50%,
-    #F5A800 68%,
-    #FFD050 82%,
-    #fff3c0 100%);
+    #6B2E00  0%,
+    #8B3A00 18%,
+    #7A3200 36%,
+    #9B4200 50%,
+    #6B2E00 68%,
+    #7A3200 82%,
+    #5C2600 100%);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
   filter:
-    drop-shadow(0 0 18px rgba(255,200,60,.65))
-    drop-shadow(0 0 48px rgba(200,130,10,.45))
-    drop-shadow(0 3px 12px rgba(0,0,0,.70));
+    drop-shadow(0 0 14px rgba(220,100,10,.85))
+    drop-shadow(0 0 36px rgba(180,70,0,.65))
+    drop-shadow(0 0 70px rgba(160,55,0,.40))
+    drop-shadow(0 3px 10px rgba(0,0,0,.70));
   line-height: 1.45;
   margin-bottom: 1.6rem;
   /* entrance: start invisible */
