@@ -60,173 +60,175 @@ app.get('*', (c) => {
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <style>
-/* ════════════════════════════════════════════════════════════
-   TOKENS
-════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS — controlled amber-gold palette
+═══════════════════════════════════════════════ */
 :root{
-  --space:#120A00;
-  --deep:#1A0C02;
-  --choc:#221204;
-  --bronze:#4A2A00;
-  --amber:#9A5A00;
-  --gold:#D4A030;
-  --bright:#F0C84A;
-  --cream:#FFF0D8;
-  --muted:#B09060;
-  --grad-gold:linear-gradient(135deg,#7A4A00 0%,#D4A030 28%,#FFD860 52%,#D4A030 76%,#7A4A00 100%);
-  --grad-gold-h:linear-gradient(90deg,transparent,#D4A030,#FFD860,#D4A030,transparent);
-  --grad-dark:linear-gradient(180deg,rgba(18,10,0,0) 0%,rgba(18,10,0,.92) 100%);
-  /* glass card — translucent warm champagne/amber glass */
-  --glass-card:rgba(255,220,140,.18);
-  --glass-card-hover:rgba(255,210,120,.28);
-  --glass-border:rgba(180,100,10,.35);
-  --glass-border-hover:rgba(200,130,20,.65);
+  /* Core palette — deep, rich, no garish brights */
+  --ink:    #0E0600;
+  --deep:   #180900;
+  --bronze: #3D1C00;
+  --amber:  #7A4200;
+  --gold:   #B8820A;
+  --bright: #D4A030;
+  --cream:  #F0DEB8;
+  --mist:   #C8A870;
+
+  /* Gradients */
+  --grad-gold: linear-gradient(135deg,#5A3000 0%,#B8820A 30%,#D4A030 52%,#B8820A 74%,#5A3000 100%);
+  --grad-gold-h: linear-gradient(90deg,transparent,#B8820A 30%,#D4A030 50%,#B8820A 70%,transparent);
+
+  /* Glass — luminous warm amber tint */
+  --glass:        rgba(255,200,80,.10);
+  --glass-hover:  rgba(255,210,100,.16);
+  --glass-card:   rgba(255,200,80,.10);
+  --glass-card-hover: rgba(255,210,100,.16);
+  --glass-border: rgba(200,140,20,.28);
+  --glass-border-h:rgba(220,160,40,.55);
+  --glass-border-hover: rgba(220,160,40,.55);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  background:#1C0E01;
+  background:#4A2800;
   color:var(--cream);
   font-family:'Montserrat',sans-serif;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
 
-/* ════════════════════════════════════════════════════════════
-   GLOBAL BACKGROUND — glowing amber cosmic world
-════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   GLOBAL BACKGROUND — one continuous cosmic canvas
+   Fixed behind everything. All sections sit on top
+   with transparent backgrounds — no seams.
+═══════════════════════════════════════════════ */
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  /* Nebula at full vibrancy — only a whisper-thin unified veil */
   background:
-    /* blazing top-center burst */
-    radial-gradient(ellipse 130% 80% at 50% -5%, rgba(255,180,30,.55) 0%, rgba(220,130,10,.3) 35%, transparent 65%),
-    /* upper-left warm glow */
-    radial-gradient(ellipse 90% 70% at 10% 25%, rgba(210,110,5,.32) 0%, transparent 60%),
-    /* upper-right warm glow */
-    radial-gradient(ellipse 90% 70% at 90% 20%, rgba(190,100,8,.28) 0%, transparent 58%),
-    /* center page bloom */
-    radial-gradient(ellipse 100% 60% at 50% 55%, rgba(180,90,5,.22) 0%, transparent 55%),
-    /* lower amber pool */
-    radial-gradient(ellipse 120% 55% at 50% 100%, rgba(160,80,5,.38) 0%, transparent 60%),
-    /* base nebula image — full brightness */
-    url('/static/nebula-burst-wide.jpg') center 28% / cover no-repeat;
-  opacity:.92;
-  mix-blend-mode:normal;
+    linear-gradient(180deg,
+      rgba(8,4,0,.12) 0%,
+      rgba(4,2,0,.06) 30%,
+      rgba(4,2,0,.06) 70%,
+      rgba(8,4,0,.14) 100%),
+    url('/static/nebula-burst-wide.jpg') center 30% / cover no-repeat;
+  filter:brightness(1.05) saturate(1.15);
 }
 
-/* ════════════════════════════════════════════════════════════
-   FILM GRAIN
-════════════════════════════════════════════════════════════ */
+/* Fine film grain — cinema texture */
 body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.016;
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.022;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ════════════════════════════════════════════════════════════
-   SECTIONS — all sit above the global bg
-════════════════════════════════════════════════════════════ */
-section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
+/* All sections transparent — cosmic bg flows through */
+section,nav,footer,.infostrip,.ticker-wrap{
+  position:relative;z-index:1;
+  background:transparent;
+}
 
-/* ════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    UTILITIES
-════════════════════════════════════════════════════════════ */
-.gold{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+═══════════════════════════════════════════════ */
+/* Gold gradient text */
+.gold{
+  background:var(--grad-gold);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
 .bebas{font-family:'Bebas Neue',sans-serif;}
 .corm{font-family:'Cormorant Garamond',serif;}
 .wrap{max-width:1280px;margin:0 auto;padding:0 2.5rem;}
 .section-pad{padding:7rem 0;}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
-.reveal.on{opacity:1;transform:none;}
-.rl{opacity:0;transform:translateX(-30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
-.rl.on{opacity:1;transform:none;}
-.rr{opacity:0;transform:translateX(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
-.rr.on{opacity:1;transform:none;}
-.d1{transition-delay:.1s!important;}.d2{transition-delay:.2s!important;}
-.d3{transition-delay:.3s!important;}.d4{transition-delay:.4s!important;}
-.d5{transition-delay:.5s!important;}.d6{transition-delay:.6s!important;}
 
-/* Section label */
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal.on{opacity:1;transform:none;}
+.rl{opacity:0;transform:translateX(-24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.rl.on{opacity:1;transform:none;}
+.rr{opacity:0;transform:translateX(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.rr.on{opacity:1;transform:none;}
+.d1{transition-delay:.08s!important;}.d2{transition-delay:.18s!important;}
+.d3{transition-delay:.28s!important;}.d4{transition-delay:.38s!important;}
+.d5{transition-delay:.48s!important;}.d6{transition-delay:.58s!important;}
+
+/* .sh-smoke — REMOVED. No ovals, no shapes behind text. */
+.sh-smoke{position:relative;}
+.sh-smoke > *{position:relative;}
+
+/* Section label — refined, editorial */
 .slbl{
-  display:inline-flex;align-items:center;gap:.55rem;
-  font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;
-  color:var(--bright);font-weight:600;margin-bottom:1.1rem;
-  text-shadow:0 1px 6px rgba(0,0,0,.92),0 0 18px rgba(255,200,50,.4);
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.52rem;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--bright);font-weight:500;margin-bottom:1rem;opacity:.85;
 }
-.slbl::before,.slbl::after{content:'✦';font-size:.45rem;}
+.slbl::before,.slbl::after{content:'—';font-size:.4rem;opacity:.5;}
 
 /* Section heading */
 .sh{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.4rem,5vw,4.2rem);
-  font-weight:600;line-height:1.06;letter-spacing:-.01em;
-  color:#FFF4E0;
-  /* deep backing plate + warm haze — works on both dark and bright sections */
+  font-size:clamp(2.6rem,5.5vw,4.6rem);
+  font-weight:600;line-height:1.04;letter-spacing:-.02em;
+  color:var(--cream);
+  /* No boxes. Elegant, refined text shadow only — warm glow, no black */
   text-shadow:
-    0 1px 0   rgba(0,0,0,.98),
-    0 2px 8px rgba(0,0,0,.94),
-    0 6px 28px rgba(0,0,0,.82),
-    0 12px 52px rgba(0,0,0,.52),
-    0 0  70px rgba(60,20,0,.25);
+    0 1px 4px  rgba(0,0,0,.55),
+    0 4px 20px rgba(0,0,0,.35),
+    0 0  50px  rgba(80,40,0,.2);
+}
+/* Gold spans inside headings */
+.sh .gold{font-weight:700;}
+
+/* Gold rule — minimal, precise */
+.gr{width:48px;height:1px;background:var(--grad-gold-h);border:none;margin:1.4rem 0;opacity:.7;}
+.gr.c{margin:1.4rem auto;}
+
+/* Body copy — warm ivory, highly legible */
+.sc{
+  color:rgba(240,218,178,.82);
+  line-height:1.9;font-weight:300;font-size:.94rem;
+  text-shadow:0 1px 6px rgba(0,0,0,.4);
 }
 
-/* ── Smoke halo helper ── */
-/* Wrap any heading block with .sh-smoke to get an
-   invisible radial dimmer behind the text only */
-.sh-smoke{position:relative;}
-.sh-smoke::before{
-  content:'';
-  position:absolute;
-  inset:-2.2rem -5rem -1.8rem -5rem;
-  background:radial-gradient(ellipse 86% 100% at 50% 50%,
-    rgba(2,0,0,.78) 0%,
-    rgba(2,0,0,.50) 40%,
-    transparent 76%);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:0;
-}
-.sh-smoke > *{position:relative;z-index:1;}
-
-/* Gold rule */
-.gr{width:60px;height:1px;background:var(--grad-gold-h);border:none;margin:1.6rem 0;}
-.gr.c{margin:1.6rem auto;}
-
-/* Body copy */
-.sc{color:rgba(255,235,195,.88);line-height:1.95;font-weight:300;font-size:.95rem;text-shadow:0 1px 8px rgba(0,0,0,.75);}
-
-/* Buttons */
+/* ── BUTTONS ─────────────────────────────── */
+/* Primary — premium gold, controlled glow */
 .btn-gold{
-  display:inline-flex;align-items:center;gap:.6rem;
+  display:inline-flex;align-items:center;gap:.55rem;
   background:var(--grad-gold);background-size:200% auto;
-  color:#080300;font-weight:800;font-size:.62rem;
-  letter-spacing:.22em;text-transform:uppercase;
-  padding:1rem 2.6rem;border-radius:40px;text-decoration:none;border:none;cursor:pointer;
-  transition:all .4s cubic-bezier(.16,1,.3,1);
-  box-shadow:0 4px 28px rgba(200,151,42,.5),inset 0 1px 0 rgba(255,255,255,.2);
+  color:#0E0600;font-weight:700;font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:.95rem 2.5rem;border-radius:3px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:all .45s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 2px 18px rgba(160,100,10,.35);
 }
-.btn-gold:hover{background-position:right center;transform:translateY(-3px);box-shadow:0 12px 48px rgba(200,151,42,.75);}
-
+.btn-gold:hover{
+  background-position:right center;
+  transform:translateY(-2px);
+  box-shadow:0 6px 32px rgba(160,100,10,.55);
+}
+/* Secondary — ghost, warm border */
 .btn-outline{
-  display:inline-flex;align-items:center;gap:.6rem;
+  display:inline-flex;align-items:center;gap:.55rem;
   background:transparent;
-  color:var(--cream);font-weight:600;font-size:.62rem;
-  letter-spacing:.22em;text-transform:uppercase;
-  padding:1rem 2.4rem;border-radius:40px;text-decoration:none;border:none;cursor:pointer;
-  border:1px solid rgba(200,151,42,.4);
-  transition:all .4s cubic-bezier(.16,1,.3,1);
+  color:var(--cream);font-weight:500;font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:.95rem 2.3rem;border-radius:3px;
+  text-decoration:none;cursor:pointer;
+  border:1px solid rgba(180,120,20,.4);
+  transition:all .45s cubic-bezier(.16,1,.3,1);
 }
-.btn-outline:hover{border-color:var(--bright);color:var(--bright);transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,151,42,.3);}
+.btn-outline:hover{
+  border-color:var(--bright);
+  color:var(--bright);
+  transform:translateY(-2px);
+  box-shadow:0 4px 20px rgba(140,80,5,.2);
+}
 
-/* Gold divider line */
+/* Gold rule divider */
 .goldline{
-  width:200px;height:1px;background:var(--grad-gold-h);
-  margin:0 auto 2.4rem;opacity:.6;position:relative;
+  width:160px;height:1px;background:var(--grad-gold-h);
+  margin:0 auto 2rem;opacity:.45;
 }
-.goldline::before,.goldline::after{
-  content:'✦';position:absolute;top:50%;transform:translateY(-50%);
-  font-size:.4rem;color:var(--gold);
-}
-.goldline::before{left:-12px;}.goldline::after{right:-12px;}
 
 /* ════════════════════════════════════════════════════════════
    NAVBAR
@@ -234,32 +236,32 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 #nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   padding:1.2rem 0;
-  background:rgba(255,210,100,.15);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  background:rgba(10,5,0,.35);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   transition:all .5s cubic-bezier(.16,1,.3,1);
 }
 #nav.scrolled{
-  background:rgba(255,220,130,.25);
+  background:rgba(10,5,0,.6);
   backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
   padding:.7rem 0;
   border-bottom:1px solid rgba(180,100,10,.3);
-  box-shadow:0 4px 40px rgba(200,130,0,.2),0 1px 0 rgba(220,160,50,.15);
+  box-shadow:0 4px 40px rgba(100,50,0,.3),0 1px 0 rgba(220,160,50,.15);
 }
 .nav-in{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;}
 .nlogo{height:34px;width:auto;filter:drop-shadow(0 0 10px rgba(232,184,75,.65));transition:filter .3s;}
 .nlogo:hover{filter:drop-shadow(0 0 22px rgba(232,184,75,1));}
 .nlinks{display:flex;gap:.9rem;align-items:center;}
 .na{
-  color:rgba(44,20,0,.75);text-decoration:none;
+  color:rgba(255,230,160,.85);text-decoration:none;
   font-size:.55rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   transition:color .3s;position:relative;white-space:nowrap;padding:.3rem 0;
-  text-shadow:0 1px 4px rgba(255,210,120,.4);
+  text-shadow:0 1px 6px rgba(0,0,0,.5);
 }
 .na::after{
   content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;
   background:var(--grad-gold-h);transform:scaleX(0);transition:transform .35s cubic-bezier(.16,1,.3,1);
 }
-.na:hover{color:#7A3A00;}
+.na:hover{color:var(--bright);}
 .na:hover::after{transform:scaleX(1);}
 .nbtn{
   background:var(--grad-gold);background-size:200% auto;
@@ -269,7 +271,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
   transition:all .4s;box-shadow:0 3px 20px rgba(200,151,42,.4);
 }
 .nbtn:hover{background-position:right center;transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,151,42,.65);}
-#hbg{display:none;background:none;border:none;cursor:pointer;color:#3A1800;font-size:1.4rem;}
+#hbg{display:none;background:none;border:none;cursor:pointer;color:var(--cream);font-size:1.4rem;}
 
 /* ════════════════════════════════════════════════════════════
    MOBILE MENU
@@ -297,20 +299,17 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .hbg{
   position:absolute;inset:0;z-index:0;
   background:url('/static/nebula-burst-wide.jpg') center 38% / cover no-repeat;
-  filter:brightness(1.35) saturate(1.45) contrast(1.05);
+  filter:brightness(1.18) saturate(1.35) contrast(1.02);
 }
 .hbg::after{
   content:'';position:absolute;inset:0;
   background:
-    /* very soft top fade for nav only */
-    linear-gradient(180deg,rgba(180,100,10,.12) 0%,transparent 14%,transparent 85%,rgba(220,160,20,.06) 100%),
-    /* warm center radiance */
-    radial-gradient(ellipse 55% 50% at 50% 38%,rgba(255,230,100,.1) 0%,transparent 70%);
+    /* minimal top fade for nav legibility */
+    linear-gradient(180deg,rgba(10,5,0,.18) 0%,transparent 12%,transparent 88%,rgba(10,5,0,.12) 100%);
 }
 .hfloor{
-  position:absolute;bottom:0;left:0;right:0;height:15%;z-index:1;
-  /* no dark floor — very gentle warm shimmer at bottom edge only */
-  background:linear-gradient(transparent,rgba(220,160,30,.08));
+  position:absolute;bottom:0;left:0;right:0;height:8%;z-index:1;
+  background:linear-gradient(transparent,rgba(10,5,0,.1));
 }
 .hin{
   position:relative;z-index:2;text-align:center;
@@ -333,18 +332,18 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
   font-size:clamp(1.6rem,3.5vw,2.6rem);
   font-weight:400;font-style:italic;
   color:#FFF8E8;letter-spacing:.06em;
-  text-shadow:0 2px 12px rgba(0,0,0,.5),0 0 60px rgba(255,200,60,.5),0 0 120px rgba(220,150,20,.3);
-  margin-bottom:1rem;
+  text-shadow:0 2px 8px rgba(0,0,0,.65),0 0 40px rgba(180,100,10,.45);
+  margin-bottom:.8rem;
 }
 .hero-tagline{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.4rem,3vw,2.2rem);
   font-style:italic;font-weight:400;
   letter-spacing:.03em;text-transform:none;
-  color:#FFDB80;
-  text-shadow:0 2px 12px rgba(0,0,0,.5),0 0 50px rgba(255,200,40,.55),0 0 100px rgba(220,150,10,.35);
+  color:#FFF0D0;
+  text-shadow:0 2px 10px rgba(0,0,0,.65),0 0 40px rgba(180,100,10,.4);
   max-width:780px;line-height:1.5;
-  margin-bottom:2.8rem;
+  margin-bottom:1.2rem;
 }
 
 /* ═══════════════════════════════════════════
@@ -448,17 +447,16 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 }
 .istrip-in span{
   font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;
-  color:#5A2800;font-weight:700;
-  text-shadow:0 1px 3px rgba(255,200,100,.3);
+  color:rgba(255,230,150,.9);font-weight:700;
+  text-shadow:0 1px 4px rgba(0,0,0,.5);
 }
-.idot{width:3px;height:3px;border-radius:50%;background:rgba(140,70,10,.4);display:inline-block;}
+.idot{width:3px;height:3px;border-radius:50%;background:rgba(255,210,80,.5);display:inline-block;}
 
 /* ════════════════════════════════════════════════════════════
    ABOUT / INTRO
 ════════════════════════════════════════════════════════════ */
 #about{
   padding:8rem 0;
-  background:linear-gradient(180deg,rgba(20,9,0,.35) 0%,rgba(30,14,0,.28) 50%,rgba(20,9,0,.35) 100%);
   position:relative;
 }
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
@@ -474,12 +472,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #why{
   padding:7rem 0;
-  background:url('/static/nebula-burst-portrait.jpg') center 30% / cover no-repeat;
   position:relative;
-}
-#why::before{
-  content:'';position:absolute;inset:0;
-  background:rgba(8,3,0,.62);
 }
 #why .wrap{position:relative;z-index:1;}
 .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem;}
@@ -512,7 +505,6 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #season{
   padding:7rem 0;
-  background:linear-gradient(180deg,rgba(28,12,0,.32) 0%,rgba(38,18,0,.25) 50%,rgba(28,12,0,.32) 100%);
 }
 .season-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:4.5rem;}
 .season-block{
@@ -539,7 +531,6 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #audience{
   padding:7rem 0;
-  background:linear-gradient(180deg,rgba(30,14,0,.3),rgba(40,18,0,.22));
 }
 .aud-intro{max-width:640px;margin:0 auto 4.5rem;text-align:center;}
 .aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(160,90,10,.2);}
@@ -562,10 +553,8 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #enter{
   padding:8rem 0;
-  background:url('/static/nebula-burst-wide2.jpg') center center / cover no-repeat;
   position:relative;
 }
-#enter::before{content:'';position:absolute;inset:0;background:rgba(14,6,0,.35);}
 #enter .wrap{position:relative;z-index:1;}
 .enter-header{max-width:700px;margin:0 auto 5rem;text-align:center;}
 .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:5rem;}
@@ -592,7 +581,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .why-built{
   max-width:740px;margin:4rem auto 0;text-align:center;
   padding:3rem;border:1px solid rgba(220,160,50,.25);
-  background:rgba(10,4,0,.6);
+  background:rgba(255,200,80,.08);
   backdrop-filter:blur(16px);
 }
 .why-built p{
@@ -607,10 +596,8 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #experience{
   padding:8rem 0;
-  background:url('/static/nebula-burst-wide.jpg') center 60% / cover no-repeat;
   position:relative;
 }
-#experience::before{content:'';position:absolute;inset:0;background:rgba(14,6,0,.32);}
 #experience .wrap{position:relative;z-index:1;}
 .exp-header{max-width:640px;margin:0 auto 5rem;text-align:center;}
 .zones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
@@ -651,26 +638,11 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #comealiv{
   padding:8rem 0;
-  background:url('/static/nebula-burst-portrait.jpg') center center / cover no-repeat;
-  background-size:cover;
-  background-position:center 35%;
   position:relative;overflow:hidden;
-}
-#comealiv::before{
-  content:'';position:absolute;inset:0;
-  background:rgba(8,3,0,.62);
 }
 #comealiv .wrap{position:relative;z-index:1;}
 .come-header{text-align:center;margin-bottom:5rem;}
-/* The big "Come ALIV" heading is the largest on the page —
-   give its smoke halo extra depth */
-.come-header .sh-smoke::before{
-  inset:-2.5rem -6rem -2rem -6rem;
-  background:radial-gradient(ellipse 90% 100% at 50% 50%,
-    rgba(2,0,0,.88) 0%,
-    rgba(2,0,0,.58) 40%,
-    transparent 78%);
-}
+/* Come ALIV heading — no smoke oval */
 .come-tagline{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.2rem,2.5vw,1.8rem);
@@ -716,22 +688,11 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #vip{
   padding:8rem 0;
-  background:url('/static/nebula-burst-wide2.jpg') center 50% / cover no-repeat;
   position:relative;
-}
-#vip::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(14,6,0,.3) 0%,rgba(22,10,0,.25) 50%,rgba(14,6,0,.3) 100%);
 }
 #vip .wrap{position:relative;z-index:1;}
 .vip-header{max-width:640px;margin:0 auto 5rem;text-align:center;}
-.vip-header.sh-smoke::before{
-  inset:-2.5rem -6rem -2rem -6rem;
-  background:radial-gradient(ellipse 90% 100% at 50% 50%,
-    rgba(2,0,0,.86) 0%,
-    rgba(2,0,0,.55) 42%,
-    transparent 77%);
-}
+/* VIP header — no smoke oval */
 .vip-hero-text{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.2rem,2.5vw,1.7rem);
@@ -771,7 +732,6 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #shop{
   padding:8rem 0;
-  background:linear-gradient(180deg,rgba(28,12,0,.3) 0%,rgba(38,18,0,.24) 50%,rgba(28,12,0,.3) 100%);
 }
 .shop-header{max-width:560px;margin:0 auto 5rem;text-align:center;}
 .shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:4rem;}
@@ -797,7 +757,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
   background:radial-gradient(ellipse at 50% 50%,rgba(200,151,42,.06) 0%,transparent 70%);
 }
 .shop-info{padding:1.5rem 1.8rem;}
-.shop-name{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#1E0A00;font-weight:700;margin-bottom:.4rem;}
+.shop-name{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);font-weight:700;margin-bottom:.4rem;}
 .shop-sub{font-size:.8rem;color:rgba(255,235,195,.72);font-weight:300;}
 .shop-tag{
   display:inline-block;margin-top:.8rem;
@@ -811,22 +771,14 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #bealiv{
   padding:8rem 0;
-  background:url('/static/nebula-burst-portrait.jpg') center center / cover no-repeat;
   position:relative;
 }
-#bealiv::before{content:'';position:absolute;inset:0;background:rgba(14,6,0,.32);}
 #bealiv .wrap{position:relative;z-index:1;}
 /* Become ALIV heading — wider max-width so the long phrase
    "Be Part of Something Bigger Than a Night Out" doesn't
    break awkwardly, plus its own deep smoke halo override */
 .bealiv-header{max-width:780px;margin:0 auto 5.5rem;text-align:center;}
-.bealiv-header.sh-smoke::before{
-  inset:-2.5rem -8rem -2rem -8rem;
-  background:radial-gradient(ellipse 92% 100% at 50% 50%,
-    rgba(2,0,0,.85) 0%,
-    rgba(2,0,0,.55) 42%,
-    transparent 75%);
-}
+/* BeALIV header — no smoke oval */
 .bealiv-tracks{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
 .track{
   padding:3.5rem 3rem;
@@ -875,12 +827,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #access{
   padding:8rem 0;
-  background:url('/static/nebula-burst-wide.jpg') center 55% / cover no-repeat;
   position:relative;
-}
-#access::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(14,6,0,.32) 0%,rgba(20,9,0,.28) 100%);
 }
 #access .wrap{position:relative;z-index:1;}
 .access-in{max-width:600px;margin:0 auto;text-align:center;}
@@ -895,8 +842,8 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 .form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
 .form-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:#7A3A00;font-weight:700;}
 .form-input,.form-select,.form-textarea{
-  background:rgba(8,3,0,.62);
-  border:1px solid rgba(220,160,50,.3);
+  background:rgba(20,8,0,.52);
+  border:1px solid rgba(220,160,50,.35);
   color:var(--cream);padding:.85rem 1.1rem;
   font-family:'Montserrat',sans-serif;font-size:.88rem;font-weight:300;
   outline:none;transition:border-color .3s;width:100%;
@@ -925,7 +872,6 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 #partner{
   padding:6rem 0;
-  background:linear-gradient(180deg,rgba(28,12,0,.28),rgba(36,16,0,.22));
   border-top:1px solid rgba(220,160,50,.25);
 }
 .partner-header{text-align:center;margin-bottom:4rem;}
@@ -948,11 +894,11 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 .ticker-wrap{
   overflow:hidden;padding:.7rem 0;
-  background:rgba(100,50,0,.28);
+  background:rgba(255,180,30,.14);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-top:1px solid rgba(220,160,50,.35);
   border-bottom:1px solid rgba(220,160,50,.35);
-  box-shadow:0 0 40px rgba(200,120,0,.2);
+  box-shadow:0 0 40px rgba(200,120,0,.15);
 }
 .ticker-track{
   display:flex;gap:0;white-space:nowrap;
@@ -972,7 +918,7 @@ section,nav,footer,.infostrip,.ticker-wrap{position:relative;z-index:1;}
 ════════════════════════════════════════════════════════════ */
 footer{
   padding:5rem 0 3rem;
-  background:linear-gradient(180deg,rgba(30,14,0,.42) 0%,rgba(20,9,0,.62) 100%);
+  background:rgba(10,4,0,.55);
   border-top:1px solid rgba(220,160,50,.3);
   position:relative;z-index:1;
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -1106,12 +1052,12 @@ footer{
 
     <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="hero-wordmark reveal" style="mix-blend-mode:lighten;"/>
     <p class="hero-sub reveal d1">The Accra Carnival Experience</p>
+    <p class="hero-tagline reveal d2">18 Days Like Nowhere Else</p>
     <div style="position:relative;display:inline-block;max-width:860px;width:100%;">
       <canvas id="slogan-sparkles" aria-hidden="true"></canvas>
-      <p class="hero-legacy reveal d2">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
+      <p class="hero-legacy reveal d3">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
     </div>
-    <p class="hero-tagline reveal d3">18 Days Like Nowhere Else</p>
-    <div class="hero-cta reveal d4">
+    <div class="hero-cta reveal d4" style="margin-top:2rem;">
       <a href="#access" class="btn-gold"><i class="fas fa-ticket-alt"></i>&nbsp; Early Access</a>
       <a href="#experience" class="btn-outline"><i class="fas fa-compass"></i>&nbsp; Explore ALIV</a>
     </div>
