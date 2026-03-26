@@ -61,31 +61,32 @@ app.get('*', (c) => {
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <style>
 /* ═══════════════════════════════════════════════
-   DESIGN TOKENS — controlled amber-gold palette
+   DESIGN TOKENS — deep cinematic amber-gold
 ═══════════════════════════════════════════════ */
 :root{
-  /* Core palette — deep, rich, no garish brights */
-  --ink:    #0E0600;
-  --deep:   #180900;
-  --bronze: #3D1C00;
-  --amber:  #7A4200;
-  --gold:   #B8820A;
-  --bright: #D4A030;
-  --cream:  #F0DEB8;
-  --mist:   #C8A870;
+  /* Core palette — rich, deep, cinematic */
+  --ink:    #080300;
+  --deep:   #0E0500;
+  --bronze: #2A1000;
+  --amber:  #5C2E00;
+  --gold:   #A06800;
+  --bright: #C8900A;
+  --glow:   #E8B030;
+  --cream:  #F2DEB0;
+  --mist:   #B8946A;
 
-  /* Gradients */
-  --grad-gold: linear-gradient(135deg,#5A3000 0%,#B8820A 30%,#D4A030 52%,#B8820A 74%,#5A3000 100%);
-  --grad-gold-h: linear-gradient(90deg,transparent,#B8820A 30%,#D4A030 50%,#B8820A 70%,transparent);
+  /* Gradients — richer, deeper amber-gold */
+  --grad-gold: linear-gradient(135deg,#4A2000 0%,#9A6800 28%,#D4A020 50%,#9A6800 72%,#4A2000 100%);
+  --grad-gold-h: linear-gradient(90deg,transparent,#9A6800 30%,#D4A020 50%,#9A6800 70%,transparent);
 
-  /* Glass — luminous warm amber tint */
-  --glass:        rgba(255,200,80,.10);
-  --glass-hover:  rgba(255,210,100,.16);
-  --glass-card:   rgba(255,200,80,.10);
-  --glass-card-hover: rgba(255,210,100,.16);
-  --glass-border: rgba(200,140,20,.28);
-  --glass-border-h:rgba(220,160,40,.55);
-  --glass-border-hover: rgba(220,160,40,.55);
+  /* Glass — warm amber tint, readable on deep dark bg */
+  --glass:             rgba(180,100,10,.18);
+  --glass-hover:       rgba(200,120,15,.28);
+  --glass-card:        rgba(180,100,10,.18);
+  --glass-card-hover:  rgba(200,120,15,.28);
+  --glass-border:      rgba(200,130,20,.32);
+  --glass-border-h:    rgba(220,160,40,.60);
+  --glass-border-hover:rgba(220,160,40,.60);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -672,16 +673,16 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .night-body{font-size:.84rem;color:rgba(255,235,195,.82);line-height:1.8;font-weight:300;}
 .come-quote{
   max-width:780px;margin:0 auto;text-align:center;
-  padding:3.5rem;border-top:1px solid rgba(160,90,10,.25);border-bottom:1px solid rgba(160,90,10,.25);
+  padding:3.5rem;border-top:1px solid rgba(180,110,15,.28);border-bottom:1px solid rgba(180,110,15,.28);
 }
 .come-quote blockquote{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.3rem,2.5vw,1.9rem);
   font-style:italic;font-weight:300;
-  color:rgba(255,242,210,.95);line-height:1.7;
+  color:rgba(245,228,192,.95);line-height:1.7;
 }
-.come-quote blockquote::before{content:'“';font-size:4rem;color:rgba(140,70,5,.3);line-height:0;vertical-align:-.6em;margin-right:.2rem;}
-.come-quote blockquote::after{content:'”';font-size:4rem;color:rgba(140,70,5,.3);line-height:0;vertical-align:-.6em;margin-left:.2rem;}
+.come-quote blockquote::before{content:'“';font-size:4rem;color:rgba(200,150,30,.38);line-height:0;vertical-align:-.6em;margin-right:.2rem;}
+.come-quote blockquote::after{content:'”';font-size:4rem;color:rgba(200,150,30,.38);line-height:0;vertical-align:-.6em;margin-left:.2rem;}
 
 /* ════════════════════════════════════════════════════════════
    VIP SOCIETY
