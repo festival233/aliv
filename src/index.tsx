@@ -576,14 +576,27 @@ ul { list-style: none; }
 }
 .hero-legacy {
   font-family: var(--f-serif);
-  font-size: clamp(.88rem, 1.5vw, 1.18rem);
+  font-size: clamp(1.35rem, 3.2vw, 2.6rem);
   font-style: italic;
-  font-weight: 300;
-  letter-spacing: .04em;
-  max-width: 520px;
-  color: var(--cream);
-  text-shadow: 0 1px 16px rgba(0,0,0,.88), 0 0 30px rgba(0,0,0,.55);
-  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: .03em;
+  max-width: 860px;
+  background: linear-gradient(135deg,
+    #fff3c0 0%,
+    #FFD050 25%,
+    #F5A800 50%,
+    #FFD050 75%,
+    #fff3c0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter:
+    drop-shadow(0 0 18px rgba(255,200,60,.65))
+    drop-shadow(0 0 48px rgba(200,130,10,.45))
+    drop-shadow(0 3px 12px rgba(0,0,0,.70));
+  line-height: 1.45;
+  margin-bottom: 1.6rem;
 }
 
 /* ── DATES ────────────────────────────────────────── */
@@ -1251,6 +1264,7 @@ footer {
   .countdown   { gap: .7rem; }
   .cd-unit     { min-width: 52px; padding: .65rem .85rem; }
   .hero-logo   { width: clamp(180px, 68vw, 360px); }
+  .hero-legacy  { font-size: clamp(1.15rem, 4.8vw, 1.9rem); max-width: 96vw; }
 }
 @media (max-width: 540px) {
   .grid-6      { grid-template-columns: 1fr; }
