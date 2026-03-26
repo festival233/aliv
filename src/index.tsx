@@ -299,7 +299,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .hbg{
   position:absolute;inset:0;z-index:0;
   background:url('/static/nebula-burst-wide.jpg') center 38% / cover no-repeat;
-  filter:brightness(.72) saturate(1.2) contrast(1.05);
+  /* Slightly brighter than before */
+  filter:brightness(.82) saturate(1.2) contrast(1.05);
 }
 .hbg::after{
   content:'';position:absolute;inset:0;
@@ -323,14 +324,34 @@ section,nav,footer,.infostrip,.ticker-wrap{
   position:relative;z-index:2;text-align:center;
   padding:12rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;
 }
-/* no dark smoke behind hero text — cosmic bg shines through */
+/* Rainbow burst + logo wrapper */
+.logo-wrap{
+  position:relative;
+  display:inline-block;
+  margin-bottom:1.8rem;
+}
+/* Rainbow prism burst — sits behind the logo */
+.logo-wrap::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:clamp(340px,80vw,920px);
+  height:clamp(340px,80vw,920px);
+  background:url('/static/rainbow-burst.png') center / contain no-repeat;
+  opacity:.22;
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:0;
+  animation:float 7s ease-in-out infinite;
+}
 .hero-wordmark{
+  position:relative;z-index:1;
   width:clamp(280px,62vw,760px);height:auto;
   filter:
     drop-shadow(0 0 22px rgba(220,170,30,.72))
     drop-shadow(0 0 65px rgba(190,130,10,.48))
     drop-shadow(0 0 150px rgba(150,85,5,.30));
-  margin-bottom:1.8rem;
   animation:float 7s ease-in-out infinite;
 }
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
@@ -1063,7 +1084,9 @@ footer{
   <div class="hfloor"></div>
   <div class="hin">
 
-    <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="hero-wordmark reveal" style="mix-blend-mode:lighten;"/>
+    <div class="logo-wrap reveal">
+      <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="hero-wordmark" style="mix-blend-mode:lighten;"/>
+    </div>
     <p class="hero-sub reveal d1">The Accra Carnival Experience</p>
     <div style="position:relative;display:inline-block;max-width:860px;width:100%;">
       <canvas id="slogan-sparkles" aria-hidden="true"></canvas>
