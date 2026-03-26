@@ -335,19 +335,20 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.6rem,3.5vw,2.6rem);
   font-weight:400;font-style:italic;
-  color:#EED8A8;letter-spacing:.06em;
-  text-shadow:0 2px 10px rgba(0,0,0,.72),0 0 38px rgba(170,105,10,.38);
-  margin-bottom:.8rem;
+  color:#7A3A10;
+  letter-spacing:.06em;
+  text-shadow:0 2px 12px rgba(0,0,0,.85),0 0 30px rgba(80,30,5,.30);
+  margin-bottom:.6rem;
 }
 .hero-tagline{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.4rem,3vw,2.2rem);
+  font-size:clamp(1.3rem,2.8vw,2rem);
   font-style:italic;font-weight:400;
   letter-spacing:.03em;text-transform:none;
-  color:#E0C880;
-  text-shadow:0 2px 10px rgba(0,0,0,.75),0 0 38px rgba(160,100,8,.35);
+  color:#6B3010;
+  text-shadow:0 2px 12px rgba(0,0,0,.85),0 0 28px rgba(70,25,5,.28);
   max-width:780px;line-height:1.5;
-  margin-bottom:1.2rem;
+  margin-bottom:1.8rem;
 }
 
 /* ═══════════════════════════════════════════
@@ -358,26 +359,25 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-size:clamp(1.45rem,3.2vw,2.5rem);
   font-style:italic;font-weight:500;
   letter-spacing:.05em;
-  /* Rich amber-gold shimmer — luminous on dark cinematic bg */
+  /* Deep brown shimmer — dark espresso to warm brown */
   background:linear-gradient(90deg,
-    #B87818 0%,
-    #DFAA3C 18%,
-    #F5D468 32%,
-    #D09428 50%,
-    #F5D468 68%,
-    #DFAA3C 82%,
-    #B87818 100%);
+    #3D1500 0%,
+    #7A3210 20%,
+    #9A4818 38%,
+    #5C2208 52%,
+    #9A4818 66%,
+    #7A3210 82%,
+    #3D1500 100%);
   background-size:250% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  animation:slogan-shimmer 4s linear infinite, slogan-pulse 3s ease-in-out infinite;
-  max-width:860px;line-height:1.45;
-  margin-bottom:2rem;
+  animation:slogan-shimmer 5s linear infinite, slogan-pulse 3.5s ease-in-out infinite;
+  max-width:860px;line-height:1.5;
+  margin-bottom:1.2rem;
   position:relative;
   padding:.3rem 0;
-  /* warm glow visible on dark bg */
-  filter:drop-shadow(0 1px 5px rgba(218,168,50,.52)) drop-shadow(0 0 24px rgba(180,120,10,.30));
+  filter:drop-shadow(0 1px 5px rgba(120,50,10,.50)) drop-shadow(0 0 20px rgba(80,25,5,.28));
 }
 /* Shimmer sweep */
 @keyframes slogan-shimmer{
@@ -386,8 +386,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 /* Gentle breath / pulse */
 @keyframes slogan-pulse{
-  0%,100%{filter:drop-shadow(0 1px 5px rgba(210,160,40,.45)) drop-shadow(0 0 20px rgba(170,110,8,.22));}
-  50%    {filter:drop-shadow(0 1px 6px rgba(235,185,60,.68)) drop-shadow(0 0 38px rgba(210,140,15,.42));}
+  0%,100%{filter:drop-shadow(0 1px 5px rgba(120,50,10,.42)) drop-shadow(0 0 18px rgba(80,25,5,.22));}
+  50%    {filter:drop-shadow(0 1px 6px rgba(160,70,15,.60)) drop-shadow(0 0 32px rgba(110,40,8,.38));}
 }
 
 /* Sparkle particles flanking the slogan */
@@ -1056,11 +1056,11 @@ footer{
 
     <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="hero-wordmark reveal" style="mix-blend-mode:lighten;"/>
     <p class="hero-sub reveal d1">The Accra Carnival Experience</p>
-    <p class="hero-tagline reveal d2">18 Days Like Nowhere Else</p>
     <div style="position:relative;display:inline-block;max-width:860px;width:100%;">
       <canvas id="slogan-sparkles" aria-hidden="true"></canvas>
-      <p class="hero-legacy reveal d3">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
+      <p class="hero-legacy reveal d2">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
     </div>
+    <p class="hero-tagline reveal d3">18 Days Like Nowhere Else</p>
     <div class="hero-cta reveal d4" style="margin-top:2rem;">
       <a href="#access" class="btn-gold"><i class="fas fa-ticket-alt"></i>&nbsp; Early Access</a>
       <a href="#experience" class="btn-outline"><i class="fas fa-compass"></i>&nbsp; Explore ALIV</a>
