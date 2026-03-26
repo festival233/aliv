@@ -550,16 +550,34 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .aud-card{
   background:var(--glass-card);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  padding:2.8rem 1.5rem;text-align:center;
-  transition:all .4s;
+  padding:3rem 2rem;text-align:center;
+  border:1px solid var(--glass-border);
+  transition:all .45s cubic-bezier(.16,1,.3,1);
+  position:relative;
 }
-.aud-card:hover{background:var(--glass-card-hover);}
-.aud-icon{font-size:1.6rem;color:#8B4A00;margin-bottom:1.2rem;display:block;}
+.aud-card:hover{
+  background:var(--glass-card-hover);
+  border-color:var(--glass-border-hover);
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(180,90,0,.28);
+}
+.aud-icon{
+  font-size:1.5rem;color:var(--bright);
+  margin-bottom:1.4rem;display:block;
+  filter:drop-shadow(0 0 8px rgba(200,150,20,.35));
+}
 .aud-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.2rem;font-weight:500;color:var(--cream);margin-bottom:.6rem;
+  font-size:1.25rem;font-weight:600;
+  color:var(--cream);
+  margin-bottom:.75rem;
+  letter-spacing:.01em;
 }
-.aud-body{font-size:.82rem;color:rgba(255,235,195,.82);line-height:1.7;font-weight:300;}
+.aud-body{
+  font-size:.84rem;
+  color:rgba(245,225,185,.85);
+  line-height:1.8;font-weight:300;
+}
 
 /* ════════════════════════════════════════════════════════════
    ENTER ALIV (page anchor section)
@@ -1261,40 +1279,40 @@ footer{
   <div class="wrap">
     <div class="aud-intro sh-smoke reveal">
       <div class="slbl">This Is For You</div>
-      <h2 class="sh">If December Is Your<br/><span class="gold">Season, This Is Your Place</span></h2>
+      <h2 class="sh">However You<br/><span class="gold">Do December</span></h2>
       <hr class="gr c"/>
-      <p class="sc">You love good music, real energy, and experiences you&rsquo;ll actually talk about. ALIV was made for you.</p>
+      <p class="sc">Whoever you are, whatever brings you out &mdash; there&rsquo;s a place for you inside ALIV.</p>
     </div>
     <div class="aud-grid">
       <div class="aud-card reveal d1">
         <span class="aud-icon"><i class="fas fa-plane-departure"></i></span>
         <div class="aud-title">Coming Home for December</div>
-        <p class="aud-body">You&rsquo;re back for the season and you want more than just plans &mdash; you want something worth the trip. ALIV gives you a new way to experience the magic of December in Accra.</p>
+        <p class="aud-body">You made the trip, so the plans need to be worth it. ALIV gives you a fresh way to step into the magic of December in Accra.</p>
       </div>
       <div class="aud-card reveal d2">
-        <span class="aud-icon"><i class="fas fa-star"></i></span>
+        <span class="aud-icon"><i class="fas fa-map-marker-alt"></i></span>
         <div class="aud-title">Accra Locals</div>
-        <p class="aud-body">You know the energy of the city in December and you know when something is worth stepping out for. ALIV brings a fresh experience to the season, all in one place.</p>
+        <p class="aud-body">You know the season, the city, and the energy that makes December what it is. ALIV adds something new to it &mdash; all in one place.</p>
       </div>
       <div class="aud-card reveal d3">
         <span class="aud-icon"><i class="fas fa-camera"></i></span>
         <div class="aud-title">Creators &amp; Connectors</div>
-        <p class="aud-body">You&rsquo;re always looking for the spaces where people, energy, and culture come together. ALIV gives you the atmosphere, the moments, and the backdrop to be part of it all.</p>
+        <p class="aud-body">You go where the energy is. ALIV brings together people, culture, and unforgettable moments in a setting made to be experienced and shared.</p>
       </div>
       <div class="aud-card reveal d4">
         <span class="aud-icon"><i class="fas fa-cocktail"></i></span>
         <div class="aud-title">Nightlife People</div>
-        <p class="aud-body">You know a good night when you feel it. ALIV brings together music, movement, atmosphere, and enjoyment for the kind of experience that keeps you out longer.</p>
+        <p class="aud-body">You know when a night has the right feel. ALIV brings the music, movement, atmosphere, and enjoyment that keep you out longer.</p>
       </div>
       <div class="aud-card reveal d5">
         <span class="aud-icon"><i class="fas fa-glass-cheers"></i></span>
         <div class="aud-title">Here to Celebrate</div>
-        <p class="aud-body">Birthdays, linkups, milestones, or just being outside with your people &mdash; ALIV is the kind of place that turns any plan into something bigger.</p>
+        <p class="aud-body">Birthdays, linkups, milestones, or just being outside with your people &mdash; ALIV is the kind of place that makes any plan feel bigger.</p>
       </div>
       <div class="aud-card reveal d6">
         <span class="aud-icon"><i class="fas fa-ferris-wheel"></i></span>
         <div class="aud-title">Here for the Enjoyment</div>
-        <p class="aud-body">You came for the rides, the games, the food, the music, and the energy. ALIV is built for the kind of enjoyment that keeps the night going and leaves you wanting more.</p>
+        <p class="aud-body">You came for the rides, the games, the food, the music, and the energy. ALIV gives you more than one reason to stay &mdash; and more than one reason to come back.</p>
       </div>
     </div>
   </div>
