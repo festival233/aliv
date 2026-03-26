@@ -1909,10 +1909,10 @@ footer {
       <img src="/static/aliv-fest-logo.png" alt="ALIV FEST" class="ft-logo"/>
       <p class="ft-copy">18 Days Like Nowhere Else.<br/>December 17, 2026 – January 3, 2027<br/>Accra, Ghana.</p>
       <div class="socials">
-        <a href="#" class="soc" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="soc" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
-        <a href="#" class="soc" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a href="#" class="soc" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/alivfest/" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/ALIVFEST" target="_blank" rel="noopener noreferrer" class="soc" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.tiktok.com/@aliv.fest?lang=en" target="_blank" rel="noopener noreferrer" class="soc" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61577162814185" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
         <a href="#" class="soc" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
