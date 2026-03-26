@@ -529,6 +529,42 @@ ul { list-style: none; }
   margin-bottom: 1.8rem;
   position: relative;
   display: inline-block;
+  /* entrance: start invisible, JS adds .logo-in */
+  opacity: 0;
+  transform: scale(.72) translateY(30px);
+  transition: opacity 1.1s cubic-bezier(.22,.68,0,1.2), transform 1.1s cubic-bezier(.22,.68,0,1.2);
+}
+.hero-logo-wrap.logo-in {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+/* gold burst ring that expands then fades on logo reveal */
+.hero-logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 60% 55% at 50% 50%,
+    rgba(255,210,60,.55) 0%,
+    rgba(220,150,10,.30) 40%,
+    transparent 72%);
+  opacity: 0;
+  transform: scale(.4);
+  transition: opacity 1.4s ease, transform 1.4s cubic-bezier(.22,.68,0,1.1);
+  pointer-events: none;
+  z-index: -1;
+}
+.hero-logo-wrap.logo-in::before {
+  opacity: 1;
+  transform: scale(1);
+}
+/* pulse-glow that lingers after entrance */
+.hero-logo-wrap.logo-in.logo-pulse::before {
+  animation: logo-burst 4s ease-in-out infinite 1.5s;
+}
+@keyframes logo-burst {
+  0%, 100% { opacity: .80; transform: scale(1.00); }
+  50%       { opacity: .32; transform: scale(1.18); }
 }
 .hero-logo {
   width: clamp(220px, 46vw, 540px);
@@ -540,9 +576,27 @@ ul { list-style: none; }
     brightness(1.08);
   animation: hero-float 10s ease-in-out infinite;
 }
+/* shimmer sweep across logo after it appears */
+.hero-logo-wrap.logo-in .hero-logo {
+  animation: hero-float 10s ease-in-out infinite, logo-shimmer 6s ease-in-out infinite 1.4s;
+}
 @keyframes hero-float {
   0%, 100% { transform: translateY(0) scale(1.00); }
   50%       { transform: translateY(-10px) scale(1.005); }
+}
+@keyframes logo-shimmer {
+  0%,100% { filter:
+    drop-shadow(0 0 32px rgba(255,208,80,.75))
+    drop-shadow(0 0 80px rgba(200,130,18,.55))
+    drop-shadow(0 0 160px rgba(200,130,18,.30))
+    drop-shadow(0 2px 10px rgba(0,0,0,.60))
+    brightness(1.08); }
+  50%      { filter:
+    drop-shadow(0 0 48px rgba(255,230,100,.95))
+    drop-shadow(0 0 120px rgba(220,160,20,.75))
+    drop-shadow(0 0 200px rgba(200,130,18,.45))
+    drop-shadow(0 2px 10px rgba(0,0,0,.60))
+    brightness(1.22); }
 }
 
 /* ── HERO RULE ────────────────────────────────────── */
@@ -581,12 +635,15 @@ ul { list-style: none; }
   font-weight: 400;
   letter-spacing: .03em;
   max-width: 860px;
-  background: linear-gradient(135deg,
-    #fff3c0 0%,
-    #FFD050 25%,
-    #F5A800 50%,
-    #FFD050 75%,
+  background: linear-gradient(100deg,
+    #fff3c0  0%,
+    #FFE066 18%,
+    #FFD050 36%,
+    #fff8d6 50%,
+    #F5A800 68%,
+    #FFD050 82%,
     #fff3c0 100%);
+  background-size: 220% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -597,6 +654,19 @@ ul { list-style: none; }
     drop-shadow(0 3px 12px rgba(0,0,0,.70));
   line-height: 1.45;
   margin-bottom: 1.6rem;
+  /* entrance: start invisible */
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 1.0s ease .55s, transform 1.0s cubic-bezier(.22,.68,0,1.15) .55s;
+}
+.hero-legacy.legacy-in {
+  opacity: 1;
+  transform: translateY(0);
+  animation: tagline-shimmer 5s linear infinite 1.6s;
+}
+@keyframes tagline-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
 }
 
 /* ── DATES ────────────────────────────────────────── */
@@ -1937,6 +2007,25 @@ footer {
     if (mEl) mEl.textContent = pad(m);
     if (sEl) sEl.textContent = pad(s);
     setTimeout(tick, 1000);
+  })();
+
+  /* ── Hero entrance animations ──────────────────────── */
+  (function heroEntrance() {
+    const logoWrap = document.querySelector('.hero-logo-wrap');
+    const legacy   = document.querySelector('.hero-legacy');
+
+    // Logo: reveal after 180ms, then add pulse class after glow settles
+    if (logoWrap) {
+      setTimeout(() => {
+        logoWrap.classList.add('logo-in');
+        setTimeout(() => logoWrap.classList.add('logo-pulse'), 1600);
+      }, 180);
+    }
+
+    // Tagline: reveal after logo is mostly settled (750ms)
+    if (legacy) {
+      setTimeout(() => legacy.classList.add('legacy-in'), 750);
+    }
   })();
 
   /* ── Scroll reveal ───────────────────────────────── */
