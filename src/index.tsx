@@ -328,137 +328,246 @@ button { cursor:pointer; border:none; background:none; font:inherit; }
    HERO
 ═══════════════════════════════════════════════ */
 #hero {
-  position:relative;
+  position: relative;
   min-height: 100svh;
-  display:flex; flex-direction:column;
-  overflow:hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
 }
 
-/* The hero gets the logo graphic as bg — sitting BEHIND the hero image */
-.hero-radial {
-  position:absolute; inset:0; z-index:0;
-  /* slight central glow matching the prism burst in the logo */
-  background: radial-gradient(ellipse 60% 55% at 50% 44%,
-    rgba(200,130,20,.14) 0%,
-    rgba(140,80,10,.08) 35%,
-    rgba(5,2,0,0) 65%
-  );
+/*
+  Hero background layers (bottom to top):
+  1. The aliv-hero artwork — soft, blurred, blended — provides the
+     colorful prism-burst ATMOSPHERE only. It is never seen as a box.
+  2. A radial gradient dims the outer edges and the very centre
+     so the typography is readable without any shape behind it.
+  3. A linear floor fade anchors the bottom into the site.
+*/
+.hero-bg-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* The artwork fills the whole hero area */
+  background:
+    url('/static/aliv-hero.jpg') center 38% / cover no-repeat;
+  /* Reduce to atmosphere: dim + desaturate slightly so it reads
+     as a glow source, not a recognisable poster */
+  filter: brightness(.55) saturate(1.20) blur(1px);
+  transform: scale(1.04); /* hide the 1px blur edge */
+  /* Blend into the cosmic canvas underneath */
+  mix-blend-mode: screen;
+  opacity: .65;
 }
 
-/* The ALIV FEST logo/header image as a contained hero graphic */
-.hero-graphic-wrap {
-  position:relative; z-index:2;
-  display:flex; flex-direction:column; align-items:center;
+/* Central glow — the prism burst is warmest at center */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 42%,
+      rgba(220,150,30,.18)  0%,
+      rgba(160,90,10,.10)   35%,
+      rgba(5,2,0,0)         65%
+    );
+  pointer-events: none;
+}
+
+/* Darken top edge behind nav, and fade bottom into the site */
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg,
+      rgba(5,2,0,.55)  0%,
+      rgba(5,2,0,.22) 18%,
+      rgba(5,2,0,.18) 45%,
+      rgba(5,2,0,.45) 78%,
+      rgba(5,2,0,.82) 100%
+    );
+  pointer-events: none;
+}
+
+/* All text content sits above every background layer */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--nav-h, 70px) + 5rem) 2rem 6rem;
   gap: 0;
+  width: 100%;
 }
 
-/* The logo image itself */
-.hero-graphic {
-  width: clamp(320px, 72vw, 860px);
+/* ── NAV LOGO — small, top-left in nav ─────────── */
+/* (no changes needed — it's in #nav already)       */
+
+/* ── HERO WORDMARK: the BIG centred title ─────── */
+.hero-title {
+  font-family: var(--ff-display);
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  letter-spacing: .10em;
+  line-height: .92;
+  /* Rich metallic gold gradient */
+  background: linear-gradient(180deg,
+    #FFF0B0 0%,
+    #F0C040 22%,
+    #D4A020 48%,
+    #A07010 72%,
+    #C89020 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Layered glow so it radiates against the dark bg */
   filter:
-    drop-shadow(0 0 28px rgba(240,192,64,.60))
-    drop-shadow(0 0 80px rgba(200,130,20,.38))
-    drop-shadow(0 0 160px rgba(140,80,10,.22));
-  animation: float 8s ease-in-out infinite;
-  margin-bottom: -.4rem;
+    drop-shadow(0 0 18px rgba(240,192,64,.70))
+    drop-shadow(0 0 55px rgba(200,130,20,.45))
+    drop-shadow(0 0 110px rgba(140,80,10,.30));
+  animation: float 9s ease-in-out infinite;
+  margin-bottom: 1.4rem;
 }
 @keyframes float {
-  0%,100% { transform:translateY(0px); }
-  50%      { transform:translateY(-10px); }
+  0%,100% { transform: translateY(0);   }
+  50%      { transform: translateY(-8px); }
 }
 
-.hero-content {
-  position:relative; z-index:2;
-  flex:1;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  text-align:center;
-  padding: 7rem 2rem 5rem;
-  gap:.5rem;
+/* Thin rule under the title */
+.hero-rule {
+  width: clamp(120px, 30vw, 260px);
+  height: 1px;
+  border: none;
+  background: linear-gradient(90deg, transparent, #D4A020, transparent);
+  opacity: .65;
+  margin: 0 auto 1.6rem;
 }
 
+/* ── Supporting lines ───────────────────────────── */
 .hero-subtitle {
   font-family: var(--ff-serif);
-  font-size: clamp(1rem,2.2vw,1.6rem);
-  font-style: italic; font-weight:300;
+  font-size: clamp(1.05rem, 2.2vw, 1.65rem);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: .07em;
   color: var(--cream);
-  letter-spacing: .06em;
-  text-shadow: 0 2px 16px rgba(0,0,0,.80);
-  margin-top:.2rem;
+  text-shadow:
+    0 2px 18px rgba(0,0,0,.85),
+    0 0  30px rgba(0,0,0,.55);
+  margin-bottom: .55rem;
 }
+
 .hero-tagline {
   font-family: var(--ff-display);
-  font-size: clamp(1.2rem,2.8vw,2.2rem);
-  letter-spacing: .1em;
+  font-size: clamp(1.05rem, 2.6vw, 2rem);
+  letter-spacing: .12em;
   color: var(--bright);
-  text-shadow: 0 2px 20px rgba(0,0,0,.75);
-  margin-top:.4rem;
+  text-shadow:
+    0 2px 18px rgba(0,0,0,.90),
+    0 0  30px rgba(0,0,0,.60);
+  margin-bottom: .55rem;
 }
+
 .hero-legacy {
   font-family: var(--ff-serif);
-  font-size: clamp(.9rem,1.8vw,1.3rem);
-  font-style:italic; font-weight:300;
+  font-size: clamp(.9rem, 1.8vw, 1.25rem);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: .04em;
+  max-width: 560px;
   color: var(--mist);
-  letter-spacing:.04em;
-  max-width: 620px;
-  text-shadow: 0 1px 12px rgba(0,0,0,.70);
-  margin-top:.2rem;
-  line-height:1.6;
+  text-shadow:
+    0 1px 14px rgba(0,0,0,.85),
+    0 0  24px rgba(0,0,0,.60);
+  line-height: 1.65;
+  margin-bottom: 0;
 }
-.hero-dates {
-  display:flex; align-items:center; gap:1rem;
-  font-family:var(--ff-body); font-size:.68rem; font-weight:500;
-  letter-spacing:.38em; text-transform:uppercase;
-  color:var(--gold); margin-top:1.2rem;
-}
-.hero-dates em { width:28px; height:1px; background:var(--gold); opacity:.55; display:block; }
 
-/* Countdown */
+/* ── Date line ─────────────────────────────────── */
+.hero-dates {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.6rem;
+  font-family: var(--ff-body);
+  font-size: .66rem;
+  font-weight: 500;
+  letter-spacing: .40em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 1px 10px rgba(0,0,0,.70);
+}
+.hero-dates em {
+  display: block;
+  width: 28px; height: 1px;
+  background: var(--gold);
+  opacity: .50;
+}
+
+/* ── Countdown ─────────────────────────────────── */
 .cdown {
-  display:flex; gap:1.2rem;
-  margin-top:1.4rem;
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
 }
 .cd {
-  display:flex; flex-direction:column; align-items:center;
+  display: flex; flex-direction: column; align-items: center;
   background: var(--glass);
   border: 1px solid var(--glass-b);
-  backdrop-filter:blur(12px);
+  backdrop-filter: blur(12px);
   border-radius: var(--r);
-  padding: .8rem 1.2rem; min-width:66px;
+  padding: .8rem 1.2rem;
+  min-width: 64px;
 }
 .cdn {
-  font-family:var(--ff-display);
-  font-size:clamp(1.6rem,3.5vw,2.6rem);
-  color:var(--glow); line-height:1;
-  text-shadow:0 0 18px rgba(240,192,64,.40);
+  font-family: var(--ff-display);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  color: var(--glow);
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(240,192,64,.45);
 }
 .cdl {
-  font-size:.48rem; letter-spacing:.35em;
-  text-transform:uppercase; color:var(--gold);
-  margin-top:.2rem;
+  font-size: .46rem; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--gold);
+  margin-top: .22rem;
 }
-.hero-cta { display:flex; flex-wrap:wrap; gap:1rem; margin-top:2rem; justify-content:center; }
 
-/* Floor fade */
-.hero-floor {
-  position:absolute; bottom:0; left:0; right:0; z-index:1;
-  height:30%;
-  background:linear-gradient(to top,rgba(5,2,0,.85),transparent);
-  pointer-events:none;
+/* ── CTAs ──────────────────────────────────────── */
+.hero-cta {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
 }
-/* Scroll cue */
+
+/* ── Bottom floor fade ─────────────────────────── */
+.hero-floor {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 1;
+  height: 28%;
+  background: linear-gradient(to top, rgba(5,2,0,.90), transparent);
+  pointer-events: none;
+}
+
+/* ── Scroll cue ────────────────────────────────── */
 .scue {
-  position:absolute; bottom:2.2rem; left:50%;
-  transform:translateX(-50%);
-  z-index:2;
-  display:flex; flex-direction:column; align-items:center; gap:.4rem;
-  font-size:.5rem; letter-spacing:.35em; text-transform:uppercase;
-  color:var(--gold); opacity:.65;
-  animation:bob 2.2s ease-in-out infinite;
+  position: absolute;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: .4rem;
+  font-size: .5rem; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--gold); opacity: .60;
+  animation: bob 2.4s ease-in-out infinite;
 }
 @keyframes bob {
-  0%,100%{transform:translateX(-50%) translateY(0)}
-  50%{transform:translateX(-50%) translateY(5px)}
+  0%,100% { transform: translateX(-50%) translateY(0);  }
+  50%      { transform: translateX(-50%) translateY(5px); }
 }
 
 /* ═══════════════════════════════════════════════
@@ -976,7 +1085,7 @@ footer {
   .nights-grid,.values-grid,.drip-grid { grid-template-columns:1fr; }
   .int-grid { grid-template-columns:1fr; }
   .form-wrap { padding:2rem 1.5rem; }
-  .hero-graphic { width:90vw; }
+
   .become-grid { grid-template-columns:1fr; }
 }
 </style>
@@ -1021,29 +1130,38 @@ footer {
 
 <!-- ─── HERO ─────────────────────────────────────── -->
 <section id="hero">
-  <div class="hero-radial" aria-hidden="true"></div>
-  <div class="hero-floor"  aria-hidden="true"></div>
 
+  <!-- Layer 1: the ALIV FEST artwork — dissolved into atmosphere,
+       provides the prism/sunburst glow behind the title, never a box -->
+  <div class="hero-bg-art"  aria-hidden="true"></div>
+
+  <!-- Layer 2 & 3: glow + dark veil for readability -->
+  <div class="hero-glow"  aria-hidden="true"></div>
+  <div class="hero-veil"  aria-hidden="true"></div>
+  <div class="hero-floor" aria-hidden="true"></div>
+
+  <!-- All content above every background layer -->
   <div class="hero-content">
-    <!-- The attached ALIV FEST logo/header image is the hero graphic -->
-    <div class="hero-graphic-wrap">
-      <img
-        src="/static/aliv-hero.jpg"
-        alt="ALIV FEST"
-        class="hero-graphic"
-      />
-    </div>
 
+    <!-- ALIV FEST — the dominant centrepiece title -->
+    <h1 class="hero-title">ALIV FEST</h1>
+
+    <!-- Thin gold rule separating title from supporting copy -->
+    <hr class="hero-rule" aria-hidden="true"/>
+
+    <!-- Supporting text hierarchy -->
     <p class="hero-subtitle">The Accra Carnival Experience</p>
     <p class="hero-tagline">18 Days Like Nowhere Else</p>
     <p class="hero-legacy">Where December Comes Alive — and Experiences Become Legacy</p>
 
+    <!-- Date line -->
     <div class="hero-dates">
       <em></em>
-      December 17, 2026 &nbsp;·&nbsp; January 3, 2027 &nbsp;·&nbsp; Accra, Ghana
+      December 17, 2026 &nbsp;&middot;&nbsp; January 3, 2027 &nbsp;&middot;&nbsp; Accra, Ghana
       <em></em>
     </div>
 
+    <!-- Live countdown -->
     <div class="cdown" id="cdown">
       <div class="cd"><span class="cdn" id="cdD">000</span><span class="cdl">Days</span></div>
       <div class="cd"><span class="cdn" id="cdH">00</span><span class="cdl">Hours</span></div>
@@ -1051,16 +1169,19 @@ footer {
       <div class="cd"><span class="cdn" id="cdS">00</span><span class="cdl">Secs</span></div>
     </div>
 
+    <!-- CTAs -->
     <div class="hero-cta">
-      <a href="#access"   class="btn btn-primary"><i class="fas fa-ticket-alt"></i>&nbsp;Get Early Access</a>
+      <a href="#access"     class="btn btn-primary"><i class="fas fa-ticket-alt"></i>&nbsp;Get Early Access</a>
       <a href="#experience" class="btn btn-ghost"><i class="fas fa-compass"></i>&nbsp;Explore ALIV</a>
     </div>
+
   </div>
 
   <div class="scue" aria-hidden="true">
     <i class="fas fa-chevron-down"></i>
     <span>Scroll</span>
   </div>
+
 </section>
 
 <!-- ─── TICKER ────────────────────────────────────── -->
