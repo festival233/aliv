@@ -1913,7 +1913,7 @@ footer {
         <a href="https://x.com/ALIVFEST" target="_blank" rel="noopener noreferrer" class="soc" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
         <a href="https://www.tiktok.com/@aliv.fest?lang=en" target="_blank" rel="noopener noreferrer" class="soc" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         <a href="https://www.facebook.com/profile.php?id=61577162814185" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="soc" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.youtube.com/channel/UCDOM75wYvYSocv2KoQlQLiA" target="_blank" rel="noopener noreferrer" class="soc" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
     <div>
