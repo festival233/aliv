@@ -1210,6 +1210,101 @@ select option { background: #2A1200; color: var(--cream); }
 .form-submit  { width: 100%; padding: .95rem; font-size: .96rem; margin-top: .75rem; justify-content: center; }
 
 /* ═══════════════════════════════════════════════════════
+   MODALS — Sponsor & Vendor
+═══════════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  background: rgba(8,3,0,.78);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .32s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: rgba(38,14,0,.82);
+  border: 1px solid rgba(200,140,24,.38);
+  border-radius: var(--rl);
+  padding: 3rem 3rem 2.8rem;
+  backdrop-filter: blur(28px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,220,80,.16),
+    0 0 0 1px rgba(200,140,24,.10),
+    0 12px 60px rgba(0,0,0,.55),
+    0 0 100px rgba(200,140,24,.12);
+  transform: translateY(24px) scale(.97);
+  transition: transform .34s cubic-bezier(.22,.68,0,1.15);
+}
+.modal-overlay.open .modal-box {
+  transform: translateY(0) scale(1);
+}
+.modal-close {
+  position: absolute;
+  top: 1.1rem; right: 1.3rem;
+  background: none;
+  border: 1px solid rgba(200,140,24,.28);
+  border-radius: 50%;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--mist);
+  font-size: .88rem;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.modal-close:hover {
+  border-color: var(--glow);
+  color: var(--glow);
+  background: rgba(200,140,24,.12);
+}
+.modal-eyebrow {
+  font-size: .55rem;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--glow);
+  font-weight: 600;
+  margin-bottom: .6rem;
+  text-shadow: 0 0 12px rgba(255,208,80,.40);
+}
+.modal-title {
+  font-family: var(--f-head);
+  font-size: clamp(1.55rem, 3.5vw, 2.2rem);
+  letter-spacing: .06em;
+  color: var(--ivory);
+  margin-bottom: .4rem;
+  line-height: 1.15;
+}
+.modal-sub {
+  font-size: .82rem;
+  color: var(--fog);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+.modal-rule {
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, var(--bright), transparent);
+  margin-bottom: 1.8rem;
+  box-shadow: 0 0 6px rgba(255,208,80,.35);
+}
+/* scrollbar inside modal */
+.modal-box::-webkit-scrollbar { width: 4px; }
+.modal-box::-webkit-scrollbar-track { background: transparent; }
+.modal-box::-webkit-scrollbar-thumb { background: rgba(200,140,24,.35); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════════════════
    PULL QUOTE
 ═══════════════════════════════════════════════════════ */
 .pull-quote {
@@ -1842,7 +1937,7 @@ footer {
           <li>VIP Hospitality Tables</li>
           <li>Digital &amp; On-Site Media</li>
         </ul>
-        <a href="#access" class="btn btn-gold btn-sm"><i class="fas fa-handshake"></i>&ensp;Request Sponsor Pack</a>
+        <button type="button" onclick="openModal('sponsorModal')" class="btn btn-gold btn-sm"><i class="fas fa-handshake"></i>&ensp;Request Sponsor Pack</button>
       </div>
       <div class="track card rvr">
         <p class="track-eyebrow">For Businesses</p>
@@ -1855,7 +1950,7 @@ footer {
           <li>Creative &amp; Lifestyle Services</li>
           <li>Photography &amp; Content Studios</li>
         </ul>
-        <a href="#access" class="btn btn-gold btn-sm"><i class="fas fa-file-alt"></i>&ensp;Apply as Vendor</a>
+        <button type="button" onclick="openModal('vendorModal')" class="btn btn-gold btn-sm"><i class="fas fa-file-alt"></i>&ensp;Apply as Vendor</button>
       </div>
     </div>
   </div>
@@ -1901,6 +1996,90 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- ═══ SPONSOR MODAL ═══════════════════════════════════════ -->
+<div id="sponsorModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="sponsorModalTitle">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('sponsorModal')" aria-label="Close"><i class="fas fa-times"></i></button>
+    <p class="modal-eyebrow">For Brands</p>
+    <h2 class="modal-title" id="sponsorModalTitle">Request a Sponsor Pack</h2>
+    <div class="modal-rule"></div>
+    <p class="modal-sub">Tell us about your brand and we'll send you our full sponsorship deck with available packages, audience data, and pricing.</p>
+    <form id="sponsorForm" onsubmit="handleSponsor(event)" novalidate>
+      <div class="form-row">
+        <div class="fg"><label for="sp-name">Your Name</label><input type="text" id="sp-name" name="name" placeholder="Full name" required/></div>
+        <div class="fg"><label for="sp-company">Company / Brand</label><input type="text" id="sp-company" name="company" placeholder="Brand name" required/></div>
+      </div>
+      <div class="fg"><label for="sp-email">Email Address</label><input type="email" id="sp-email" name="email" placeholder="your@brand.com" required/></div>
+      <div class="form-row">
+        <div class="fg"><label for="sp-phone">Phone (optional)</label><input type="tel" id="sp-phone" name="phone" placeholder="+233 or international"/></div>
+        <div class="fg">
+          <label for="sp-budget">Estimated Budget</label>
+          <select id="sp-budget" name="budget">
+            <option value="">Select a range</option>
+            <option value="Under $5k">Under $5,000</option>
+            <option value="$5k–$15k">$5,000 – $15,000</option>
+            <option value="$15k–$50k">$15,000 – $50,000</option>
+            <option value="$50k+">$50,000+</option>
+            <option value="Open to discuss">Open to discuss</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label for="sp-interest">Area of Interest</label>
+        <select id="sp-interest" name="interest">
+          <option value="">Select sponsorship type</option>
+          <option value="Title Sponsor">Title / Presenting Sponsor</option>
+          <option value="Zone Naming">Zone Naming Rights</option>
+          <option value="Brand Activation">Brand Activation &amp; Sampling</option>
+          <option value="VIP Hospitality">VIP Hospitality Tables</option>
+          <option value="Digital Media">Digital &amp; On-Site Media</option>
+          <option value="Multiple">Multiple / Full Package</option>
+        </select>
+      </div>
+      <div class="fg"><label for="sp-msg">Message (optional)</label><textarea id="sp-msg" name="message" rows="3" placeholder="Tell us more about your brand and what you're looking for…" style="resize:vertical;min-height:80px"></textarea></div>
+      <div id="sponsorMsg" class="form-msg" role="alert"></div>
+      <button type="submit" class="btn btn-gold form-submit"><i class="fas fa-handshake"></i>&ensp;Send Sponsor Request</button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ VENDOR MODAL ════════════════════════════════════════ -->
+<div id="vendorModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="vendorModalTitle">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('vendorModal')" aria-label="Close"><i class="fas fa-times"></i></button>
+    <p class="modal-eyebrow">For Businesses</p>
+    <h2 class="modal-title" id="vendorModalTitle">Vendor Application</h2>
+    <div class="modal-rule"></div>
+    <p class="modal-sub">Apply to operate inside ALIV FEST 2026. We curate a premium mix of food, beverage, retail, and creative vendors across 18 nights.</p>
+    <form id="vendorForm" onsubmit="handleVendor(event)" novalidate>
+      <div class="form-row">
+        <div class="fg"><label for="vd-contact">Contact Name</label><input type="text" id="vd-contact" name="contactName" placeholder="Your name" required/></div>
+        <div class="fg"><label for="vd-biz">Business Name</label><input type="text" id="vd-biz" name="businessName" placeholder="Business or brand name" required/></div>
+      </div>
+      <div class="fg"><label for="vd-email">Email Address</label><input type="email" id="vd-email" name="email" placeholder="your@business.com" required/></div>
+      <div class="form-row">
+        <div class="fg"><label for="vd-phone">Phone</label><input type="tel" id="vd-phone" name="phone" placeholder="+233 or international"/></div>
+        <div class="fg">
+          <label for="vd-type">Vendor Category</label>
+          <select id="vd-type" name="vendorType">
+            <option value="">Select a category</option>
+            <option value="Food Village">Food Village Operator</option>
+            <option value="Beverage & Bar">Beverage &amp; Bar Operator</option>
+            <option value="Retail & Fashion">Retail &amp; Fashion Pop-Up</option>
+            <option value="Creative Services">Creative &amp; Lifestyle Services</option>
+            <option value="Photography">Photography &amp; Content Studio</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label for="vd-desc">Describe Your Business</label><textarea id="vd-desc" name="description" rows="3" placeholder="What do you sell or offer? Tell us about your setup, capacity, and what makes you a great fit for ALIV FEST…" style="resize:vertical;min-height:80px" required></textarea></div>
+      <div class="fg"><label for="vd-ig">Instagram Handle (optional)</label><input type="text" id="vd-ig" name="instagram" placeholder="@yourbusiness"/></div>
+      <div id="vendorMsg" class="form-msg" role="alert"></div>
+      <button type="submit" class="btn btn-gold form-submit"><i class="fas fa-file-alt"></i>&ensp;Submit Application</button>
+    </form>
+  </div>
+</div>
 
 <!-- ═══ FOOTER ══════════════════════════════════════════════ -->
 <footer>
@@ -2076,6 +2255,104 @@ footer {
       msg.classList.add('err'); msg.style.display = 'block';
     } finally {
       btn.innerHTML = '<i class="fas fa-ticket-alt"></i>&ensp;Secure My Spot';
+      btn.disabled = false;
+    }
+  };
+
+  /* ── Modal open / close ─────────────────────────── */
+  window.openModal = function(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // focus first input for a11y
+    setTimeout(() => { const f = modal.querySelector('input,select,textarea'); if (f) f.focus(); }, 60);
+  };
+  window.closeModal = function(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  // Close on backdrop click
+  document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) window.closeModal(m.id); });
+  });
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => window.closeModal(m.id));
+    }
+  });
+
+  /* ── Sponsor form ────────────────────────────────── */
+  window.handleSponsor = async function(e) {
+    e.preventDefault();
+    const form = document.getElementById('sponsorForm');
+    const msg  = document.getElementById('sponsorMsg');
+    const btn  = form.querySelector('button[type=submit]');
+    btn.innerHTML = 'Sending\u2026'; btn.disabled = true;
+    msg.className = 'form-msg'; msg.style.display = 'none';
+    try {
+      const res = await fetch('/api/sponsor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:     form['sp-name'].value.trim(),
+          company:  form['sp-company'].value.trim(),
+          email:    form['sp-email'].value.trim(),
+          phone:    form['sp-phone'].value.trim(),
+          budget:   form['sp-budget'].value,
+          interest: form['sp-interest'].value,
+          message:  form['sp-msg'].value.trim()
+        })
+      });
+      const data = await res.json();
+      msg.textContent = data.message;
+      msg.classList.add(data.ok ? 'ok' : 'err');
+      msg.style.display = 'block';
+      if (data.ok) form.reset();
+    } catch {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.classList.add('err'); msg.style.display = 'block';
+    } finally {
+      btn.innerHTML = '<i class="fas fa-handshake"></i>&ensp;Send Sponsor Request';
+      btn.disabled = false;
+    }
+  };
+
+  /* ── Vendor form ─────────────────────────────────── */
+  window.handleVendor = async function(e) {
+    e.preventDefault();
+    const form = document.getElementById('vendorForm');
+    const msg  = document.getElementById('vendorMsg');
+    const btn  = form.querySelector('button[type=submit]');
+    btn.innerHTML = 'Sending\u2026'; btn.disabled = true;
+    msg.className = 'form-msg'; msg.style.display = 'none';
+    try {
+      const res = await fetch('/api/vendor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contactName:  form['vd-contact'].value.trim(),
+          businessName: form['vd-biz'].value.trim(),
+          email:        form['vd-email'].value.trim(),
+          phone:        form['vd-phone'].value.trim(),
+          vendorType:   form['vd-type'].value,
+          description:  form['vd-desc'].value.trim(),
+          instagram:    form['vd-ig'].value.trim()
+        })
+      });
+      const data = await res.json();
+      msg.textContent = data.message;
+      msg.classList.add(data.ok ? 'ok' : 'err');
+      msg.style.display = 'block';
+      if (data.ok) form.reset();
+    } catch {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.classList.add('err'); msg.style.display = 'block';
+    } finally {
+      btn.innerHTML = '<i class="fas fa-file-alt"></i>&ensp;Submit Application';
       btn.disabled = false;
     }
   };
