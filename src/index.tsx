@@ -91,7 +91,7 @@ app.get('*', (c) => {
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  background:#4A2800;
+  background:#080300;
   color:var(--cream);
   font-family:'Montserrat',sans-serif;
   overflow-x:hidden;
@@ -105,20 +105,21 @@ body{
 ═══════════════════════════════════════════════ */
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  /* Nebula at full vibrancy — only a whisper-thin unified veil */
+  /* Cinematic dark amber — nebula at 58% brightness, unified warm veil */
   background:
     linear-gradient(180deg,
-      rgba(8,4,0,.12) 0%,
-      rgba(4,2,0,.06) 30%,
-      rgba(4,2,0,.06) 70%,
-      rgba(8,4,0,.14) 100%),
+      rgba(5,2,0,.50) 0%,
+      rgba(4,2,0,.34) 20%,
+      rgba(4,2,0,.28) 50%,
+      rgba(4,2,0,.34) 80%,
+      rgba(5,2,0,.52) 100%),
     url('/static/nebula-burst-wide.jpg') center 30% / cover no-repeat;
-  filter:brightness(1.05) saturate(1.15);
+  filter:brightness(.58) saturate(1.12) contrast(1.05);
 }
 
 /* Fine film grain — cinema texture */
 body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.022;
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -160,21 +161,19 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .slbl{
   display:inline-flex;align-items:center;gap:.6rem;
   font-size:.52rem;letter-spacing:.55em;text-transform:uppercase;
-  color:var(--bright);font-weight:500;margin-bottom:1rem;opacity:.85;
+  color:var(--glow);font-weight:600;margin-bottom:1rem;opacity:.88;
 }
 .slbl::before,.slbl::after{content:'—';font-size:.4rem;opacity:.5;}
 
-/* Section heading */
+/* Section heading — warm ivory, reads clearly on dark cinematic bg */
 .sh{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(2.6rem,5.5vw,4.6rem);
   font-weight:600;line-height:1.04;letter-spacing:-.02em;
-  color:var(--cream);
-  /* No boxes. Elegant, refined text shadow only — warm glow, no black */
+  color:#EED8A8;
   text-shadow:
-    0 1px 4px  rgba(0,0,0,.55),
-    0 4px 20px rgba(0,0,0,.35),
-    0 0  50px  rgba(80,40,0,.2);
+    0 2px 8px  rgba(0,0,0,.75),
+    0 0  40px  rgba(180,120,10,.22);
 }
 /* Gold spans inside headings */
 .sh .gold{font-weight:700;}
@@ -185,9 +184,9 @@ section,nav,footer,.infostrip,.ticker-wrap{
 
 /* Body copy — warm ivory, highly legible */
 .sc{
-  color:rgba(240,218,178,.82);
+  color:rgba(238,215,165,.90);
   line-height:1.9;font-weight:300;font-size:.94rem;
-  text-shadow:0 1px 6px rgba(0,0,0,.4);
+  text-shadow:0 1px 5px rgba(0,0,0,.6);
 }
 
 /* ── BUTTONS ─────────────────────────────── */
@@ -299,18 +298,23 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 .hbg{
   position:absolute;inset:0;z-index:0;
+  /* Hero is the ONE bright moment on the page.
+     body::before is at brightness(.58); hero adds luminance back.
+     Net result: hero feels intentionally brighter than all other sections. */
   background:url('/static/nebula-burst-wide.jpg') center 38% / cover no-repeat;
-  filter:brightness(1.18) saturate(1.35) contrast(1.02);
+  filter:brightness(.88) saturate(1.3) contrast(1.06);
 }
 .hbg::after{
   content:'';position:absolute;inset:0;
   background:
-    /* minimal top fade for nav legibility */
-    linear-gradient(180deg,rgba(10,5,0,.18) 0%,transparent 12%,transparent 88%,rgba(10,5,0,.12) 100%);
+    linear-gradient(180deg,
+      rgba(3,1,0,.55) 0%,rgba(3,1,0,.18) 12%,
+      transparent 26%,transparent 68%,
+      rgba(3,1,0,.25) 84%,rgba(3,1,0,.65) 100%);
 }
 .hfloor{
-  position:absolute;bottom:0;left:0;right:0;height:8%;z-index:1;
-  background:linear-gradient(transparent,rgba(10,5,0,.1));
+  position:absolute;bottom:0;left:0;right:0;height:24%;z-index:1;
+  background:linear-gradient(transparent,rgba(3,1,0,.85));
 }
 .hin{
   position:relative;z-index:2;text-align:center;
@@ -320,10 +324,9 @@ section,nav,footer,.infostrip,.ticker-wrap{
 .hero-wordmark{
   width:clamp(280px,62vw,760px);height:auto;
   filter:
-    drop-shadow(0 0 40px rgba(255,230,100,.85))
-    drop-shadow(0 0 100px rgba(255,190,30,.7))
-    drop-shadow(0 0 220px rgba(220,130,10,.55))
-    drop-shadow(0 0 400px rgba(180,90,0,.35));
+    drop-shadow(0 0 22px rgba(220,170,30,.72))
+    drop-shadow(0 0 65px rgba(190,130,10,.48))
+    drop-shadow(0 0 150px rgba(150,85,5,.30));
   margin-bottom:1.8rem;
   animation:float 7s ease-in-out infinite;
 }
@@ -332,8 +335,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.6rem,3.5vw,2.6rem);
   font-weight:400;font-style:italic;
-  color:#FFF8E8;letter-spacing:.06em;
-  text-shadow:0 2px 8px rgba(0,0,0,.65),0 0 40px rgba(180,100,10,.45);
+  color:#EED8A8;letter-spacing:.06em;
+  text-shadow:0 2px 10px rgba(0,0,0,.72),0 0 38px rgba(170,105,10,.38);
   margin-bottom:.8rem;
 }
 .hero-tagline{
@@ -341,8 +344,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-size:clamp(1.4rem,3vw,2.2rem);
   font-style:italic;font-weight:400;
   letter-spacing:.03em;text-transform:none;
-  color:#FFF0D0;
-  text-shadow:0 2px 10px rgba(0,0,0,.65),0 0 40px rgba(180,100,10,.4);
+  color:#E0C880;
+  text-shadow:0 2px 10px rgba(0,0,0,.75),0 0 38px rgba(160,100,8,.35);
   max-width:780px;line-height:1.5;
   margin-bottom:1.2rem;
 }
@@ -355,15 +358,15 @@ section,nav,footer,.infostrip,.ticker-wrap{
   font-size:clamp(1.45rem,3.2vw,2.5rem);
   font-style:italic;font-weight:500;
   letter-spacing:.05em;
-  /* shimmer deep-gold gradient text — rich, readable on bright bg */
+  /* Rich amber-gold shimmer — luminous on dark cinematic bg */
   background:linear-gradient(90deg,
-    #5A2500 0%,
-    #A05A00 18%,
-    #D4860A 32%,
-    #7A3A00 50%,
-    #D4860A 68%,
-    #A05A00 82%,
-    #5A2500 100%);
+    #B87818 0%,
+    #DFAA3C 18%,
+    #F5D468 32%,
+    #D09428 50%,
+    #F5D468 68%,
+    #DFAA3C 82%,
+    #B87818 100%);
   background-size:250% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -373,8 +376,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
   margin-bottom:2rem;
   position:relative;
   padding:.3rem 0;
-  /* warm glow around the text */
-  filter:drop-shadow(0 1px 4px rgba(255,220,140,.4)) drop-shadow(0 0 20px rgba(180,100,10,.2));
+  /* warm glow visible on dark bg */
+  filter:drop-shadow(0 1px 5px rgba(218,168,50,.52)) drop-shadow(0 0 24px rgba(180,120,10,.30));
 }
 /* Shimmer sweep */
 @keyframes slogan-shimmer{
@@ -383,8 +386,8 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 /* Gentle breath / pulse */
 @keyframes slogan-pulse{
-  0%,100%{filter:drop-shadow(0 1px 4px rgba(255,220,140,.35)) drop-shadow(0 0 18px rgba(160,80,5,.15));}
-  50%    {filter:drop-shadow(0 1px 6px rgba(255,230,160,.6)) drop-shadow(0 0 32px rgba(200,110,10,.3));}
+  0%,100%{filter:drop-shadow(0 1px 5px rgba(210,160,40,.45)) drop-shadow(0 0 20px rgba(170,110,8,.22));}
+  50%    {filter:drop-shadow(0 1px 6px rgba(235,185,60,.68)) drop-shadow(0 0 38px rgba(210,140,15,.42));}
 }
 
 /* Sparkle particles flanking the slogan */
@@ -435,12 +438,12 @@ section,nav,footer,.infostrip,.ticker-wrap{
    INFO STRIP
 ════════════════════════════════════════════════════════════ */
 .infostrip{
-  background:rgba(255,215,100,.2);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-top:1px solid rgba(180,100,10,.35);
-  border-bottom:1px solid rgba(180,100,10,.35);
+  background:rgba(8,3,0,.68);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(180,110,15,.42);
+  border-bottom:1px solid rgba(180,110,15,.42);
   padding:.85rem 0;overflow:hidden;
-  box-shadow:0 0 30px rgba(210,130,0,.12),inset 0 1px 0 rgba(255,220,80,.12);
+  box-shadow:0 0 40px rgba(160,90,0,.20),inset 0 1px 0 rgba(255,200,60,.10);
 }
 .istrip-in{
   display:flex;align-items:center;justify-content:center;
@@ -448,10 +451,10 @@ section,nav,footer,.infostrip,.ticker-wrap{
 }
 .istrip-in span{
   font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;
-  color:rgba(255,230,150,.9);font-weight:700;
-  text-shadow:0 1px 4px rgba(0,0,0,.5);
+  color:rgba(248,218,138,.94);font-weight:700;
+  text-shadow:0 1px 6px rgba(0,0,0,.70);
 }
-.idot{width:3px;height:3px;border-radius:50%;background:rgba(255,210,80,.5);display:inline-block;}
+.idot{width:3px;height:3px;border-radius:50%;background:rgba(220,175,55,.65);display:inline-block;}
 
 /* ════════════════════════════════════════════════════════════
    ABOUT / INTRO
