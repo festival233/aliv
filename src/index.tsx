@@ -9,7 +9,7 @@ app.use('/api/*', cors())
 ───────────────────────────────────────── */
 const RESEND_KEY = 're_4o2ipVCL_GD2xuADf3DnGiRSBbHzg3vtf'
 const TO         = 'info@alivfest.com'
-const FROM       = 'ALIV FEST <onboarding@resend.dev>'
+const FROM       = 'ALIV FEST <forms@alivfest.com>'
 
 async function sendEmail(subject: string, html: string): Promise<void> {
   await fetch('https://api.resend.com/emails', {
