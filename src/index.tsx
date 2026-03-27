@@ -701,14 +701,12 @@ ul { list-style: none; }
   font-family: var(--f-serif);
   font-size: clamp(1.0rem, 2.0vw, 1.58rem);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: .06em;
-  color: #5C2A00;
+  color: #1A0800;
   text-shadow:
-    0 0 12px rgba(200,100,10,.90),
-    0 0 28px rgba(180,80,0,.70),
-    0 0 55px rgba(160,60,0,.45),
-    0 2px 8px rgba(0,0,0,.60);
+    0 1px 3px rgba(0,0,0,.55),
+    0 2px 8px rgba(0,0,0,.35);
   margin-bottom: .5rem;
 }
 .hero-tagline {
@@ -723,27 +721,16 @@ ul { list-style: none; }
   font-family: var(--f-serif);
   font-size: clamp(1.35rem, 3.2vw, 2.6rem);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: .03em;
   max-width: 860px;
-  background: linear-gradient(100deg,
-    #6B2E00  0%,
-    #8B3A00 18%,
-    #7A3200 36%,
-    #9B4200 50%,
-    #6B2E00 68%,
-    #7A3200 82%,
-    #5C2600 100%);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: none;
-  filter:
-    drop-shadow(0 0 14px rgba(220,100,10,.85))
-    drop-shadow(0 0 36px rgba(180,70,0,.65))
-    drop-shadow(0 0 70px rgba(160,55,0,.40))
-    drop-shadow(0 3px 10px rgba(0,0,0,.70));
+  color: #1C0A00;
+  -webkit-text-fill-color: #1C0A00;
+  background: none;
+  text-shadow:
+    0 1px 3px rgba(0,0,0,.50),
+    0 2px 10px rgba(0,0,0,.30);
+  filter: none;
   line-height: 1.45;
   margin-bottom: 1.6rem;
   /* entrance: start invisible */
