@@ -7,6 +7,15 @@ npm run dev
 npm run deploy
 ```
 
+Cloudflare Pages (Git integration) build settings:
+
+```txt
+Framework preset: Vite
+Build command: npm run build
+Output directory: dist
+Root directory: /
+```
+
 [For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
 
 ```txt
