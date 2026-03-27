@@ -741,38 +741,11 @@ ul { list-style: none; }
 .hero-legacy.legacy-in {
   opacity: 1;
   transform: translateY(0);
+  animation: tagline-shimmer 5s linear infinite 1.6s;
 }
-/* word-by-word animated spans */
-.hero-legacy .w {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity  0.55s ease,
-    transform 0.55s cubic-bezier(.22,.68,0,1.2);
-}
-.hero-legacy.legacy-in .w {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* stagger each word via nth-child delay */
-.hero-legacy.legacy-in .w:nth-child(1)  { transition-delay: .10s; }
-.hero-legacy.legacy-in .w:nth-child(2)  { transition-delay: .19s; }
-.hero-legacy.legacy-in .w:nth-child(3)  { transition-delay: .28s; }
-.hero-legacy.legacy-in .w:nth-child(4)  { transition-delay: .37s; }
-.hero-legacy.legacy-in .w:nth-child(5)  { transition-delay: .46s; }
-.hero-legacy.legacy-in .w:nth-child(6)  { transition-delay: .55s; }
-.hero-legacy.legacy-in .w:nth-child(7)  { transition-delay: .64s; }
-.hero-legacy.legacy-in .w:nth-child(8)  { transition-delay: .73s; }
-.hero-legacy.legacy-in .w:nth-child(9)  { transition-delay: .82s; }
-.hero-legacy.legacy-in .w:nth-child(10) { transition-delay: .91s; }
-/* gentle breathe after full reveal */
-@keyframes legacy-breathe {
-  0%, 100% { letter-spacing: .03em; }
-  50%       { letter-spacing: .055em; }
-}
-.hero-legacy.legacy-in {
-  animation: legacy-breathe 7s ease-in-out infinite 2.2s;
+@keyframes tagline-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
 }
 
 /* ── DATES ────────────────────────────────────────── */
@@ -1612,7 +1585,7 @@ footer {
     <hr class="hero-rule" aria-hidden="true"/>
 
     <p class="hero-acca">The Accra Carnival Experience</p>
-    <p class="hero-legacy"><span class="w">Where</span> <span class="w">December</span> <span class="w">Comes</span> <span class="w">Alive</span> <span class="w">&mdash;</span> <span class="w">and</span> <span class="w">Experiences</span> <span class="w">Become</span> <span class="w">Legacy</span></p>
+    <p class="hero-legacy">Where December Comes Alive &mdash; and Experiences Become Legacy</p>
     <p class="hero-tagline">18 Days Like Nowhere Else</p>
 
     <div class="hero-dates" aria-label="Festival dates">
