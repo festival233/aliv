@@ -19,3 +19,11 @@ Pass the `CloudflareBindings` as generics when instantiation `Hono`:
 // src/index.ts
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 ```
+
+## Cloudflare Pages deployability guardrails
+
+When making changes, keep Cloudflare Pages deployment compatibility intact:
+
+- Keep `wrangler.json` Pages-compatible and avoid unsupported fields.
+- Keep `npm run build` working.
+- Keep the output directory as `dist`.
